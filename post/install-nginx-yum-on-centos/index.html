@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CentOS7使用YUM安装nginx | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="centos,yum,nginx">
+    <meta name="description" content="CentOS7使用YUM安装nginxcentos7系统库中默认是没有nginx的rpm包的，所以我们自己需要先更新下rpm依赖库 1. 使用yum安装nginx需要包括nginx的库，安装nginx的库 #rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.">
+<meta name="keywords" content="centos,yum,nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7使用YUM安装nginx">
+<meta property="og:url" content="http://www.yaosansi.com/post/install-nginx-yum-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="CentOS7使用YUM安装nginxcentos7系统库中默认是没有nginx的rpm包的，所以我们自己需要先更新下rpm依赖库 1. 使用yum安装nginx需要包括nginx的库，安装nginx的库 #rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-30T16:19:01.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7使用YUM安装nginx">
+<meta name="twitter:description" content="CentOS7使用YUM安装nginxcentos7系统库中默认是没有nginx的rpm包的，所以我们自己需要先更新下rpm依赖库 1. 使用yum安装nginx需要包括nginx的库，安装nginx的库 #rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS7使用YUM安装nginx</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS7使用YUM安装nginx</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-23T09:31:18.000Z" itemprop="datePublished" class="page-time">
+  2017-05-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOS7使用YUM安装nginx"><span class="post-toc-number">1.</span> <span class="post-toc-text">CentOS7使用YUM安装nginx</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-使用yum安装nginx需要包括nginx的库，安装nginx的库"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 使用yum安装nginx需要包括nginx的库，安装nginx的库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-使用下面命令安装nginx"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2.使用下面命令安装nginx</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-启动nginx"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3.启动nginx</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx-无域名IP直接无法访问"><span class="post-toc-number">2.</span> <span class="post-toc-text">nginx 无域名IP直接无法访问</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-install-nginx-yum-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7使用YUM安装nginx</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-23 17:31:18" datetime="2017-05-23T09:31:18.000Z"  itemprop="datePublished">2017-05-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="CentOS7使用YUM安装nginx"><a href="#CentOS7使用YUM安装nginx" class="headerlink" title="CentOS7使用YUM安装nginx"></a>CentOS7使用YUM安装nginx</h3><p>centos7系统库中默认是没有nginx的rpm包的，所以我们自己需要先更新下rpm依赖库</p>
+<h4 id="1-使用yum安装nginx需要包括nginx的库，安装nginx的库"><a href="#1-使用yum安装nginx需要包括nginx的库，安装nginx的库" class="headerlink" title="1. 使用yum安装nginx需要包括nginx的库，安装nginx的库"></a>1. 使用yum安装nginx需要包括nginx的库，安装nginx的库</h4><blockquote>
+<p><code>#rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</code></p>
+</blockquote>
+<h4 id="2-使用下面命令安装nginx"><a href="#2-使用下面命令安装nginx" class="headerlink" title="2.使用下面命令安装nginx"></a>2.使用下面命令安装nginx</h4><blockquote>
+<p><code>#yum install nginx</code></p>
+</blockquote>
+<h4 id="3-启动nginx"><a href="#3-启动nginx" class="headerlink" title="3.启动nginx"></a>3.启动nginx</h4><blockquote>
+<p><code>#systemctl start nginx.service</code><br><code>#systemctl enable nginx.service</code></p>
+</blockquote>
+<h3 id="nginx-无域名IP直接无法访问"><a href="#nginx-无域名IP直接无法访问" class="headerlink" title="nginx 无域名IP直接无法访问"></a>nginx 无域名IP直接无法访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server&#123; </span><br><span class="line">    listen 80 default_server; </span><br><span class="line">    server_name _; </span><br><span class="line">    return 444; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-30T16:19:01.230Z" itemprop="dateUpdated">2017-12-31 00:19:01</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/install-nginx-yum-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/install-nginx-yum-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yum/">yum</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&title=《CentOS7使用YUM安装nginx》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&title=《CentOS7使用YUM安装nginx》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-nginx-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7使用YUM安装nginx》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/install-php-yum-on-centos/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7使用YUM安装PHP</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/mount-disk-on-centos/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7挂载硬盘</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&title=《CentOS7使用YUM安装nginx》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&title=《CentOS7使用YUM安装nginx》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-nginx-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7使用YUM安装nginx》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-nginx-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3aUW7CMBAEUO5/aXqAkjCzBqQ4L19VEMEPpO16x49HfD0PruTV5Mn/n/P4xoWBgXFZxvP0yhd6voj81eRzXzwHAwPjBoykFB4t6OjO0fPP75y/9/A+BgYGRvzoWck+v4+BgYGxzki2nUkriYGBgXHOSApiO+Nq28cf7cUxMDAuyJiN73/z91fyDQwMjEsxnuW1Qk2CgeGqMDAwtma0W9Cct3Igo10PBgbG3ox2QevxQB5knh/RePE7YGBgbMpI3tB+8KxMz0KCN7NDDAyMjRizpXyKWkeVsw4XAwPjsoxkQNZuTfNhXBJqRkM9DAyM2zCSjWseAMxK7fBrwsDA2JrRLj0/vJUP7NpxXrEXx8DA2IKRjMNmw7I2VGgDgOLMCAYGxsUZ+dYxP06x3rkl1MP/GBgYGFsz2tHbZ6PNWTyAgYFxH8ZK2V3KTuMRXn1mBAMDYyNGeyC1Lbj5sbBZoS9+AQwMjMsy2k1mcmwiL53tV1NnsxgYGNsxksWdxwazjWgydCu+AgwMjE0ZbdDYtoZ5zJk0l4efi4GBcRvG0oPi8r1SjjEwMDDWI8lZw/eBGRoGBsamjGd55W1f2xQmBbqYEWJgYGzEWC92s9LctpWzz8LAwNiJkRfZ9ZizbRxzEgYGxh0YK8VxZdzf/geIMlgMDIzbM6LzZcuYOirAwMDA+EKb2BbZNyM8DAyMGzDaMGC2+Zw1oFHYgIGBsTVjtnVcCTVnzd8HQk0MDIzrMf4Aqejk8zV8NHsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

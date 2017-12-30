@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CentOS7使用YUM安装PHP | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="centos,yum,php">
+    <meta name="description" content="CentOS7使用YUM安装PHP7安装或升级PHP版本，使用yum命令及webtatic库 卸载已安装PHP更新之前查看当前PHP版本避免重复更新  # php -v  检查当前PHP的安装包  # yum list installed | grep php  完全移除当前PHP安装包以免起冲突  # yum remove php*  PHP 软件源默认的yum源无法升级PHP，需要添加第三方y">
+<meta name="keywords" content="centos,yum,php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7使用YUM安装PHP">
+<meta property="og:url" content="http://www.yaosansi.com/post/install-php-yum-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="CentOS7使用YUM安装PHP7安装或升级PHP版本，使用yum命令及webtatic库 卸载已安装PHP更新之前查看当前PHP版本避免重复更新  # php -v  检查当前PHP的安装包  # yum list installed | grep php  完全移除当前PHP安装包以免起冲突  # yum remove php*  PHP 软件源默认的yum源无法升级PHP，需要添加第三方y">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-30T16:18:55.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7使用YUM安装PHP">
+<meta name="twitter:description" content="CentOS7使用YUM安装PHP7安装或升级PHP版本，使用yum命令及webtatic库 卸载已安装PHP更新之前查看当前PHP版本避免重复更新  # php -v  检查当前PHP的安装包  # yum list installed | grep php  完全移除当前PHP安装包以免起冲突  # yum remove php*  PHP 软件源默认的yum源无法升级PHP，需要添加第三方y">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS7使用YUM安装PHP</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS7使用YUM安装PHP</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-25T11:18:17.000Z" itemprop="datePublished" class="page-time">
+  2017-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOS7使用YUM安装PHP7"><span class="post-toc-number">1.</span> <span class="post-toc-text">CentOS7使用YUM安装PHP7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#卸载已安装PHP"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">卸载已安装PHP</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PHP-软件源"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">PHP 软件源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装epel-release"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">安装epel-release</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装PHP7源"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">安装PHP7源</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-PHP"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">安装 PHP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#查看yum源是否有php7-1安装包"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">查看yum源是否有php7.1安装包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装php及相关插件"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">安装php及相关插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#安装php7-0"><span class="post-toc-number">1.3.2.1.</span> <span class="post-toc-text">安装php7.0</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#安装php7-1"><span class="post-toc-number">1.3.2.2.</span> <span class="post-toc-text">安装php7.1</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#查看当前php版本"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">查看当前php版本</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#开启php-fpm服务"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">开启php-fpm服务</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-install-php-yum-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7使用YUM安装PHP</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-25 19:18:17" datetime="2017-05-25T11:18:17.000Z"  itemprop="datePublished">2017-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="CentOS7使用YUM安装PHP7"><a href="#CentOS7使用YUM安装PHP7" class="headerlink" title="CentOS7使用YUM安装PHP7"></a>CentOS7使用YUM安装PHP7</h3><p>安装或升级PHP版本，使用yum命令及webtatic库</p>
+<h4 id="卸载已安装PHP"><a href="#卸载已安装PHP" class="headerlink" title="卸载已安装PHP"></a>卸载已安装PHP</h4><p>更新之前查看当前PHP版本避免重复更新</p>
+<blockquote>
+<p><code># php -v</code></p>
+</blockquote>
+<p>检查当前PHP的安装包</p>
+<blockquote>
+<p><code># yum list installed | grep php</code></p>
+</blockquote>
+<p>完全移除当前PHP安装包以免起冲突</p>
+<blockquote>
+<p><code># yum remove php*</code></p>
+</blockquote>
+<h4 id="PHP-软件源"><a href="#PHP-软件源" class="headerlink" title="PHP 软件源"></a>PHP 软件源</h4><p>默认的yum源无法升级PHP，需要添加第三方yum源，我们选择webtatic库</p>
+<p>CentOs 5.x</p>
+<blockquote>
+<p>rpm -Uvh <a href="http://mirror.webtatic.com/yum/el5/latest.rpm" target="_blank" rel="noopener">http://mirror.webtatic.com/yum/el5/latest.rpm</a></p>
+</blockquote>
+<p>CentOs 6.x</p>
+<blockquote>
+<p>rpm -Uvh <a href="http://mirror.webtatic.com/yum/el6/latest.rpm" target="_blank" rel="noopener">http://mirror.webtatic.com/yum/el6/latest.rpm</a></p>
+</blockquote>
+<p>CentOs 7.X</p>
+<blockquote>
+<p>rpm -Uvh <a href="https://mirror.webtatic.com/yum/el7/epel-release.rpm" target="_blank" rel="noopener">https://mirror.webtatic.com/yum/el7/epel-release.rpm</a></p>
+<p>rpm -Uvh <a href="https://mirror.webtatic.com/yum/el7/webtatic-release.rpm" target="_blank" rel="noopener">https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</a></p>
+</blockquote>
+<p>小提示</p>
+<blockquote>
+<p>如果安装错误：<br><code>error: Failed dependencies:</code><br><code>epel-release &gt;= 7 is needed by webtatic-release-7-3.noarch</code><br>需要先安装epel-release。</p>
+</blockquote>
+<h5 id="安装epel-release"><a href="#安装epel-release" class="headerlink" title="安装epel-release"></a>安装epel-release</h5><p>通过命令：</p>
+<blockquote>
+<p>rpm -ivh <a href="http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm" target="_blank" rel="noopener">http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</a></p>
+</blockquote>
+<p>成功安装。</p>
+<h5 id="安装PHP7源"><a href="#安装PHP7源" class="headerlink" title="安装PHP7源"></a>安装PHP7源</h5><p>终端再次运行如下命令：</p>
+<blockquote>
+<p>rpm -Uvh <a href="https://mirror.webtatic.com/yum/el7/webtatic-release.rpm" target="_blank" rel="noopener">https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</a></p>
+</blockquote>
+<h4 id="安装-PHP"><a href="#安装-PHP" class="headerlink" title="安装 PHP"></a>安装 PHP</h4><h5 id="查看yum源是否有php7-1安装包"><a href="#查看yum源是否有php7-1安装包" class="headerlink" title="查看yum源是否有php7.1安装包"></a>查看yum源是否有php7.1安装包</h5><blockquote>
+<p>yum list php71</p>
+</blockquote>
+<h5 id="安装php及相关插件"><a href="#安装php及相关插件" class="headerlink" title="安装php及相关插件"></a>安装php及相关插件</h5><h6 id="安装php7-0"><a href="#安装php7-0" class="headerlink" title="安装php7.0"></a>安装php7.0</h6><blockquote>
+<p>yum install -y php70w.x86_64 php70w-cli.x86_64 php70w-common.x86_64 php70w-gd.x86_64 php70w-ldap.x86_64 php70w-mbstring.x86_64 php70w-mcrypt.x86_64 php70w-mysql.x86_64 php70w-pdo.x86_64 php70w-fpm</p>
+</blockquote>
+<p>其他版本php安装<br>如果想安装php5.5或者5.6版本，将上面的php70w替换为php55w或者php56w就可以了。</p>
+<h6 id="安装php7-1"><a href="#安装php7-1" class="headerlink" title="安装php7.1"></a>安装php7.1</h6><blockquote>
+<p>yum install -y php71w-fpm php71w-opcache php71w-cli php71w-gd php71w-imap php71w-mysqlnd php71w-mbstring php71w-mcrypt php71w-pdo php71w-pecl-apcu php71w-pecl-mongodb php71w-pecl-redis php71w-pgsql php71w-xml php71w-xmlrpc php71w-devel mod_php71w</p>
+</blockquote>
+<h5 id="查看当前php版本"><a href="#查看当前php版本" class="headerlink" title="查看当前php版本"></a>查看当前php版本</h5><blockquote>
+<p>php -v</p>
+</blockquote>
+<h5 id="开启php-fpm服务"><a href="#开启php-fpm服务" class="headerlink" title="开启php-fpm服务"></a>开启php-fpm服务</h5><blockquote>
+<p>systemctl start php-fpm.service<br>systemctl enable php-fpm.service </p>
+</blockquote>
+<p>更多资料</p>
+<blockquote>
+<p><a href="https://webtatic.com/packages/php71/" target="_blank" rel="noopener">https://webtatic.com/packages/php71/</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-30T16:18:55.925Z" itemprop="dateUpdated">2017-12-31 00:18:55</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/install-php-yum-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/install-php-yum-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yum/">yum</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-php-yum-on-centos/&title=《CentOS7使用YUM安装PHP》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-php-yum-on-centos/&title=《CentOS7使用YUM安装PHP》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-php-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7使用YUM安装PHP》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-php-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-php-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/nginx-php-config-on-centos/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7上使nginx支持PHP</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/install-nginx-yum-on-centos/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7使用YUM安装nginx</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-php-yum-on-centos/&title=《CentOS7使用YUM安装PHP》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-php-yum-on-centos/&title=《CentOS7使用YUM安装PHP》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-php-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7使用YUM安装PHP》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-php-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-php-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACHUlEQVR42u3ay26DQAwF0Pz/T1Opq0pV6LU9RGU4rKKoDXNYGL9er/g6vq/fn8+/+Xn1vl98YWBg3JZxnF7vDpowzh9Ej/eWioGB8QBGHmR7ATc5aHKvt99jYGBgBDdLgvI5GAMDA+OKgJskkXnCh4GBgXHOyBO4PO3rHfryWhwDA+OGjMlg4OrPH5pvYGBg/GPG0bp6A85JYP3jPBgYGFsz8mZZ71hJ8+780RQCMQYGxtaMZN1hgk9I1QSxUJFjYGDcnNELgslIsjeebLbVMDAwHsCoRuhqOZoXt72iFwMDY2/GZD3rupHkKBBjYGBsx8jTu+pTmSxeLHtvYGBgbMRYNYbMC+M8EDfbbRgYGBsx8tZ/dQljVYKYNP4wMDCew+g13fL/rY42q9sUGBgYezPmI4G83dYbEhTWwjAwMDZlzINmj9osVuepIQYGxg0ZeeHaS/WqSxW9lwEGBsYTGNXxZF6I5qG2l3piYGA8gTEJlNVli+oqRrlriIGB8RhGtR1fHVJOljxe1TobAwNjI0ZvnavXeqseMfpLDAyMrRlr1yDykri8NjF/k2BgYNyQcRSvyXPKg3h5jQMDA2NrRi/LmjT6q8EdAwMDY7Jg0TtiNQRjYGBg5IeYt/InS2DRL2BgYGDE6eDaIxbKaQwMDIzWbfLW2+I6GwMDY1NG/tN5eTlZvyinkhgYGFszeoOB3oBzUu727ouBgXFzxhcc/X+td9oXFwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CentOS7更改SSH端口 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ssh,port,centos">
+    <meta name="description" content="更改SSH端口step1 修改/etc/ssh/sshd_config vi /etc/ssh/sshd_config #Port 22       //这行去掉#号，防止配置不好以后不能远程登录，还得去机房修改，等修改以后的端口能使用以后在注释掉 Port 20000    //下面添加这一行  step2 修改firewall配置firewall添加想要修改的ssh端口：  firewall-">
+<meta name="keywords" content="ssh,port,centos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7更改SSH端口">
+<meta property="og:url" content="http://www.yaosansi.com/post/change-ssh-port-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="更改SSH端口step1 修改/etc/ssh/sshd_config vi /etc/ssh/sshd_config #Port 22       //这行去掉#号，防止配置不好以后不能远程登录，还得去机房修改，等修改以后的端口能使用以后在注释掉 Port 20000    //下面添加这一行  step2 修改firewall配置firewall添加想要修改的ssh端口：  firewall-">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-30T16:19:23.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7更改SSH端口">
+<meta name="twitter:description" content="更改SSH端口step1 修改/etc/ssh/sshd_config vi /etc/ssh/sshd_config #Port 22       //这行去掉#号，防止配置不好以后不能远程登录，还得去机房修改，等修改以后的端口能使用以后在注释掉 Port 20000    //下面添加这一行  step2 修改firewall配置firewall添加想要修改的ssh端口：  firewall-">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS7更改SSH端口</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS7更改SSH端口</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-15T05:41:20.000Z" itemprop="datePublished" class="page-time">
+  2017-05-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更改SSH端口"><span class="post-toc-number">1.</span> <span class="post-toc-text">更改SSH端口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#step1-修改-etc-ssh-sshd-config"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">step1 修改/etc/ssh/sshd_config</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#step2-修改firewall配置"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">step2 修改firewall配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#step3-修改SELinux"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">step3 修改SELinux</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#step4-重启ssh"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">step4 重启ssh</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#step5-测试新端口的ssh连接"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">step5 测试新端口的ssh连接</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-change-ssh-port-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7更改SSH端口</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-15 13:41:20" datetime="2017-05-15T05:41:20.000Z"  itemprop="datePublished">2017-05-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="更改SSH端口"><a href="#更改SSH端口" class="headerlink" title="更改SSH端口"></a>更改SSH端口</h3><h4 id="step1-修改-etc-ssh-sshd-config"><a href="#step1-修改-etc-ssh-sshd-config" class="headerlink" title="step1 修改/etc/ssh/sshd_config"></a>step1 修改/etc/ssh/sshd_config</h4><blockquote>
+<p><code>vi /etc/ssh/sshd_config</code></p>
+<p><code>#Port 22</code>       //这行去掉#号，防止配置不好以后不能远程登录，还得去机房修改，等修改以后的端口能使用以后在注释掉</p>
+<p><code>Port 20000</code>    //下面添加这一行</p>
+</blockquote>
+<h4 id="step2-修改firewall配置"><a href="#step2-修改firewall配置" class="headerlink" title="step2 修改firewall配置"></a>step2 修改firewall配置</h4><p>firewall添加想要修改的ssh端口：</p>
+<blockquote>
+<p>firewall-cmd –zone=public –add-port=20000/tcp –permanent (permanent是保存配置，不然下次重启以后这次修改无效)</p>
+</blockquote>
+<p> reload firewall:</p>
+<blockquote>
+<p>firewall-cmd –reload</p>
+</blockquote>
+<p>查看添加端口是否成功，如果添加成功则会显示yes，否则no</p>
+<blockquote>
+<p>firewall-cmd –zone=public –query-port=20000/tcp</p>
+</blockquote>
+<h4 id="step3-修改SELinux"><a href="#step3-修改SELinux" class="headerlink" title="step3 修改SELinux"></a>step3 修改SELinux</h4><p>使用以下命令查看当前SElinux 允许的ssh端口：</p>
+<blockquote>
+<p>semanage port -l | grep ssh</p>
+</blockquote>
+<p>添加20000端口到 SELinux</p>
+<blockquote>
+<p>semanage port -a -t ssh_port_t -p tcp 20000</p>
+</blockquote>
+<p>然后确认一下是否添加进去</p>
+<blockquote>
+<p>semanage port -l | grep ssh</p>
+</blockquote>
+<p>如果成功会输出</p>
+<blockquote>
+<p>ssh_port_t                    tcp    20000, 22</p>
+</blockquote>
+<h4 id="step4-重启ssh"><a href="#step4-重启ssh" class="headerlink" title="step4 重启ssh"></a>step4 重启ssh</h4><blockquote>
+<p>systemctl restart sshd.service</p>
+</blockquote>
+<h4 id="step5-测试新端口的ssh连接"><a href="#step5-测试新端口的ssh连接" class="headerlink" title="step5 测试新端口的ssh连接"></a>step5 测试新端口的ssh连接</h4><p>测试修改端口以后的ssh连接，如果成功则将step1里面的port 22 重新注释掉</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-30T16:19:23.674Z" itemprop="dateUpdated">2017-12-31 00:19:23</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/change-ssh-port-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/change-ssh-port-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/port/">port</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&title=《CentOS7更改SSH端口》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&title=《CentOS7更改SSH端口》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/change-ssh-port-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7更改SSH端口》 — yaosansi's blog&url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/mount-disk-on-centos/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7挂载硬盘</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/git-log-chinese-garbled/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">GIT log 中文乱码</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&title=《CentOS7更改SSH端口》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&title=《CentOS7更改SSH端口》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/change-ssh-port-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7更改SSH端口》 — yaosansi's blog&url=http://www.yaosansi.com/post/change-ssh-port-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/change-ssh-port-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aSY7cMBAEwPn/p9vnASwpkyUbaDJ0EmYRGTwUauHPT/x8Lp77v8m/efWTlx8MDIyvZXxun/sl77e19turdR+OCQMD4wDG1aev3u9ha0dw//6wZwwMDIwgEcxDdnsEGBgYGJOAmxefeSqJgYGBMSli88Tu3YD7ci2OgYHxhYy86/7/3//JfAMDA+OrGJ/yyZO8JARPdvLraxgYGFsz8gDXJmdvpYb59zEwMHZlLDa24iZaEmTnLTkMDIy9Ge3yxedi5NoFjno8gIGBsR0jL1Ano8p2tFAHXAwMjK0ZbWt+8l/tHh5WwcDA2I6Rt/vbixFt4yxp0tXzVQwMjO0YSchry852PNk22v4yGMDAwNiOkWSOa8vP083FwhgDA2NTxvyaV7vRJAWsS1wMDIwDGJOrq2tjgLzoHc1gMTAwNmIkm5ind+2l1eIQMTAwtmbkRWxOXQvi7UgAAwPjHMZawG1TwLXhaFHKYmBgbM1oi8x308e8xVavgoGBsREjT/7a0DkJoIupIQYGxpGMpCmWx726to5JGBgY5zDyRnzb6J9czoguZGBgYGzK+JRPe+VinlZGx4SBgbE1YxLs2jCaB9k2iGNgYJzAeOtKxKRYXQu4GBgYpzHmw8U81Vtr5D0EbgwMDIxgyfyqxFrD7gGMgYGBUTb9J8exeEAYGBgHMJLULS9lkybdvAzGwMA4hzEPeXnIzpO/tdIaAwNjO8Yf5mcD8ZjEJ6AAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

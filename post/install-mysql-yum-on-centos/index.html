@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CentOS7上YUM安装MySQL5.7 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="centos,yum,mysql">
+    <meta name="description" content="CentOS7上YUM安装MySQL5.71、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/  找到以下源,并下载安装123Red Hat Enterprise Linux 7 / Oracle Linux 7 (Architecture Independent), RPM Package		25.1K	Do">
+<meta name="keywords" content="centos,yum,mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7上YUM安装MySQL5.7">
+<meta property="og:url" content="http://www.yaosansi.com/post/install-mysql-yum-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="CentOS7上YUM安装MySQL5.71、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/  找到以下源,并下载安装123Red Hat Enterprise Linux 7 / Oracle Linux 7 (Architecture Independent), RPM Package		25.1K	Do">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-30T16:18:24.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7上YUM安装MySQL5.7">
+<meta name="twitter:description" content="CentOS7上YUM安装MySQL5.71、配置YUM源在MySQL官网中下载YUM源rpm安装包：http://dev.mysql.com/downloads/repo/yum/  找到以下源,并下载安装123Red Hat Enterprise Linux 7 / Oracle Linux 7 (Architecture Independent), RPM Package		25.1K	Do">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS7上YUM安装MySQL5.7</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS7上YUM安装MySQL5.7</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-29T07:14:42.000Z" itemprop="datePublished" class="page-time">
+  2017-05-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOS7上YUM安装MySQL5-7"><span class="post-toc-number">1.</span> <span class="post-toc-text">CentOS7上YUM安装MySQL5.7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、配置YUM源"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1、配置YUM源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#下载MySQL源安装包"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">下载MySQL源安装包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装MySQL源"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">安装MySQL源</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、安装MySQL"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2、安装MySQL</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、启动MySQL服务"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3、启动MySQL服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、开机启动"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4、开机启动</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、修改root本地登录密码"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">5、修改root本地登录密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、添加远程登录用户"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">6、添加远程登录用户</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7、配置默认编码为utf8"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">7、配置默认编码为utf8</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#默认配置文件路径"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">默认配置文件路径</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-install-mysql-yum-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7上YUM安装MySQL5.7</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-29 15:14:42" datetime="2017-05-29T07:14:42.000Z"  itemprop="datePublished">2017-05-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="CentOS7上YUM安装MySQL5-7"><a href="#CentOS7上YUM安装MySQL5-7" class="headerlink" title="CentOS7上YUM安装MySQL5.7"></a>CentOS7上YUM安装MySQL5.7</h3><h4 id="1、配置YUM源"><a href="#1、配置YUM源" class="headerlink" title="1、配置YUM源"></a>1、配置YUM源</h4><p>在MySQL官网中下载YUM源rpm安装包：<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/yum/</a> </p>
+<p>找到以下源,并下载安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Red Hat Enterprise Linux 7 / Oracle Linux 7 (Architecture Independent), RPM Package		25.1K	</span><br><span class="line">Download</span><br><span class="line">(mysql57-community-release-el7-11.noarch.rpm)</span><br></pre></td></tr></table></figure></p>
+<h5 id="下载MySQL源安装包"><a href="#下载MySQL源安装包" class="headerlink" title="下载MySQL源安装包"></a>下载MySQL源安装包</h5><blockquote>
+<p>wget <a href="https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm" target="_blank" rel="noopener">https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm</a></p>
+</blockquote>
+<h5 id="安装MySQL源"><a href="#安装MySQL源" class="headerlink" title="安装MySQL源"></a>安装MySQL源</h5><blockquote>
+<p>yum localinstall mysql57-community-release-el7-11.noarch.rpm</p>
+</blockquote>
+<h4 id="2、安装MySQL"><a href="#2、安装MySQL" class="headerlink" title="2、安装MySQL"></a>2、安装MySQL</h4><blockquote>
+<p>yum install mysql-community-server</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">========================================================================================</span><br><span class="line"> Package                        Arch      Version            Repository            Size</span><br><span class="line">========================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> mysql-community-libs           x86_64    5.7.20-1.el7       mysql57-community    2.1 M</span><br><span class="line">     replacing  mariadb-libs.x86_64 1:5.5.56-2.el7</span><br><span class="line"> mysql-community-libs-compat    x86_64    5.7.20-1.el7       mysql57-community    2.0 M</span><br><span class="line">     replacing  mariadb-libs.x86_64 1:5.5.56-2.el7</span><br><span class="line"> mysql-community-server         x86_64    5.7.20-1.el7       mysql57-community    164 M</span><br><span class="line">Installing for dependencies:</span><br><span class="line"> libaio                         x86_64    0.3.109-13.el7     base                  24 k</span><br><span class="line"> mysql-community-client         x86_64    5.7.20-1.el7       mysql57-community     24 M</span><br><span class="line"> mysql-community-common         x86_64    5.7.20-1.el7       mysql57-community    272 k</span><br><span class="line"></span><br><span class="line">Transaction Summary</span><br><span class="line">========================================================================================</span><br><span class="line">Install  3 Packages (+3 Dependent packages)</span><br></pre></td></tr></table></figure>
+<h4 id="3、启动MySQL服务"><a href="#3、启动MySQL服务" class="headerlink" title="3、启动MySQL服务"></a>3、启动MySQL服务</h4><blockquote>
+<p>systemctl start mysqld</p>
+</blockquote>
+<p>查看MySQL的启动状态</p>
+<blockquote>
+<p>systemctl status mysqld</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Tue 2017-12-26 21:35:32 CST; 51s ago</span><br><span class="line">     Docs: man:mysqld(8)</span><br><span class="line">           http://dev.mysql.com/doc/refman/en/using-systemd.html</span><br><span class="line">  Process: 9907 ExecStart=/usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 9833 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 9910 (mysqld)</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─9910 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid</span><br><span class="line"></span><br><span class="line">Dec 26 21:35:26 ecs-mall systemd[1]: Starting MySQL Server...</span><br><span class="line">Dec 26 21:35:32 ecs-mall systemd[1]: Started MySQL Server.</span><br></pre></td></tr></table></figure>
+<h4 id="4、开机启动"><a href="#4、开机启动" class="headerlink" title="4、开机启动"></a>4、开机启动</h4><blockquote>
+<p>systemctl enable mysqld</p>
+<p>systemctl daemon-reload</p>
+</blockquote>
+<h4 id="5、修改root本地登录密码"><a href="#5、修改root本地登录密码" class="headerlink" title="5、修改root本地登录密码"></a>5、修改root本地登录密码</h4><p>mysql安装完成之后，在<code>/var/log/mysqld.log</code>文件中给<code>root</code>生成了一个默认密码。通过下面的方式找到<code>root默认密码</code>，然后登录<code>mysql</code>进行修改：</p>
+<p>找到密码：</p>
+<blockquote>
+<p><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep &apos;temporary password&apos; /var/log/mysqld.log</span><br><span class="line">2017-12-26T13:35:28.432260Z 1 [Note] A temporary password is generated for root@localhost: lLeNXPJaR3=D</span><br></pre></td></tr></table></figure>
+<p>登录Mysql:</p>
+<blockquote>
+<p>mysql -uroot -p</p>
+</blockquote>
+<p>输入上面找到的随机密码后，修改密码：</p>
+<blockquote>
+<p><code>mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;MyNewPass4!&#39;;</code></p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p><code>mysql&gt; set password for &#39;root&#39;@&#39;localhost&#39;=password(&#39;MyNewPass4!&#39;);</code></p>
+<p>注意：<code>mysql5.7</code>默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示<code>ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</code>错误</p>
+</blockquote>
+<p>通过msyql环境变量可以查看密码策略的相关信息：</p>
+<blockquote>
+<p><code>mysql&gt; show variables like &#39;%password%&#39;;</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+---------------------------------------+--------+</span><br><span class="line">| Variable_name                         | Value  |</span><br><span class="line">+---------------------------------------+--------+</span><br><span class="line">| default_password_lifetime             | 0      |</span><br><span class="line">| disconnect_on_expired_password        | ON     |</span><br><span class="line">| log_builtin_as_identified_by_password | OFF    |</span><br><span class="line">| mysql_native_password_proxy_users     | OFF    |</span><br><span class="line">| old_passwords                         | 0      |</span><br><span class="line">| report_password                       |        |</span><br><span class="line">| sha256_password_proxy_users           | OFF    |</span><br><span class="line">| validate_password_check_user_name     | OFF    |</span><br><span class="line">| validate_password_dictionary_file     |        |</span><br><span class="line">| validate_password_length              | 8      |</span><br><span class="line">| validate_password_mixed_case_count    | 1      |</span><br><span class="line">| validate_password_number_count        | 1      |</span><br><span class="line">| validate_password_policy              | MEDIUM |</span><br><span class="line">| validate_password_special_char_count  | 1      |</span><br><span class="line">+---------------------------------------+--------+</span><br><span class="line">14 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">validate_password_policy：密码策略，默认为MEDIUM策略 </span><br><span class="line">validate_password_dictionary_file：密码策略文件，策略为STRONG才需要 </span><br><span class="line">validate_password_length：密码最少长度 </span><br><span class="line">validate_password_mixed_case_count：大小写字符长度，至少1个 </span><br><span class="line">validate_password_number_count ：数字至少1个 </span><br><span class="line">validate_password_special_char_count：特殊字符至少1个</span><br></pre></td></tr></table></figure>
+<p>上述参数是默认策略MEDIUM的密码检查规则。</p>
+<p>共有以下几种密码策略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">策略	检查规则</span><br><span class="line">0 or LOW	Length</span><br><span class="line">1 or MEDIUM	Length; numeric, lowercase/uppercase, and special characters</span><br><span class="line">2 or STRONG	Length; numeric, lowercase/uppercase, and special characters; dictionary file</span><br></pre></td></tr></table></figure>
+<p>MySQL官网密码策略详细说明：<a href="http://dev.mysql.com/doc/refman/5.7/en/validate-password-options-variables.html#sysvar_validate_password_policy" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.7/en/validate-password-options-variables.html#sysvar_validate_password_policy</a></p>
+<p>修改密码策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在/etc/my.cnf文件添加validate_password_policy配置，指定密码策略</span><br><span class="line"># 选择0（LOW），1（MEDIUM），2（STRONG）其中一种，选择2需要提供密码字典文件</span><br><span class="line">validate_password_policy=0</span><br></pre></td></tr></table></figure>
+<p>如果不需要密码策略，添加<code>my.cnf</code>文件中添加如下配置禁用即可：</p>
+<blockquote>
+<p>validate_password = off</p>
+</blockquote>
+<p>重新启动mysql服务使配置生效：</p>
+<blockquote>
+<p>systemctl restart mysqld</p>
+</blockquote>
+<h4 id="6、添加远程登录用户"><a href="#6、添加远程登录用户" class="headerlink" title="6、添加远程登录用户"></a>6、添加远程登录用户</h4><p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须修改root允许远程连接：</p>
+<p>授权方式：</p>
+<p>例如，你想root使用123456从任何主机连接到mysql服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;</span><br><span class="line">mysql&gt;FLUSH RIVILEGES</span><br></pre></td></tr></table></figure>
+<p>如果你想允许用户jack从ip为10.10.50.127的主机连接到mysql服务器，并使用654321作为密码:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &apos;jack&apos;@’10.10.50.127’ IDENTIFIED BY &apos;654321&apos; WITH GRANT OPTION;</span><br><span class="line">mysql&gt;FLUSH RIVILEGES</span><br></pre></td></tr></table></figure>
+<p>或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;yangxin&apos;@&apos;%&apos; IDENTIFIED BY &apos;Yangxin0917!&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
+<h4 id="7、配置默认编码为utf8"><a href="#7、配置默认编码为utf8" class="headerlink" title="7、配置默认编码为utf8"></a>7、配置默认编码为utf8</h4><p>修改/etc/my.cnf配置文件，在[mysqld]下添加编码配置，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">character_set_server=utf8</span><br><span class="line">init_connect=&apos;SET NAMES utf8&apos;</span><br></pre></td></tr></table></figure>
+<p>重新启动mysql服务，查看数据库默认编码如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%character%&apos;;</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| character_set_client     | utf8                       |</span><br><span class="line">| character_set_connection | utf8                       |</span><br><span class="line">| character_set_database   | latin1                     |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | utf8                       |</span><br><span class="line">| character_set_server     | latin1                     |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h4 id="默认配置文件路径"><a href="#默认配置文件路径" class="headerlink" title="默认配置文件路径"></a>默认配置文件路径</h4><p>配置文件：<code>/etc/my.cnf</code><br>日志文件：<code>/var/log//var/log/mysqld.log</code><br>服务启动脚本：<code>/usr/lib/systemd/system/mysqld.service</code><br>socket文件：<code>/var/run/mysqld/mysqld.pid</code></p>
+<p>参考:<a href="http://www.linuxidc.com/Linux/2016-09/135288.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2016-09/135288.htm</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-30T16:18:24.062Z" itemprop="dateUpdated">2017-12-31 00:18:24</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/install-mysql-yum-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/install-mysql-yum-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yum/">yum</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&title=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&title=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-mysql-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/install-mariadb-yum-on-centos/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CentOS7上YUM安装MariaDB 10</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/nginx-php-config-on-centos/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7上使nginx支持PHP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&title=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&title=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-mysql-yum-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7上YUM安装MySQL5.7》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-mysql-yum-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQW4DIQwF0Nz/0lOpq1ZtyDcmVQceq2qUAo+FhW0ej3hcn+PZ31+//Pze+f3igYGBcVvGNRzj5cczVI9jfEwv5sfAwDiA0VlyvPB4rfGXZG8YGBgY4+0+C7v5b/Ijw8DAwMgZeZC9gpHMgIGBgZEvk0ydBNy5ct6yXBwDA+OGjH5j4H1//2l/AwMD418yrsaYSzjnAuuLnWBgYGzNSKbLL3+rHljkXwo5NwYGxhaMucWqYXTVxRQDA+NMRrXFmLcnVxXaCv0NDAyMjRj55a+ayvaPJmk/fMvFMTAwNmV0Cvernmh0nmss6F1gYGDcirHqaUWy6eQ48jQbAwPjHEbyPb/AzYXsuaIeBgbGOYx+2WtVK3Qy+GJgYGzNqLYzF7Qbiwlq9dqKgYGxEyOfogqoXhOT8Fp4EIaBgbERY5yszgXHJHx3GIVcHAMDYyNGstFOsSxPbvMktpDjYmBg3JyxNgNOePkDi0KJDQMD40hGdYFydC8mqC/WxcDA2JqRhNdqAyC/IFYLcxgYGGcyOslqBzw3z2QLEwMD4+aMamErvz5Wy3YYGBgY1YDbD8TVRxjVAyr3NDAwMG7L6DQO5wpqedbZL+dhYGDsxOhc4+aaB8nWy1dJDAyMAxjV0v84vHYeZyTh+5f/xcDAwIiXzMP3WiQGBgZGHnyrjyqWldUwMDAOYPTbjUlxrcrIH59hYGDszegE5eQSOdci7V9SMTAwtmB8AF6wrWNbxWKyAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
