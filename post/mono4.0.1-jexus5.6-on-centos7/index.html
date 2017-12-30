@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Mono4.0.1与Jexus5.6在CentOS7上安装与使用 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS,Jexus,Mono">
+    <meta name="description" content="本文最后更新于：2015-05-21 14:00:00原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7 鉴于微软最近对.Net家族的大开源策略，最近有时间正好测试一下Mono4与Jexus5.6在CentOS7上安装与使用。 Mono简介Mono是一个由Novell公司(由Ximian发起，并由Miguel de lcaza">
+<meta name="keywords" content="CentOS,Jexus,Mono">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mono4.0.1与Jexus5.6在CentOS7上安装与使用">
+<meta property="og:url" content="http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2015-05-21 14:00:00原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7 鉴于微软最近对.Net家族的大开源策略，最近有时间正好测试一下Mono4与Jexus5.6在CentOS7上安装与使用。 Mono简介Mono是一个由Novell公司(由Ximian发起，并由Miguel de lcaza">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-05-22T08:58:33.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mono4.0.1与Jexus5.6在CentOS7上安装与使用">
+<meta name="twitter:description" content="本文最后更新于：2015-05-21 14:00:00原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7 鉴于微软最近对.Net家族的大开源策略，最近有时间正好测试一下Mono4与Jexus5.6在CentOS7上安装与使用。 Mono简介Mono是一个由Novell公司(由Ximian发起，并由Miguel de lcaza">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mono4.0.1与Jexus5.6在CentOS7上安装与使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mono4.0.1与Jexus5.6在CentOS7上安装与使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-21T06:00:00.000Z" itemprop="datePublished" class="page-time">
+  2015-05-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Asp-Net/">Asp.Net</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Mono简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Mono简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Jexus简介"><span class="post-toc-number">2.</span> <span class="post-toc-text">Jexus简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装Mono和Jexus"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装Mono和Jexus</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确认安装成功"><span class="post-toc-number">3.0.2.</span> <span class="post-toc-text">确认安装成功</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#升级安装"><span class="post-toc-number">3.0.3.</span> <span class="post-toc-text">升级安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动、停止和重启"><span class="post-toc-number">3.0.4.</span> <span class="post-toc-text">启动、停止和重启</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过一键安装脚本"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">通过一键安装脚本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOS6版本"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">CentOS6版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOS7版本"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">CentOS7版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一键安装步骤"><span class="post-toc-number">3.1.3.</span> <span class="post-toc-text">一键安装步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置Mono环境变量"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">设置Mono环境变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法一"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">方法一</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法二"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">方法二</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特别感谢"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">特别感谢</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mono4.0.1-jexus5.6-on-centos7"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mono4.0.1与Jexus5.6在CentOS7上安装与使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-05-21 14:00:00" datetime="2015-05-21T06:00:00.000Z"  itemprop="datePublished">2015-05-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Asp-Net/">Asp.Net</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2015-05-21 14:00:00</code><br><code>原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7</code></p>
+<p>鉴于微软最近对.Net家族的大开源策略，最近有时间正好测试一下Mono4与Jexus5.6在CentOS7上安装与使用。</p>
+<h1 id="Mono简介"><a href="#Mono简介" class="headerlink" title="Mono简介"></a>Mono简介</h1><p>Mono是一个由Novell公司(由Ximian发起，并由Miguel de lcaza<br>领导的，一个致力于开创.NET在Linux上使用的开源工程。它包含了一个C#语言的编译器，一个CLR的运行时，和一组类库，并实现了 ADO NET和ASP NET。能够使得开发人员在Linux用C#开发程序。)<br>目前最新版本为：Mono 4.0.1,由于.Net的开源，Mono4.0是首个包含来自微软开源 .Net 代码的版本，也是第一个缺省启用 Csharp 6.0 的 Mono 版本</p>
+<p>同时还做了以下改进：</p>
+<ul>
+<li>采用微软的开源代码</li>
+<li>支持 C# 6.0</li>
+<li>优化浮点数</li>
+<li>不再支持 2.0、3.5 和 4.0 汇编器</li>
+<li>更新 IKVM</li>
+<li>更轻量级的调试器开销</li>
+<li>提供最基本的 PowerPC64 LE 支持</li>
+</ul>
+<p>Mono 4.0.1 只是在4.0基础上进行一些BUG修复和功能改进。<br><a id="more"></a></p>
+<h1 id="Jexus简介"><a href="#Jexus简介" class="headerlink" title="Jexus简介"></a>Jexus简介</h1><p>Jexus 即 Jexus Web Server，简称JWS，是Linux平台上 的一款ASP.NET WEB服务器，<br>是ASP.NET跨平台部署的一种可选方案，作者<code>宇内流云</code>是想给大家提供一个强劲、坚固、免费、易用的Linux ASP.NET服务器。</p>
+<p>与其它WEB服务器相比，Jexus不但具有跨平台ASP.NET服务器这样的标志性特征，同时还拥有内核级的安全监控、入侵检测、URL重写、无文件路由等一系列重要功能和专有特性。</p>
+<p>目前Jexus最新版本为5.6.4正式版。</p>
+<h1 id="安装Mono和Jexus"><a href="#安装Mono和Jexus" class="headerlink" title="安装Mono和Jexus"></a>安装Mono和Jexus</h1><p>##安装Mono</p>
+<p>在Shell root 用户权限下输入下列命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import &quot;http://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF&quot;</span><br><span class="line">yum-config-manager --add-repo http://download.mono-project.com/repo/centos/</span><br></pre></td></tr></table></figure>
+<p>如果提示找不到<code>yum-config-manager</code>博客园的张善友老师已经给出了解决方案</p>
+<p>因为系统默认没有安装这个命令，这个命令在<code>yum-utils</code> 包里，可以通过命令<code>yum -y install yum-utils</code> 安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install yum-utils</span><br></pre></td></tr></table></figure>
+<p>引入测试版本可以使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://download.mono-project.com/repo/centos-alpha/</span><br></pre></td></tr></table></figure></p>
+<p>安装有以下几个选择：</p>
+<ul>
+<li>mono-devel 安装编译版本</li>
+<li>mono-completepv 安装所有软件包,这可以解决大多数情况下的”程序集未找到”错误。</li>
+<li>referenceassemblies-pcl 安装支持PCL编译的版本。</li>
+<li>ca-certificates-mono 如果需要HTTPS连接和SSL证书，请使用版本。</li>
+</ul>
+<p>我们安装所有软件包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum –y install mono-complete</span><br></pre></td></tr></table></figure>
+<p>安装成功后使用mono –V 确认已经成功安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@yaosansi]# mono -V</span><br><span class="line">Mono JIT compiler version 4.0.1 (tarball Wed May 20 12:03:20 CST 2015)</span><br><span class="line">Copyright (C) 2002-2014 Novell, Inc, Xamarin Inc and Contributors. www.mono-project.com</span><br><span class="line">        TLS:           __thread</span><br><span class="line">        SIGSEGV:       altstack</span><br><span class="line">        Notifications: epoll</span><br><span class="line">        Architecture:  x86</span><br><span class="line">        Disabled:      none</span><br><span class="line">        Misc:          softdebug</span><br><span class="line">        LLVM:          supported, not enabled.</span><br><span class="line">        GC:            sgen</span><br></pre></td></tr></table></figure></p>
+<p>如果安装一切正常，但输入 <code>mono -V</code> 时提示 <code>-bash: mono: command not found</code>, 可以使用如下命令测试:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yaosansi ]# /opt/mono/bin/mono -V</span><br></pre></td></tr></table></figure></p>
+<p>并参考本文中的<code>设置Mono环境变量</code>一节。</p>
+<p>##安装Jexus</p>
+<p>###下载</p>
+<p>下载地址是：<code>http://www.linuxdot.net/down/jexus-5.6.4.tar.gz</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.linuxdot.net/down/jexus-5.6.4.tar.gz</span><br></pre></td></tr></table></figure>
+<p>###解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jexus-5.0.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd jexus-5.6.4</span><br><span class="line">./install</span><br></pre></td></tr></table></figure>
+<h3 id="确认安装成功"><a href="#确认安装成功" class="headerlink" title="确认安装成功"></a>确认安装成功</h3><p>默认Jexus是绑定0.0.0.0的ip，所以可以通过服务器的ip来访问。(如果无法访问请确认是否由于其它程序占用了默认的80端口)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.8.2</span><br></pre></td></tr></table></figure>
+<p>Jexus也提供了一个info地址，用来检测服务器状态和运行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.8.2/info</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Welcome to Jexus!<br>Jexus web server uptime: 0 days, 0:44:16</p>
+</blockquote>
+<h3 id="升级安装"><a href="#升级安装" class="headerlink" title="升级安装"></a>升级安装</h3><h3 id="启动、停止和重启"><a href="#启动、停止和重启" class="headerlink" title="启动、停止和重启"></a>启动、停止和重启</h3><p>启动 <code>/usr/jexus/jws start</code></p>
+<p>停止 <code>/usr/jexus/jws stop</code></p>
+<p>重启 <code>/usr/jexus/jws restart</code></p>
+<h2 id="通过一键安装脚本"><a href="#通过一键安装脚本" class="headerlink" title="通过一键安装脚本"></a>通过一键安装脚本</h2><p><code>Jexus官方论坛网友（Simple）提供</code></p>
+<h3 id="CentOS6版本"><a href="#CentOS6版本" class="headerlink" title="CentOS6版本"></a>CentOS6版本</h3><ul>
+<li><p>默认版本（宇内推荐的）：<a href="http://security.ivannet.com/linux/shell/centos6.x_mono_jexus_default.sh" target="_blank" rel="noopener">http://security.ivannet.com/linux/shell/centos6.x_mono_jexus_default.sh</a></p>
+</li>
+<li><p>OPT版本（喜欢把mono装在/opt/目录下的）：<a href="http://security.ivannet.com/linux/shell/centos6.x_mono_jexus_opt.sh" target="_blank" rel="noopener">http://security.ivannet.com/linux/shell/centos6.x_mono_jexus_opt.sh</a></p>
+</li>
+</ul>
+<h3 id="CentOS7版本"><a href="#CentOS7版本" class="headerlink" title="CentOS7版本"></a>CentOS7版本</h3><ul>
+<li>默认版本（宇内推荐的）：<a href="http://security.ivannet.com/linux/shell/centos7.x_mono_jexus_default.sh" target="_blank" rel="noopener">http://security.ivannet.com/linux/shell/centos7.x_mono_jexus_default.sh</a></li>
+<li></li>
+<li>OPT版本（喜欢把mono装在/opt/目录下的）： <a href="http://security.ivannet.com/linux/shell/centos7.x_mono_jexus_opt.sh" target="_blank" rel="noopener">http://security.ivannet.com/linux/shell/centos7.x_mono_jexus_opt.sh</a></li>
+</ul>
+<h3 id="一键安装步骤"><a href="#一键安装步骤" class="headerlink" title="一键安装步骤"></a>一键安装步骤</h3><p>执行以下命令，输入对应的Mono及Jexus完整版本即可。脚本将正动从官方下载、编译和安装，需要耐心等待一段时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget http://security.ivannet.com/linux/shell/centos7.x_mono_jexus_default.sh</span><br><span class="line">chmod +x centos7.x_mono_jexus_default.sh</span><br><span class="line">./centos7.x_mono_jexus_default.sh</span><br></pre></td></tr></table></figure>
+<p>比如目前Mono输入：4.0.1 Jexus输入：5.6.4 </p>
+<p>安装完成后使用上面的方法验证是否安装成功。</p>
+<h2 id="设置Mono环境变量"><a href="#设置Mono环境变量" class="headerlink" title="设置Mono环境变量"></a>设置Mono环境变量</h2><p>安装脚本将Mono安装到了/opt/mono/，需要将Mono的目录加入系统$PATH变量</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>在<code>/etc/profile</code>文件中添加变量【对所有用户生效（永久的）】 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yaosansi ~]# vi /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在文件末尾加上如下两行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=/opt/mono/bin:$PATH</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+<p>立即生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yaosansi ~]# source /etc/profile</span><br></pre></td></tr></table></figure>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>在/etc/profile.d/目录下创建一个Mono的配置<br>创建一个新的mono.sh,并在这个文件内初始化环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/opt/mono/bin</span><br></pre></td></tr></table></figure>
+<p>要是刚才的修改马上生效，需要执行以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yaosansi profile.d]# source mono.sh</span><br></pre></td></tr></table></figure>
+<h2 id="特别感谢"><a href="#特别感谢" class="headerlink" title="特别感谢"></a>特别感谢</h2><p>感谢宇内、张善友以及其它热心网友对.Net跨平台的突出贡献。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.mono-project.com/docs/about-mono/releases/4.0.0/" target="_blank" rel="noopener">http://www.mono-project.com/docs/about-mono/releases/4.0.0/</a></li>
+<li><a href="http://www.mono-project.com/docs/about-mono/releases/4.0.1/" target="_blank" rel="noopener">http://www.mono-project.com/docs/about-mono/releases/4.0.1/</a></li>
+<li><a href="http://www.jexus.org/" target="_blank" rel="noopener">http://www.jexus.org/</a></li>
+<li><a href="http://baike.baidu.com/view/4562810.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/4562810.htm</a></li>
+<li><a href="http://www.cnblogs.com/shanyou/p/4509980.html" target="_blank" rel="noopener">http://www.cnblogs.com/shanyou/p/4509980.html</a></li>
+<li><a href="http://www.mono-project.com/docs/getting-started/install/linux/#centos-fedora-and-derivatives" target="_blank" rel="noopener">http://www.mono-project.com/docs/getting-started/install/linux/#centos-fedora-and-derivatives</a></li>
+<li><a href="http://www.mono-project.com/docs/getting-started/mono-basics/" target="_blank" rel="noopener">http://www.mono-project.com/docs/getting-started/mono-basics/</a></li>
+<li><a href="http://www.linuxdot.net/bbsfile-3784" target="_blank" rel="noopener">http://www.linuxdot.net/bbsfile-3784</a></li>
+<li><a href="http://security.ivannet.com/linux/shell/" target="_blank" rel="noopener">http://security.ivannet.com/linux/shell/</a></li>
+<li><a href="http://www.cnblogs.com/shanyou/archive/2012/10/11/2720597.html" target="_blank" rel="noopener">http://www.cnblogs.com/shanyou/archive/2012/10/11/2720597.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-22T08:58:33.571Z" itemprop="dateUpdated">2015-05-22 16:58:33</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/mono4.0.1-jexus5.6-on-centos7/" target="_blank" rel="external">http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jexus/">Jexus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mono/">Mono</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&title=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&title=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&source=本文最后更新于：2015-05-21 14:00:00原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/ffmpeg-on-centos/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">在CentOS上编译安装FFmpeg</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/redis-on-windows/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Redis在windows下安装与使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&title=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&title=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&source=本文最后更新于：2015-05-21 14:00:00原文：http://www.yaosansi.com/post/mono4.0.1-jexus5.6..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mono4.0.1与Jexus5.6在CentOS7上安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/mono4.0.1-jexus5.6-on-centos7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aS27DMAwFwNz/0i7QbRznkWramhqtgnxsjQuwpMjHI17H93p+/eqd698+r+dPH59YGBgYt2Uclyu/fbL15J3kvidUDAyMDRh5oLx+Jwmd+a+SK2BgYGBUQ2rO690XAwMDo8oopG5xSMXAwMBYKWKrh3HJ6z+oxTEwMG7IWGkMfPr1L/U3MDAw/jHjKK7kCr3jtpWFgYExm5FsZWXrveQyj66FbWFgYNyWsXKIloTX6+tXH9DL62BgYIxm5JvIN9pLBPPwGqWGGBgYgxgrw155IP5Z8JvcFgMDYzSjdzSfx/VeWI+anRgYGNsweg3L6tHbdeiMMtlXtTgGBsZoRl6UVtuK+QPK+xgnV8DAwNiAkQ9G5If+1VbBygwYBgbGzozeYVlvqKLXKMXAwNiBkZej64MR+bbyNicGBsY+jDztq6aMvTZAtaWKgYExm1E9mq9+mgToXvvh5D8GBgbGUEavWK22DVaGLfKUFAMDYx9GdbQrTwSrx2f5ARwGBsZsRn6Y1Str87Cbj6OdfB8DA2NLRqFxWBy26D2sN3fHwMAYzcjbgUtjEHGBmpfKb/4yGBgYgxhHcfVSxl5hXBjjwMDAGM3ohblqUF5J/vJmJwYGxmxGHmRXWgi9wrUQZDEwMDZg9I7p88idFMm9kQ4MDAyMapLXC+XVNBEDAwPj+me9IjM5VquWyhgYGLsx8iL2p8bIkmCdP1AMDIzZjN6IQ2+YLLn9RwAYGBh3ZXwBfzA84rtcG8MAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

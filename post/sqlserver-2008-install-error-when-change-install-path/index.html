@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>SQL Server 2008 修改安装路径后安装出错的解决方法 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SQL Server">
+    <meta name="description" content="本文最后更新于：2008-11-25 17:01:23原文：http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/ 1、安装时如果修改安装路径后报错 例如想把“C:\Program Files\Microsoft SQL Server” 修改为“D:\Program Files\Micr">
+<meta name="keywords" content="SQL Server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL Server 2008 修改安装路径后安装出错的解决方法">
+<meta property="og:url" content="http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2008-11-25 17:01:23原文：http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/ 1、安装时如果修改安装路径后报错 例如想把“C:\Program Files\Microsoft SQL Server” 修改为“D:\Program Files\Micr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2014-08-04T05:41:33.030Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL Server 2008 修改安装路径后安装出错的解决方法">
+<meta name="twitter:description" content="本文最后更新于：2008-11-25 17:01:23原文：http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/ 1、安装时如果修改安装路径后报错 例如想把“C:\Program Files\Microsoft SQL Server” 修改为“D:\Program Files\Micr">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SQL Server 2008 修改安装路径后安装出错的解决方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SQL Server 2008 修改安装路径后安装出错的解决方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2008-11-25T09:01:23.000Z" itemprop="datePublished" class="page-time">
+  2008-11-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Database/">Database</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、安装时如果修改安装路径后报错"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、安装时如果修改安装路径后报错</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#翻译过来就是："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">翻译过来就是：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第一种方法"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">第一种方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#第二种方法"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">第二种方法</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-sqlserver-2008-install-error-when-change-install-path"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SQL Server 2008 修改安装路径后安装出错的解决方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2008-11-25 17:01:23" datetime="2008-11-25T09:01:23.000Z"  itemprop="datePublished">2008-11-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Database/">Database</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2008-11-25 17:01:23</code><br><code>原文：http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/</code></p>
+<h2 id="1、安装时如果修改安装路径后报错"><a href="#1、安装时如果修改安装路径后报错" class="headerlink" title="1、安装时如果修改安装路径后报错"></a>1、安装时如果修改安装路径后报错</h2><blockquote>
+<p>例如想把“C:\Program Files\Microsoft SQL Server” 修改为“D:\Program Files\Microsoft SQL Server”</p>
+</blockquote>
+<p><code>错误的详细信息是：&quot;The INSTANCESHAREDWOWDIR command line value was not specified. This value must be specified when the INSTANCESHAREDDIR value is specified.&quot;</code></p>
+<p>这篇Post回答了这个问题：<a href="http://forums.microsoft.com/TechNet/ShowPost.aspx?PostID=3736253&amp;SiteID=17" target="_blank" rel="noopener">http://forums.microsoft.com/TechNet/ShowPost.aspx?PostID=3736253&amp;SiteID=17</a></p>
+<h3 id="翻译过来就是："><a href="#翻译过来就是：" class="headerlink" title="翻译过来就是："></a>翻译过来就是：</h3><h4 id="第一种方法"><a href="#第一种方法" class="headerlink" title="第一种方法"></a>第一种方法</h4><p>不修改路径，使用默认方式安装，最后在确认安装时会显示ConfigurationFile.ini文件的路径，到这个路径下面将安装配置文件复制到其他路径，例如D:\，然后退出安装</p>
+<p>其次：使用记事本打开这个文件，根据实际需求将“C:\Program Files\Microsoft SQL Server” 查找替换为“D:\Program Files\Microsoft SQL Server”后保存</p>
+<p>最后：在命令行转到安装目录，开始安装，如果是Vista，记得使用管理员权限运行命令行，输入以下指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup.exe /action=Install /configurationfile=D:\ConfigurationFile.ini</span><br></pre></td></tr></table></figure>
+<h4 id="第二种方法"><a href="#第二种方法" class="headerlink" title="第二种方法"></a>第二种方法</h4><p>2、插入光盘后不要用autorun的安装，使用命令行安装！cd进安装光盘的根目录，输入命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup.exe /INSTALLSHAREDDIR=&quot;D:\\Program Files\\Microsoft SQL Server\\&quot; /INSTALLSHAREDWOWDIR=&quot;D:\\Program Files (x86)\\Microsoft SQL Server\\&quot;</span><br></pre></td></tr></table></figure></p>
+<p>安装即可，其中INSTALLSHAREDDIR为x64部件安装的路径，INSTALLSHAREDWOWDIR为x32部件安装的路径。</p>
+<p>切记不可使用默认的setup.exe就安装的方式，一旦进入安装完支持文件之后，就算你退出安装程序，运行上面的命令语句也无法改变安装路径！<br>如果已经安装了支持文件，你可以在控制面板尝试卸载清光SQL Server的任何有关项，但并不保证一定能行。</p>
+<blockquote>
+<p>（究其原因，我怀疑是微软在安装时先要复制安装支持文件，而这时使用的是默认的路径，因为之前根本没有设置路径这项。一旦完成就无法改变安装路径，不然会和支持文件的路径冲突，因此只能一条黑道走到底，而命令行安装时先指定路径，其实就是指定了复制支持文件的路径。）</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-08-04T05:41:33.030Z" itemprop="dateUpdated">2014-08-04 13:41:33</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/sqlserver-2008-install-error-when-change-install-path/" target="_blank" rel="external">http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL-Server/">SQL Server</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&title=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&title=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/note-for-download-nVelocity/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">下载nVelocity视图模板引擎的注意事项</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/windows-2008-update-error-80072ee2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">windows 2008 update 更新时出现 80072EE2 错误</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&title=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&title=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SQL Server 2008 修改安装路径后安装出错的解决方法》 — yaosansi's blog&url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/sqlserver-2008-install-error-when-change-install-path/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3aO44jMQwFwLn/pXfTAXZtv0dKRgelaODpj0qBxCb58xOPP7/G71/au15dk7wleeNw4OHh4S2m/u94f837iSb3Jr/kz/zPEuDh4eFd4yVb9n4fzic9mw8eHh7eM3ntFp8zXv2SB/R4eHh4z+e9n9bsLQkJDw8P7wm8/NGnQuo8mP5SrgUPDw8v5uWTfs7fV+p7eHh4eIc28TyAblMMeYPCbODh4eHd4M3ap2Ylq2QhNs1bL6/Ew8PDO8rLm5/a42FzDLRHwstlxcPDw/sKL2+HypdmVlRrD5gPlT08PDy8o7z25vy/s3arY6kQPDw8vGu8TdEruTdnX6za4eHh4V3mtUmHs21befEsqu/h4eHhXeMlRaYihRqzi+RCvNtH2RQ8PDy8EW8f7G7SCglvv9x4eHh4Z3l5+rWdbl7uapevKN3h4eHhXeDlm/sMfCoE3zQo4OHh4Z3lfXDHadZZ+JukJ5KnDXPAeHh4eAveZrRf/W2InLCjnjI8PDy8Q7xZqNo2VM0SGfugHA8PD+8GbzahWRtWHtC3yYiXb8TDw8O7wGtLU0nioC2qtUmNOj2Bh4eHd5Q3m+5si0/Sr7OULh4eHt43ebM2pjaV0B4SbaEumhseHh7eBV4bXreV+nwJ9uE7Hh4e3m1e2xzQbt95SjdvTTjWeoWHh4e34M3C4tlmPQvfZ01geHh4eN/h7dut9u0Fs1TFhywLHh4e3po323bbI6QFt0W1lzPBw8PDu8DLR9IK0Abc7fEwa2LAw8PDu8FrP+83gDz9MQvB8fDw8L7Ja3MYebJ1E0DPDjA8PDy8p/GSjX6T2J2F2lEfGR4eHt5jeJs2rNkzizAdDw8P7xovD4jbItls0jngwxzw8PDwLvCGH/nxMbB/5gEAHh4e3hneX4paDQF66JgdAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

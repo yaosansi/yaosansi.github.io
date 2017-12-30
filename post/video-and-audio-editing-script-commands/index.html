@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>常用的视频音频编辑脚本命令（mencoder/ffmpeg等) | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Video">
+    <meta name="description" content="原文：http://blog.sina.com.cn/s/blog_648dbb7c0100h69j.html 任务1： 延迟视频部分 （对avi文件有效）1mencoder -delay 0.7 -oac copy -ovc copy input.avi -o output.avi  解释：让视频轨比当前的音频轨落后0.7秒钟  任务2： 延迟音频部分（对avi文件有效）1mencoder -o">
+<meta name="keywords" content="Video">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的视频音频编辑脚本命令（mencoder&#x2F;ffmpeg等)">
+<meta property="og:url" content="http://www.yaosansi.com/post/video-and-audio-editing-script-commands/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="原文：http://blog.sina.com.cn/s/blog_648dbb7c0100h69j.html 任务1： 延迟视频部分 （对avi文件有效）1mencoder -delay 0.7 -oac copy -ovc copy input.avi -o output.avi  解释：让视频轨比当前的音频轨落后0.7秒钟  任务2： 延迟音频部分（对avi文件有效）1mencoder -o">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2014-07-28T03:14:14.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的视频音频编辑脚本命令（mencoder&#x2F;ffmpeg等)">
+<meta name="twitter:description" content="原文：http://blog.sina.com.cn/s/blog_648dbb7c0100h69j.html 任务1： 延迟视频部分 （对avi文件有效）1mencoder -delay 0.7 -oac copy -ovc copy input.avi -o output.avi  解释：让视频轨比当前的音频轨落后0.7秒钟  任务2： 延迟音频部分（对avi文件有效）1mencoder -o">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">常用的视频音频编辑脚本命令（mencoder/ffmpeg等)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">常用的视频音频编辑脚本命令（mencoder/ffmpeg等)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2012-09-04T04:36:16.000Z" itemprop="datePublished" class="page-time">
+  2012-09-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务1：-延迟视频部分-（对avi文件有效）"><span class="post-toc-number">1.</span> <span class="post-toc-text">任务1： 延迟视频部分 （对avi文件有效）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务2：-延迟音频部分（对avi文件有效）"><span class="post-toc-number">2.</span> <span class="post-toc-text">任务2： 延迟音频部分（对avi文件有效）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务3：切割视频轨"><span class="post-toc-number">3.</span> <span class="post-toc-text">任务3：切割视频轨</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务4：-连接两段视频-（必须比特率相同）"><span class="post-toc-number">4.</span> <span class="post-toc-text">任务4： 连接两段视频 （必须比特率相同）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务5：-将一系列静止图像和一个mp3文件转换为AVI视频文件"><span class="post-toc-number">5.</span> <span class="post-toc-text">任务5： 将一系列静止图像和一个mp3文件转换为AVI视频文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任务6：-切割mp3音频文件"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">任务6： 切割mp3音频文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务7：-将wma文件转换为mp3文件"><span class="post-toc-number">6.</span> <span class="post-toc-text">任务7： 将wma文件转换为mp3文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务8：-将一系列图像文件转换为flv视频文件"><span class="post-toc-number">7.</span> <span class="post-toc-text">任务8： 将一系列图像文件转换为flv视频文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务9：-将一系列图像文件转换为ogg视频文件"><span class="post-toc-number">8.</span> <span class="post-toc-text">任务9： 将一系列图像文件转换为ogg视频文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务10：-将一系列图像转化为与NTSC-DVD兼容的mpeg2格式文件。"><span class="post-toc-number">9.</span> <span class="post-toc-text">任务10： 将一系列图像转化为与NTSC DVD兼容的mpeg2格式文件。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务11：-将一系列图像文件转换为与PAL-DVD兼容的mpeg2格式视频文件"><span class="post-toc-number">10.</span> <span class="post-toc-text">任务11： 将一系列图像文件转换为与PAL DVD兼容的mpeg2格式视频文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务12：-将视频文件转换为一系列图像"><span class="post-toc-number">11.</span> <span class="post-toc-text">任务12： 将视频文件转换为一系列图像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务13：-将midi文件转换为mp3文件"><span class="post-toc-number">12.</span> <span class="post-toc-text">任务13： 将midi文件转换为mp3文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务14：-将一系列图像转换为swf格式的flash文件（需要perl"><span class="post-toc-number">13.</span> <span class="post-toc-text">任务14： 将一系列图像转换为swf格式的flash文件（需要perl)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#任务15：-将mp3文件转换为wma文件"><span class="post-toc-number">14.</span> <span class="post-toc-text">任务15： 将mp3文件转换为wma文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">15.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-video-and-audio-editing-script-commands"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">常用的视频音频编辑脚本命令（mencoder/ffmpeg等)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2012-09-04 12:36:16" datetime="2012-09-04T04:36:16.000Z"  itemprop="datePublished">2012-09-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文：<a href="http://blog.sina.com.cn/s/blog_648dbb7c0100h69j.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_648dbb7c0100h69j.html</a></p>
+<h2 id="任务1：-延迟视频部分-（对avi文件有效）"><a href="#任务1：-延迟视频部分-（对avi文件有效）" class="headerlink" title="任务1： 延迟视频部分 （对avi文件有效）"></a>任务1： 延迟视频部分 （对avi文件有效）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mencoder -delay 0.7 -oac copy -ovc copy input.avi -o output.avi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：让视频轨比当前的音频轨落后0.7秒钟</p>
+</blockquote>
+<h2 id="任务2：-延迟音频部分（对avi文件有效）"><a href="#任务2：-延迟音频部分（对avi文件有效）" class="headerlink" title="任务2： 延迟音频部分（对avi文件有效）"></a>任务2： 延迟音频部分（对avi文件有效）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mencoder -oac copy -ovc copy -audio-delay -0.7 input.avi -o output.avi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：让音频轨比当前的视频轨落后0.7秒钟</p>
+</blockquote>
+<h2 id="任务3：切割视频轨"><a href="#任务3：切割视频轨" class="headerlink" title="任务3：切割视频轨"></a>任务3：切割视频轨</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mencoder -ss 00:00:10 -endpos 60 -ovc copy -oac copy input.avi -o output.avi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：切割视频部分，从0分10秒开始，到1分10秒，时间长度为60秒。将结果存储为output.avi </p>
+</blockquote>
+<h2 id="任务4：-连接两段视频-（必须比特率相同）"><a href="#任务4：-连接两段视频-（必须比特率相同）" class="headerlink" title="任务4： 连接两段视频 （必须比特率相同）"></a>任务4： 连接两段视频 （必须比特率相同）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mencoder -oac copy -ovc copy -idx -o output.avi input1.avi input2.avi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：</p>
+</blockquote>
+<h2 id="任务5：-将一系列静止图像和一个mp3文件转换为AVI视频文件"><a href="#任务5：-将一系列静止图像和一个mp3文件转换为AVI视频文件" class="headerlink" title="任务5： 将一系列静止图像和一个mp3文件转换为AVI视频文件"></a>任务5： 将一系列静止图像和一个mp3文件转换为AVI视频文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mencoder &quot;mf://snap*.bmp&quot; -mf fps=25 -oac mp3lame -lameopts abr:br=128:mode=3 -audiofile test.mp3 -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=1:vbitrate=2560000:mbd=2:keyint=132:vqblur=1.0:cmp=2:subcmp=2:dia=2:mv0:last_pred=3 -o leadnull</span><br><span class="line"> </span><br><span class="line">mencoder &quot;mf://snap*.bmp&quot; -mf fps=25 -oac mp3lame -lameopts abr:br=128:mode=3 -audiofile test.mp3 -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=2:vbitrate=2560000:mbd=2:keyint=132:vqblur=1.0:cmp=2:subcmp=2:dia=2:mv0:last_pred=3 -o lead.avi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：mono=3 代表单声道音频输出， mono=0 代表立体声音频输出。上面使用的视频编码是微软的msmpeg4，因此这个AVI文件可以直接在Windows media player中播放，不需要另外安装插件。 上面两条命令，表示两遍压缩。 为提高速度，也可以只实用第一条做单次压缩。输出视频的fps为25。</p>
+</blockquote>
+<h3 id="任务6：-切割mp3音频文件"><a href="#任务6：-切割mp3音频文件" class="headerlink" title="任务6： 切割mp3音频文件"></a>任务6： 切割mp3音频文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mplayer -ss 00:01:59 -endpos 102.5 input.mp3 -ao pcm                     </span><br><span class="line">sox audiodump.wav result1.wav fade t 3                     </span><br><span class="line">sox result1.wav result2.wav fade t 0 102.5 3.5                     </span><br><span class="line">lame result2.wav -o fighting.mp3 -b 160</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：这个过程由四条命令组成。 上面的例子中，</p>
+</blockquote>
+<ul>
+<li><p>第一步：切割部分为 1分59秒开始，到3分41.5秒结束，长度102.5秒。用户需自己计算切割部分，设定上述参数。 </p>
+</li>
+<li><p>第二步：用sox对音频开头3秒钟做一个淡入效果（声音逐渐增强）</p>
+</li>
+<li>第三步：用sox对音频结束3.5秒钟做一个淡出效果（声音逐渐衰减）</li>
+<li>第四步：将lame处理好的音频重新编码成160kbps的mp3文件</li>
+</ul>
+<blockquote>
+<p>其中，第二、第三步是可以省略的。 </p>
+</blockquote>
+<h2 id="任务7：-将wma文件转换为mp3文件"><a href="#任务7：-将wma文件转换为mp3文件" class="headerlink" title="任务7： 将wma文件转换为mp3文件"></a>任务7： 将wma文件转换为mp3文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mplayer input.wma -ao pcm                   </span><br><span class="line">lame audiodump.wav -o output.mp3 -b 160</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：一共两条命令。第一条将wma转化为wav文件，第二条再将wav转换为mp3文件，比特率为160kbps. </p>
+</blockquote>
+<h2 id="任务8：-将一系列图像文件转换为flv视频文件"><a href="#任务8：-将一系列图像文件转换为flv视频文件" class="headerlink" title="任务8： 将一系列图像文件转换为flv视频文件"></a>任务8： 将一系列图像文件转换为flv视频文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mencoder &quot;mf://snap*.bmp&quot; -mf fps=25 -audiofile test.mp3 -o output.flv -af resample=22050:0:0 -sws 9 -vf scale=448:-3,expand=448:336 -of lavf -ovc lavc -lavcopts vcodec=flv:vbitrate=260:mbd=2:mv0:trell:v4mv:cbp:last_pred=3:predia=2:dia=2:vb_strategy=1:precmp=2:cmp=2:subcmp=2:preme=2:vpass=1</span><br><span class="line"></span><br><span class="line">mencoder &quot;mf://snap*.bmp&quot; -mf fps=25 -o output.flv -audiofile test.mp3 -af resample=22050:0:0 -sws 9 -vf scale=448:-3,expand=448:336 -of lavf -ovc lavc -lavcopts vcodec=flv:vbitrate=260:mbd=2:mv0:trell:v4mv:cbp:last_pred=3:predia=2:dia=2:vb_strategy=1:precmp=2:cmp=2:subcmp=2:preme=2:qns=2:vpass=2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：两遍压缩，将一系列snap001.bmp, snap002.bmp, …图像和一个mp3文件”test.mp3”转换成fps=25的录像。音频采样率设定为22050，视频画面大小为448x336, 视频的比特率为260kbps。 </p>
+</blockquote>
+<p>如果你希望更改视频中的keyframe, 你可以在第一条命令执行后，手动编辑一个divx2pass.log文件。文件中”Type:1”表示关键帧keyframe (或者叫i frame), “Type:2”表示p-frame,就是只记录相邻帧变化部分的帧。 </p>
+<h2 id="任务9：-将一系列图像文件转换为ogg视频文件"><a href="#任务9：-将一系列图像文件转换为ogg视频文件" class="headerlink" title="任务9： 将一系列图像文件转换为ogg视频文件"></a>任务9： 将一系列图像文件转换为ogg视频文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg2theora -f image2 snap%05d.bmp -V 320 -o output.ogg</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：ogg录像还是有点用的，wikipedia, wikimeida都在用。上面的视频比特率为320kbps</p>
+</blockquote>
+<h2 id="任务10：-将一系列图像转化为与NTSC-DVD兼容的mpeg2格式文件。"><a href="#任务10：-将一系列图像转化为与NTSC-DVD兼容的mpeg2格式文件。" class="headerlink" title="任务10： 将一系列图像转化为与NTSC DVD兼容的mpeg2格式文件。"></a>任务10： 将一系列图像转化为与NTSC DVD兼容的mpeg2格式文件。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd:tsaf -vf scale=720:480,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vpass=1:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=18:vstrict=0:acodec=ac3:abitrate=192:aspect=16/9 -ofps 30000/1001 -o ntscdvd.mpg &quot;mf://snap*.bmp&quot; -mf fps=25 -audiofile test.mp3                 </span><br><span class="line">                                   </span><br><span class="line">mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd:tsaf -vf scale=720:480,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vpass=2:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=18:vstrict=0:acodec=ac3:abitrate=192:aspect=16/9 -ofps 30000/1001 -o ntscdvd.mpg &quot;mf://snap*.bmp&quot; -mf fps=25 -audiofile test.mp3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：两遍压缩，输入图像帧率为25fps, 输出帧率为29.97fps,视频编码mpeg2, 音频编码192kbps ac3. </p>
+</blockquote>
+<h2 id="任务11：-将一系列图像文件转换为与PAL-DVD兼容的mpeg2格式视频文件"><a href="#任务11：-将一系列图像文件转换为与PAL-DVD兼容的mpeg2格式视频文件" class="headerlink" title="任务11： 将一系列图像文件转换为与PAL DVD兼容的mpeg2格式视频文件"></a>任务11： 将一系列图像文件转换为与PAL DVD兼容的mpeg2格式视频文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd:tsaf -vf scale=720:576,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vpass=1:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=15:vstrict=0:acodec=ac3:abitrate=192:aspect=16/9 -ofps 25 -o paldvd.mpg &quot;mf://snap*.bmp&quot; -mf fps=25 -audiofile test.mp3               </span><br><span class="line">                               </span><br><span class="line">mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd:tsaf -vf scale=720:576,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vpass=2:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=15:vstrict=0:acodec=ac3:abitrate=192:aspect=16/9 -ofps 25 -o paldvd.mpg &quot;mf://snap*.bmp&quot; -mf fps=25 -audiofile test.mp3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：两遍压缩，输入为snap001.jpg, snap002.jpg… 和test.mp3,图像系列的fps为25， 输出视频文件的fps为25. 视频编码为mpeg2, 音频编码为192kbps ac3. </p>
+</blockquote>
+<h2 id="任务12：-将视频文件转换为一系列图像"><a href="#任务12：-将视频文件转换为一系列图像" class="headerlink" title="任务12： 将视频文件转换为一系列图像"></a>任务12： 将视频文件转换为一系列图像</h2><p>用ffmpeg命令如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i test.avi snap%05d.bmp</span><br></pre></td></tr></table></figure></p>
+<p>也可以用mplayer完成同样功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mplayer video.avi -vo png -ss 00:00:10 -endpos 5.0 -vf crop=480:360:80:60</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>解释：这里mplayer的例子中，还提供了额外的切割选择功能。切割的部分从0分10秒开始，到0分15秒结束，长达5秒。同时画面也被切割，切割的位置从坐标(80,60)开始，宽度480像素，高度360像素。这里坐标系以屏幕左上角为(0,0). </p>
+</blockquote>
+<h2 id="任务13：-将midi文件转换为mp3文件"><a href="#任务13：-将midi文件转换为mp3文件" class="headerlink" title="任务13： 将midi文件转换为mp3文件"></a>任务13： 将midi文件转换为mp3文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">timidity input.mid -Ow               </span><br><span class="line">lame -b 160 -h -k input.wav output.mp3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：第一条命令使用timidity将midi转换为wav文件，第二条命令用lame将wav转换为160kbps mp3文件。 </p>
+</blockquote>
+<p>timidity配置和安装还是比较麻烦的。还需要额外安装高品质的sf2声音字体文件，配置sf2文件也异常容易出错。总体效果还可以接受。但无法使用目前流行的vst，因此可能会被慢慢淘汰掉。 </p>
+<h2 id="任务14：-将一系列图像转换为swf格式的flash文件（需要perl"><a href="#任务14：-将一系列图像转换为swf格式的flash文件（需要perl" class="headerlink" title="任务14： 将一系列图像转换为swf格式的flash文件（需要perl)"></a>任务14： 将一系列图像转换为swf格式的flash文件（需要perl)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flv2swf input.flv output.swf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：有时候可能用swf来保存视频比flv更方便。如果图像数量不多的话，可以采用swftools来进行转换 </p>
+</blockquote>
+<p>如果图像数量很多的话，首先我们用任务8中的命令将图像转换为一个flv文件。然后我们可以用adobe的各种软件很轻松的将flv录像加入一个flash项目里，最后输出为swf. 如果你熟悉perl的话，也可以用一个perl脚本将flv文件转换成swf. CPAN(Perl公共模块库）有一个FLV::info的模块，安装后就可以使用flv2swf命令了。</p>
+<h2 id="任务15：-将mp3文件转换为wma文件"><a href="#任务15：-将mp3文件转换为wma文件" class="headerlink" title="任务15： 将mp3文件转换为wma文件"></a>任务15： 将mp3文件转换为wma文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mplayer input.mp3 -ao pcm             </span><br><span class="line">ffmpeg -i audiodump.wav -acodec wmav2 -ab 128000 test.wma1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释：偶尔也需要这个功能的。第一步，将mp3文件转换为wav文件，第二步用ffmpeg将wav文件转换为wma. </p>
+</blockquote>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>上述命令基本上是参考了mplayer的用户手册，videohelp.com的论坛帖子写的。</p>
+<ul>
+<li><a href="http://www.mplayerhq.hu/DOCS/HTML/en/encoding-guide.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/DOCS/HTML/en/encoding-guide.html</a></li>
+<li><a href="http://forum.videohelp.com/" target="_blank" rel="noopener">http://forum.videohelp.com/</a></li>
+<li>mencoder的Windows binary: <a href="http://oss.netfarm.it/mplayer-win32.php" target="_blank" rel="noopener">http://oss.netfarm.it/mplayer-win32.php</a></li>
+<li>ffmpeg的Windows binary: <a href="http://ffmpeg.arrozcru.org/builds/" target="_blank" rel="noopener">http://ffmpeg.arrozcru.org/builds/</a></li>
+<li>lame的Windows binary: <a href="http://lame.sourceforge.net/links.php" target="_blank" rel="noopener">http://lame.sourceforge.net/links.php</a></li>
+<li>sox: <a href="http://sox.sourceforge.net/" target="_blank" rel="noopener">http://sox.sourceforge.net/</a></li>
+<li>ffmpeg2theora: <a href="http://v2v.cc/~j/ffmpeg2theora/" target="_blank" rel="noopener">http://v2v.cc/~j/ffmpeg2theora/</a></li>
+<li>cpan: <a href="http://search.cpan.org/dist/FLV-Info/" target="_blank" rel="noopener">http://search.cpan.org/dist/FLV-Info/</a></li>
+<li>Active perl的Windows版本：<a href="http://www.activestate.com/activeperl/" target="_blank" rel="noopener">http://www.activestate.com/activeperl/</a></li>
+</ul>
+<p>上述软件被广泛使用，其源代码部分没有什么问题, 但因为专利和版权的问题，公布其Windows的二进制可执行文件则可能触犯了一些国家的法律，目前合法性这个问题还比较模糊。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-07-28T03:14:14.027Z" itemprop="dateUpdated">2014-07-28 11:14:14</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/video-and-audio-editing-script-commands/" target="_blank" rel="external">http://www.yaosansi.com/post/video-and-audio-editing-script-commands/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Video/">Video</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&title=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&title=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/get-path-from-bat-and-shell/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">批处理和Shell中获取当前路径</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/python-operator-and-or/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Python三目运算，and or陷阱及相应的解决办法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&title=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&title=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用的视频音频编辑脚本命令（mencoder/ffmpeg等)》 — yaosansi's blog&url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/video-and-audio-editing-script-commands/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqklEQVR42u3aS07DQBAFQO5/6SCxjp3XnwkBlVeICM+Ukdyd1/P1FV+Pn+vqN4+L6/5uyT3v97B24eHh4bW2fr/Fq98k27q/w/3jSPbz4j54eHh4x3j3xaC6QFIe8iJUfYh4eHh4n8Or4iclAQ8PD+//8XqxQtK44+Hh4f0VXr5w0jr3ikqv2KxlLXh4eHib+UAU2r7z54PzPTw8PLzBVD1/ZefLX/1VtVREu8XDw8M7wEtuVy0S1QdR/bR6kAsPDw9vlzcvDMmLfnJAIfk3XN4TDw8P7wAvb4ir4MlBrt7qUfXDw8PDG/MWvuoXX9/5oKtXWp7UPTw8PLxV3nzQlS+zkJq02ms8PDy8XV7eBFcPZm1tPf80mu/h4eHhLfEmg/98yTy2iLae7BMPDw/vAC+PWfMtbmEm0UbhGwMeHh5ei1cNTKtHCnqHDNaCXTw8PLxV3lYSXG2Ce3FGXmDw8PDwzvGSoLYa7ObjtMkjK5QQPDw8vMO8eQhbvZLtVo8y4OHh4Z3j5V/78/C0Gj3k4W85+MDDw8M7wKuOrKqbrjbTvTDiRbnCw8PDO8BLmtTqmD//tFoqkgYdDw8P7z283ku8cJ4rHn3lK+Lh4eG9n9eLaKuNbxIinDiygIeHh3eCVz04NTk+1TsKkJeHQhiBh4eHN+BNxv896hY7GrPh4eHhvZGXD+l3m+k8mIjYeHh4eAd41YZ1Ph7b+qs8HMHDw8Pb5T2K126UkLfO1Zb9Sd3Dw8PDW+L1oodq0DBZvrcWHh4e3mleUgyScKH3RJN1R0cK8PDw8I7xtuLU/CDUPPCNAgs8PDy8X+XljXUC7oXIScuOh4eH92m8yYGqyas/30+zpcbDw8Mr8uZhRPWIQDX8zR8iHh4e3mneZBC1FUxUec05Hh4eHt6U9w2VNJxxC4leQQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

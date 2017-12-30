@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Memcached在windows下安装与使用 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Memcached">
+    <meta name="description" content="建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。本文最后更新于：2014-08-03 18:24原文：http://www.yaosansi.com/post/memcached-on-windows ##Memcached介绍 Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的">
+<meta name="keywords" content="Memcached">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Memcached在windows下安装与使用">
+<meta property="og:url" content="http://www.yaosansi.com/post/memcached-on-windows/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。本文最后更新于：2014-08-03 18:24原文：http://www.yaosansi.com/post/memcached-on-windows ##Memcached介绍 Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-20T06:19:17.636Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Memcached在windows下安装与使用">
+<meta name="twitter:description" content="建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。本文最后更新于：2014-08-03 18:24原文：http://www.yaosansi.com/post/memcached-on-windows ##Memcached介绍 Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Memcached在windows下安装与使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Memcached在windows下安装与使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-08-03T10:24:44.000Z" itemprop="datePublished" class="page-time">
+  2014-08-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ubuntu-amp-Debian"><span class="post-toc-number">1.</span> <span class="post-toc-text">Ubuntu &amp; Debian</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Redhat-Fedora"><span class="post-toc-number">2.</span> <span class="post-toc-text">Redhat/Fedora</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FreeBSD"><span class="post-toc-number">3.</span> <span class="post-toc-text">FreeBSD</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number"></span> <span class="post-toc-text">参考</span></a>
+        </nav>
+    </aside>
+    
+<article id="post-memcached-on-windows"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Memcached在windows下安装与使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-08-03 18:24:44" datetime="2014-08-03T10:24:44.000Z"  itemprop="datePublished">2014-08-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。</code><br><code>本文最后更新于：2014-08-03 18:24</code><br><code>原文：http://www.yaosansi.com/post/memcached-on-windows</code></p>
+<p>##Memcached介绍</p>
+<blockquote><p>Memcached 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提供动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程（daemon ）是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信。但是它并不提供冗余（例如，复制其hashmap条目）；当某个服务器S停止运行或崩溃了，所有存放在S上的键/值对都将丢失。</p>
+<footer><strong>百度百科</strong><cite><a href="http://baike.baidu.com/view/794242.htm" target="_blank" rel="noopener">baike.baidu.com/view/794242.htm</a></cite></footer></blockquote>
+<a id="more"></a>
+<p>Memcached官方： <a href="http://memcached.org/" target="_blank" rel="noopener">http://memcached.org/</a></p>
+<p>##Windows版本下载与安装</p>
+<p>###下载地址<br><a href="http://s3.amazonaws.com/downloads.northscale.com/memcached-win32-1.4.4-14.zip" target="_blank" rel="noopener">memcached 1.4.4 for Windows 32-bit</a></p>
+<p>###安装Memcache为系统服务</p>
+<ol>
+<li>下载memcached的windows稳定版，解压放某个盘下面，比如在<code>c:\memcached</code></li>
+<li>在CMD下输入 “<code>c:\memcached\memcached.exe -d install</code>“ 安装.</li>
+<li>再输入：”<code>c:\memcached\memcached.exe -d start</code>“ 启动。</li>
+</ol>
+<blockquote>
+<p>NOTE:<br>也可以不安装直接启动<br>以后memcached将作为windows的一个服务每次开机时自动启动。这样服务器端已经安装完毕了。</p>
+</blockquote>
+<p>如果下载的是二进制的版本，直接运行就可以了，可以加上参数来加以设置。</p>
+<p>###常用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-p &lt;num&gt;          监听的端口</span><br><span class="line">-l &lt;ip_addr&gt;      连接的IP地址, 默认是本机</span><br><span class="line">-d start          启动memcached服务</span><br><span class="line">-d restart        重起memcached服务</span><br><span class="line">-d stop|shutdown  关闭正在运行的memcached服务</span><br><span class="line">-d install        安装memcached服务</span><br><span class="line">-d uninstall      卸载memcached服务</span><br><span class="line">-u &lt;username&gt;     以&lt;username&gt;的身份运行 (仅在以root运行的时候有效)</span><br><span class="line">-m &lt;num&gt;          最大内存使用，单位MB。默认64MB</span><br><span class="line">-M                内存耗尽时返回错误，而不是删除项</span><br><span class="line">-c &lt;num&gt;          最大同时连接数，默认是1024</span><br><span class="line">-f &lt;factor&gt;       块大小增长因子，默认是1.25</span><br><span class="line">-n &lt;bytes&gt;        最小分配空间，key+value+flags默认是48</span><br><span class="line">-h                显示帮助</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以用.net 的memcached客户端来试一下了。</p>
+<p>##客户端使用</p>
+<p>###C#下可用的library</p>
+<blockquote>
+<p>每个客户端API中都有详细的说明和注释</p>
+</blockquote>
+<ul>
+<li><strong>.NET memcached client library</strong> <a href="https://sourceforge.net/projects/memcacheddotnet/" target="_blank" rel="noopener">https://sourceforge.net/projects/memcacheddotnet/</a></li>
+<li><strong>EnyimMemcached</strong> <a href="http://www.codeplex.com/EnyimMemcached/" target="_blank" rel="noopener">http://www.codeplex.com/EnyimMemcached/</a> - Client developed in .NET 2.0 keeping performance and extensibility inmind. (Supports consistent hashing.) </li>
+<li><strong>beitmemcached</strong> h.NET memcached client library <a href="http://code.google.com/p/beitmemcached/" target="_blank" rel="noopener">http://code.google.com/p/beitmemcached/</a> - Client developed by BeIT with many new features</li>
+</ul>
+<blockquote>
+<p>博客园使用的组合为： <code>couchbase+EnyimMemcached</code>  <a href="http://www.couchbase.com/" target="_blank" rel="noopener">http://www.couchbase.com/</a></p>
+</blockquote>
+<p>###一致性hash算法</p>
+<ul>
+<li><a href="http://blog.csdn.net/kongqz/article/details/6695417" target="_blank" rel="noopener">memcache的一致性hash算法使用</a></li>
+</ul>
+<figure class="highlight csharp"><figcaption><span>.NET实现（注释参考JAVA版本）</span><a href="http://www.cnblogs.com/daizhj/archive/2010/08/24/1807324.html" target="_blank" rel="noopener">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">KetamaNodeLocator</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//原文中的JAVA类TreeMap实现了Comparator方法，这里我图省事，直接用了net下的SortedList，其中Comparer接口方法）</span></span><br><span class="line">    <span class="keyword">private</span> SortedList&lt;<span class="keyword">long</span>, <span class="keyword">string</span>&gt; ketamaNodes = <span class="keyword">new</span> SortedList&lt;<span class="keyword">long</span>, <span class="keyword">string</span>&gt;();</span><br><span class="line">    <span class="keyword">private</span> HashAlgorithm hashAlg;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> numReps = <span class="number">160</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//此处参数与JAVA版中有区别，因为使用的静态方法，所以不再传递HashAlgorithm alg参数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">KetamaNodeLocator</span>(<span class="params">List&lt;<span class="keyword">string</span>&gt; nodes, <span class="keyword">int</span> nodeCopies</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ketamaNodes = <span class="keyword">new</span> SortedList&lt;<span class="keyword">long</span>, <span class="keyword">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">        numReps = nodeCopies;</span><br><span class="line">        <span class="comment">//对所有节点，生成nCopies个虚拟结点</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">string</span> node <span class="keyword">in</span> nodes)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//每四个虚拟结点为一组</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numReps / <span class="number">4</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//getKeyForNode方法为这组虚拟结点得到惟一名称 </span></span><br><span class="line">                <span class="keyword">byte</span>[] digest = HashAlgorithm.computeMd5(node + i);</span><br><span class="line">                <span class="comment">/** Md5是一个16字节长度的数组，将16字节的数组每四个字节一组，分别对应一个虚拟结点，这就是为什么上面把虚拟结点四个划分一组的原因*/</span>  </span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> h = <span class="number">0</span>; h &lt; <span class="number">4</span>; h++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">long</span> m = HashAlgorithm.hash(digest, h);</span><br><span class="line">                    ketamaNodes[m] = node;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">GetPrimary</span>(<span class="params"><span class="keyword">string</span> k</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] digest = HashAlgorithm.computeMd5(k);</span><br><span class="line">        <span class="keyword">string</span> rv = GetNodeForKey(HashAlgorithm.hash(digest, <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">return</span> rv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">string</span> <span class="title">GetNodeForKey</span>(<span class="params"><span class="keyword">long</span> hash</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">string</span> rv;</span><br><span class="line">        <span class="keyword">long</span> key = hash;</span><br><span class="line">        <span class="comment">//如果找到这个节点，直接取节点，返回   </span></span><br><span class="line">        <span class="keyword">if</span> (!ketamaNodes.ContainsKey(key))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//得到大于当前key的那个子Map，然后从中取出第一个key，就是大于且离它最近的那个key 说明详见: http://www.javaeye.com/topic/684087</span></span><br><span class="line">            <span class="keyword">var</span> tailMap = <span class="keyword">from</span> coll <span class="keyword">in</span> ketamaNodes</span><br><span class="line">                          <span class="keyword">where</span> coll.Key &gt; hash</span><br><span class="line">                          <span class="keyword">select</span> <span class="keyword">new</span> &#123; coll.Key &#125;;</span><br><span class="line">            <span class="keyword">if</span> (tailMap == <span class="literal">null</span> || tailMap.Count() == <span class="number">0</span>)</span><br><span class="line">                key = ketamaNodes.FirstOrDefault().Key;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                key = tailMap.FirstOrDefault().Key;</span><br><span class="line">        &#125;</span><br><span class="line">        rv = ketamaNodes[key];</span><br><span class="line">        <span class="keyword">return</span> rv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的代码与JAVA中有所不同，它使用静态方法实现</p>
+<figure class="highlight csharp"><figcaption><span>静态方法实现</span><a href="http://www.cnblogs.com/daizhj/archive/2010/08/24/1807324.html" target="_blank" rel="noopener">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">HashAlgorithm</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">hash</span>(<span class="params"><span class="keyword">byte</span>[] digest, <span class="keyword">int</span> nTime</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> rv = ((<span class="keyword">long</span>)(digest[<span class="number">3</span> + nTime * <span class="number">4</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">24</span>)</span><br><span class="line">                | ((<span class="keyword">long</span>)(digest[<span class="number">2</span> + nTime * <span class="number">4</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((<span class="keyword">long</span>)(digest[<span class="number">1</span> + nTime * <span class="number">4</span>] &amp; <span class="number">0xFF</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">                | ((<span class="keyword">long</span>)digest[<span class="number">0</span> + nTime * <span class="number">4</span>] &amp; <span class="number">0xFF</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rv &amp; <span class="number">0xffffffff</span>L; <span class="comment">/* Truncate to 32-bits */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get the md5 of the given key.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] <span class="title">computeMd5</span>(<span class="params"><span class="keyword">string</span> k</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        MD5 md5 = <span class="keyword">new</span> MD5CryptoServiceProvider();</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">byte</span>[] keyBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(k));</span><br><span class="line">        md5.Clear();</span><br><span class="line">        <span class="comment">//md5.update(keyBytes);</span></span><br><span class="line">        <span class="comment">//return md5.digest();</span></span><br><span class="line">        <span class="keyword">return</span> keyBytes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##Linux系统安装memcached</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://memcached.org/latest</span><br><span class="line">tar -zxvf memcached-1.x.x.tar.gz</span><br><span class="line"><span class="built_in">cd</span> memcached-1.x.x</span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/memcached</span><br><span class="line">make &amp;&amp; make <span class="built_in">test</span></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="Ubuntu-amp-Debian"><a href="#Ubuntu-amp-Debian" class="headerlink" title="Ubuntu &amp; Debian"></a>Ubuntu &amp; Debian</h3><p><code>apt-get install memcached</code></p>
+<h3 id="Redhat-Fedora"><a href="#Redhat-Fedora" class="headerlink" title="Redhat/Fedora"></a>Redhat/Fedora</h3><p><code>yum install memcached</code></p>
+<h3 id="FreeBSD"><a href="#FreeBSD" class="headerlink" title="FreeBSD"></a>FreeBSD</h3><p><code>portmaster databases/memcached</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>memcached官方 <a href="http://www.memcached.org/" target="_blank" rel="noopener">http://www.memcached.org/</a></li>
+<li><a href="https://code.google.com/p/memcached/" target="_blank" rel="noopener">https://code.google.com/p/memcached/</a></li>
+<li><a href="http://www.cnblogs.com/luluping/archive/2009/01/14/1375456.html" target="_blank" rel="noopener">Memcached深度分析</a></li>
+<li>一致性Hash算法(KetamaHash)的c#实现 <a href="http://www.cnblogs.com/daizhj/archive/2010/08/24/1807324.html" target="_blank" rel="noopener">http://www.cnblogs.com/daizhj/archive/2010/08/24/1807324.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-20T06:19:17.636Z" itemprop="dateUpdated">2015-04-20 14:19:17</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/memcached-on-windows/" target="_blank" rel="external">http://www.yaosansi.com/post/memcached-on-windows/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Memcached/">Memcached</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/memcached-on-windows/&title=《Memcached在windows下安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/memcached-on-windows/&title=《Memcached在windows下安装与使用》 — yaosansi's blog&source=建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。本文最后更新于：2014-08-03 18:24原文：http://www...." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/memcached-on-windows/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Memcached在windows下安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/memcached-on-windows/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/memcached-on-windows/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/redis-on-windows/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Redis在windows下安装与使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/markdown-on-github/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">GitHub上Markdown基本使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/memcached-on-windows/&title=《Memcached在windows下安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/memcached-on-windows/&title=《Memcached在windows下安装与使用》 — yaosansi's blog&source=建议：windows系统下仅为测试所有，生产环境下服务端应使用Linux系统。本文最后更新于：2014-08-03 18:24原文：http://www...." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/memcached-on-windows/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Memcached在windows下安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/memcached-on-windows/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/memcached-on-windows/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aS27DMAwFwNz/0um2QBP5kVKCWhqvgtiwNVoQ/OjxiK/nr+vvP+/+n3nn4xMXBgbGbRnP4ZU/01t0vikX38XAwDiA8e7D49/jBY1JOW/8BgwMDIzx0seBMgmm1S3DwMDAmGGswmNgYGDMFLHlV//PWhwDA+OGjLxZ9v3fH5lvYGBg3IrxLF55klcNl3mQffEeDAyMrRl5gEs+nw8Axuldcz0YGBgHMMYv7TXRegcymtuHgYGxKSNv0FeryPEW9Jb79i4GBsYBjF7QrI4bq3cLW4mBgXEMYx45H17zIyAvuoYYGBibMnpN/ItEbaJhtyz4YmBgbMdYe0iiGoiXHUTDwMDYmpGng73ELo/61TYcBgbGyYxqAlcdW+YjhEL5ioGBsSljZgDQa5YlobxcMGNgYBzDyBfRSwHny9TozAgGBsZ2jOT2N4eXvWEDBgbGOYzqIuYPkCXbVx4GYGBgbMrohbyZ4rOaPublLgYGxq6Mapu+N9rMg3gOKKeGGBgYWzByUhVWHWqWe/4YGBjHMJLkr9oymzkolm83BgbGroz5pv8nUsZlSSEGBsYWjF6wS0rQPHDPPF/GYGBg3JaRB9lq6pY076rtPAwMjJMZvcA3/vyyyWoyOsXAwMCYKCBXHQu7aNJhYGBgxAPIPMWsBtmLjcDAwDiAUU3pxo22+ZK13P7DwMDYmtErHaujgjz4VoedGBgYWzN+AFiG0T9p+WahAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

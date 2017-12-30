@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>GitHub上Markdown基本使用 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="GitHub,MarkDown">
+    <meta name="description" content="本文最后更新于：2014-08-01 12:44:50原文：http://www.yaosansi.com/post/markdown-on-github/ 目录 基本写作1.1 段落1.2 标题1.3 引用1.4 粗体和斜体1.5 删除线 列表2.1 无序列表2.1 有序列表2.3 嵌套列表 代码格式化3.1 单行格式化3.2 多行格式化 链接和图片4.1 链接4.2 图片 GitHub扩展语法">
+<meta name="keywords" content="GitHub,MarkDown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub上Markdown基本使用">
+<meta property="og:url" content="http://www.yaosansi.com/post/markdown-on-github/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2014-08-01 12:44:50原文：http://www.yaosansi.com/post/markdown-on-github/ 目录 基本写作1.1 段落1.2 标题1.3 引用1.4 粗体和斜体1.5 删除线 列表2.1 无序列表2.1 有序列表2.3 嵌套列表 代码格式化3.1 单行格式化3.2 多行格式化 链接和图片4.1 链接4.2 图片 GitHub扩展语法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.baidu.com/img/baidu_sylogo1.gif">
+<meta property="og:updated_time" content="2014-08-04T05:41:33.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub上Markdown基本使用">
+<meta name="twitter:description" content="本文最后更新于：2014-08-01 12:44:50原文：http://www.yaosansi.com/post/markdown-on-github/ 目录 基本写作1.1 段落1.2 标题1.3 引用1.4 粗体和斜体1.5 删除线 列表2.1 无序列表2.1 有序列表2.3 嵌套列表 代码格式化3.1 单行格式化3.2 多行格式化 链接和图片4.1 链接4.2 图片 GitHub扩展语法">
+<meta name="twitter:image" content="http://www.baidu.com/img/baidu_sylogo1.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">GitHub上Markdown基本使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">GitHub上Markdown基本使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-08-01T04:44:50.000Z" itemprop="datePublished" class="page-time">
+  2014-08-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#目录"><span class="post-toc-number">1.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Markdown基础"><span class="post-toc-number">2.</span> <span class="post-toc-text">Markdown基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-基本写作"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1. 基本写作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-段落"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">1.1 段落</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-标题"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">1.2 标题</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#这是标题一"><span class="post-toc-number">3.</span> <span class="post-toc-text">这是标题一</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#这是标题二"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">这是标题二</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#这是标题六"><span class="post-toc-number">3.1.0.0.0.1.</span> <span class="post-toc-text">这是标题六</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-引用"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">1.3 引用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-粗体和斜体"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">1.4 粗体和斜体</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-5-删除线"><span class="post-toc-number">3.1.3.</span> <span class="post-toc-text">1.5 删除线</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-列表"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2. 列表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-无序列表"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">2.1 无序列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2-有序列表"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">2.2 有序列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-3-嵌套列表"><span class="post-toc-number">3.2.3.</span> <span class="post-toc-text">2.3 嵌套列表</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-代码格式化"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3. 代码格式化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-单行格式化"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">3.1 单行格式化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-多行格式化"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">3.2 多行格式化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-链接和图片"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">4. 链接和图片</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-图片"><span class="post-toc-number">3.4.1.</span> <span class="post-toc-text">4.2 图片</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-GitHub扩展语法"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">5. GitHub扩展语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-1-语法高亮"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">5.1 语法高亮</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-2-任务列表"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">5.2 任务列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-3-表格"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">5.3 表格</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-4-Emoji表情"><span class="post-toc-number">3.5.4.</span> <span class="post-toc-text">5.4 Emoji表情</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-其它"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">6. 其它</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-1-转义字符"><span class="post-toc-number">3.6.1.</span> <span class="post-toc-text">6.1 转义字符</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-markdown-on-github"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">GitHub上Markdown基本使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-08-01 12:44:50" datetime="2014-08-01T04:44:50.000Z"  itemprop="datePublished">2014-08-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2014-08-01 12:44:50</code><br><code>原文：http://www.yaosansi.com/post/markdown-on-github/</code></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#1-_基本写作">基本写作</a><br>1.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#1-1_段落">段落</a><br>1.2 <a href="http://www.yaosansi.com/post/markdown-on-github/#1-2_标题">标题</a><br>1.3 <a href="http://www.yaosansi.com/post/markdown-on-github/#1-3_引用">引用</a><br>1.4 <a href="http://www.yaosansi.com/post/markdown-on-github/#1-4_粗体和斜体">粗体和斜体</a><br>1.5 <a href="http://www.yaosansi.com/post/markdown-on-github/#1-5_删除线">删除线</a></li>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#2-_列表">列表</a><br>2.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#2-1_无序列表">无序列表</a><br>2.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#2-2_有序列表">有序列表</a><br>2.3 <a href="http://www.yaosansi.com/post/markdown-on-github/#2-3_嵌套列表">嵌套列表</a></li>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#3-_代码格式化">代码格式化</a><br>3.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#3-1_单行格式化">单行格式化</a><br>3.2 <a href="http://www.yaosansi.com/post/markdown-on-github/#3-_2单行格式化">多行格式化</a></li>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#4-_链接和图片">链接和图片</a><br>4.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#4-_链接">链接</a><br>4.2 <a href="http://www.yaosansi.com/post/markdown-on-github/#4-_图片">图片</a></li>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#5-_GitHub扩展语法">GitHub扩展语法</a><br>5.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#5-1_语法高亮">语法高亮</a><br>5.2 <a href="http://www.yaosansi.com/post/markdown-on-github/#5-2_任务列表">任务列表</a><br>5.3 <a href="http://www.yaosansi.com/post/markdown-on-github/#5-3_表格">表格</a></li>
+<li><a href="http://www.yaosansi.com/post/markdown-on-github/#6-_其它">其它</a><br>6.1 <a href="http://www.yaosansi.com/post/markdown-on-github/#6-1_转义字符">转义字符</a></li>
+</ol>
+<a id="more"></a>
+<p>[TOC]</p>
+<!--- This is very useful for collecting feedback in a collaborative document. -->
+<h1 id="Markdown基础"><a href="#Markdown基础" class="headerlink" title="Markdown基础"></a>Markdown基础</h1><h2 id="1-基本写作"><a href="#1-基本写作" class="headerlink" title="1. 基本写作"></a>1. 基本写作</h2><h3 id="1-1-段落"><a href="#1-1-段落" class="headerlink" title="1.1 段落"></a>1.1 段落</h3><p>段落在Markdown中由一行或多行的空白行组成.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这是段落一. 这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.</span><br><span class="line"></span><br><span class="line">这是段落二.这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二.</span><br></pre></td></tr></table></figure>
+<p>这是段落一. 这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.这是段落一.</p>
+<p>这是段落二.这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. 这是段落二. </p>
+<h3 id="1-2-标题"><a href="#1-2-标题" class="headerlink" title="1.2 标题"></a>1.2 标题</h3><p>在标题文字前面加一个或多个#符号,此行文字即为一行标题.#符号的数量决定标题的大小.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 这是标题一 (&lt;h1&gt;)</span><br><span class="line">## 这是标题二 (&lt;h2&gt;)</span><br><span class="line">...</span><br><span class="line">###### 这是标题六(&lt;h6&gt;)</span><br></pre></td></tr></table></figure>
+<h1 id="这是标题一"><a href="#这是标题一" class="headerlink" title="这是标题一"></a>这是标题一</h1><h2 id="这是标题二"><a href="#这是标题二" class="headerlink" title="这是标题二"></a>这是标题二</h2><p>…</p>
+<h6 id="这是标题六"><a href="#这是标题六" class="headerlink" title="这是标题六"></a>这是标题六</h6><h3 id="1-3-引用"><a href="#1-3-引用" class="headerlink" title="1.3 引用"></a>1.3 引用</h3><p>引用以&gt;符号开始<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">下面就是引用</span><br><span class="line">&gt; 这里是引用</span><br></pre></td></tr></table></figure></p>
+<p>下面就是引用</p>
+<blockquote>
+<p>这里是引用</p>
+</blockquote>
+<h3 id="1-4-粗体和斜体"><a href="#1-4-粗体和斜体" class="headerlink" title="1.4 粗体和斜体"></a>1.4 粗体和斜体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*这是斜体*</span><br><span class="line">**这是粗体**</span><br></pre></td></tr></table></figure>
+<p><em>这是斜体</em><br><strong>这是粗体</strong></p>
+<blockquote>
+<p>也可使用下划线(<code>_</code>)代替(<code>*</code>)号</p>
+</blockquote>
+<h3 id="1-5-删除线"><a href="#1-5-删除线" class="headerlink" title="1.5 删除线"></a>1.5 删除线</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~这是删除线~~</span><br></pre></td></tr></table></figure>
+<p><del>这是删除线</del></p>
+<h2 id="2-列表"><a href="#2-列表" class="headerlink" title="2. 列表"></a>2. 列表</h2><h3 id="2-1-无序列表"><a href="#2-1-无序列表" class="headerlink" title="2.1 无序列表"></a>2.1 无序列表</h3><p>可以在每个列表项前加星号(<code>*</code>)或横线(<code>-</code>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* 项目一</span><br><span class="line">* 项目二</span><br><span class="line">* 项目三</span><br><span class="line"></span><br><span class="line">- 项目一</span><br><span class="line">- 项目二</span><br><span class="line">- 项目三</span><br></pre></td></tr></table></figure>
+<ul>
+<li>项目一</li>
+<li>项目二</li>
+<li>项目三</li>
+</ul>
+<ul>
+<li>项目一</li>
+<li>项目二</li>
+<li>项目三</li>
+</ul>
+<h3 id="2-2-有序列表"><a href="#2-2-有序列表" class="headerlink" title="2.2 有序列表"></a>2.2 有序列表</h3><p>在每个项目前增加数字和句点(<code>英文</code>)即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 项目一</span><br><span class="line">2. 项目二</span><br><span class="line">3. 项目三</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>项目一</li>
+<li>项目二</li>
+<li>项目三</li>
+</ol>
+<h3 id="2-3-嵌套列表"><a href="#2-3-嵌套列表" class="headerlink" title="2.3 嵌套列表"></a>2.3 嵌套列表</h3><p>在每个项目前增加两个空格缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1. 项目一</span><br><span class="line">  1. 嵌套有序列表项目一</span><br><span class="line">  2. 嵌套有序列表项目二</span><br><span class="line">    - 嵌套无序列表项目一</span><br><span class="line">    - 嵌套无序列表项目二</span><br><span class="line">    - 嵌套无序列表项目三</span><br><span class="line">      1. 多级嵌套有序列表项目一</span><br><span class="line">      2. 多级嵌套有序列表项目二</span><br><span class="line">        - 嵌套无序列表项目一</span><br><span class="line">        - 嵌套无序列表项目二</span><br><span class="line">        - 嵌套无序列表项目三</span><br><span class="line">2. 项目二</span><br><span class="line">3. 项目三</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>项目一<ol>
+<li>嵌套有序列表项目一</li>
+<li>嵌套有序列表项目二<ul>
+<li>嵌套无序列表项目一</li>
+<li>嵌套无序列表项目二</li>
+<li>嵌套无序列表项目三</li>
+</ul>
+<ol>
+<li>多级嵌套有序列表项目一</li>
+<li>多级嵌套有序列表项目二<ul>
+<li>嵌套无序列表项目一</li>
+<li>嵌套无序列表项目二</li>
+<li>嵌套无序列表项目三</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>项目二</li>
+<li>项目三</li>
+</ol>
+<h2 id="3-代码格式化"><a href="#3-代码格式化" class="headerlink" title="3. 代码格式化"></a>3. 代码格式化</h2><h3 id="3-1-单行格式化"><a href="#3-1-单行格式化" class="headerlink" title="3.1 单行格式化"></a>3.1 单行格式化</h3><p>使用反引号（```）作为单行代码的引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Here&apos;s an idea: why don&apos;t we take `SuperiorProject` and turn it into `**Reasonable**Project`.</span><br></pre></td></tr></table></figure>
+<p>Here’s an idea: why don’t we take <code>SuperiorProject</code> and turn it into <code>**Reasonable**Project</code>.</p>
+<h3 id="3-2-多行格式化"><a href="#3-2-多行格式化" class="headerlink" title="3.2 多行格式化"></a>3.2 多行格式化</h3><p>使用三个反引号（```）作为多行代码的引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Check out this neat program I wrote:</span><br><span class="line">` ` `</span><br><span class="line">x = 0</span><br><span class="line">x = 2 + 2</span><br><span class="line">what is x</span><br><span class="line">` ` `</span><br></pre></td></tr></table></figure>
+<p>Check out this neat program I wrote:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = 0</span><br><span class="line">x = 2 + 2</span><br><span class="line">what is x</span><br></pre></td></tr></table></figure>
+<h2 id="4-链接和图片"><a href="#4-链接和图片" class="headerlink" title="4. 链接和图片"></a>4. 链接和图片</h2><p>###　4.1　链接<br>链接的格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 http://www.yaosansi.com/   (自动生成链接)</span><br><span class="line">2 [这是链接内容](http://www.yaosansi.com/这是链接地址)</span><br><span class="line">3 [这是链接内容](http://www.yaosansi.com/这是链接地址 &quot;这里是链接说明&quot;)</span><br><span class="line">4 [这是链接内容][1]</span><br><span class="line"></span><br><span class="line">文档任意位置(通常是尾部)</span><br><span class="line">[1]:http://www.yaosansi.com/这是链接地址 &quot;这里是链接说明&quot;</span><br></pre></td></tr></table></figure></p>
+<p>1 <a href="http://www.yaosansi.com/">http://www.yaosansi.com/</a>   (自动生成链接)<br>2 <a href="http://www.yaosansi.com/这是链接地址">这是链接内容</a><br>3 <a href="http://www.yaosansi.com/这是链接地址" title="这里是链接说明">这是链接内容</a><br>4 <a href="http://www.yaosansi.com/这是链接地址" title="这里是链接说明">这是链接内容</a></p>
+<h3 id="4-2-图片"><a href="#4-2-图片" class="headerlink" title="4.2 图片"></a>4.2 图片</h3><p>图片格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![提示文字](图片地址)</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://www.baidu.com/img/baidu_sylogo1.gif" alt="提示文字"></p>
+<h2 id="5-GitHub扩展语法"><a href="#5-GitHub扩展语法" class="headerlink" title="5. GitHub扩展语法"></a>5. GitHub扩展语法</h2><h3 id="5-1-语法高亮"><a href="#5-1-语法高亮" class="headerlink" title="5.1 语法高亮"></a>5.1 语法高亮</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">` ` `javascript</span><br><span class="line">function fancyAlert(arg) &#123;</span><br><span class="line">  if(arg) &#123;</span><br><span class="line">    $.facebox(&#123;div:&apos;#foo&apos;&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">` ` `</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-任务列表"><a href="#5-2-任务列表" class="headerlink" title="5.2 任务列表"></a>5.2 任务列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- [x] 已完成任务一</span><br><span class="line">- [x] 已完成任务二</span><br><span class="line">- [x] 已完成任务三</span><br><span class="line">- [ ] 未完成任务四</span><br><span class="line">- [ ] 未完成任务五</span><br></pre></td></tr></table></figure>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> 已完成任务一</li>
+<li style="list-style: none"><input type="checkbox" checked> 已完成任务二</li>
+<li style="list-style: none"><input type="checkbox" checked> 已完成任务三</li>
+<li style="list-style: none"><input type="checkbox"> 未完成任务四</li>
+<li style="list-style: none"><input type="checkbox"> 未完成任务五</li>
+</ul>
+<h3 id="5-3-表格"><a href="#5-3-表格" class="headerlink" title="5.3 表格"></a>5.3 表格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一表头 | 第二表头</span><br><span class="line">------------ | -------------</span><br><span class="line">第一单元格内容 | 第二单元格内容</span><br><span class="line">第一列内容 | 第二列内容</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>第一表头</th>
+<th>第二表头</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一单元格内容</td>
+<td>第二单元格内容</td>
+</tr>
+<tr>
+<td>第一列内容</td>
+<td>第二列内容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-4-Emoji表情"><a href="#5-4-Emoji表情" class="headerlink" title="5.4 Emoji表情"></a>5.4 Emoji表情</h3><p>GitHub支持Emoji :  smile: :  running:<br>更多表情参考:<a href="http://www.emoji-cheat-sheet.com/" target="_blank" rel="noopener">http://www.emoji-cheat-sheet.com/</a></p>
+<h2 id="6-其它"><a href="#6-其它" class="headerlink" title="6. 其它"></a>6. 其它</h2><h3 id="6-1-转义字符"><a href="#6-1-转义字符" class="headerlink" title="6.1 转义字符"></a>6.1 转义字符</h3><p>可以用反斜杠来插入一些在语法中有其它意义的符号，如：可以在星号的前面加上反斜杠<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\*literal asterisks\*</span><br></pre></td></tr></table></figure></p>
+<p>*literal asterisks*</p>
+<p>反斜杠支持下面的字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\   反斜杠</span><br><span class="line">`   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   底线</span><br><span class="line">&#123;&#125;  大括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  括号</span><br><span class="line">#   井字号</span><br><span class="line">+    加号</span><br><span class="line">-    减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   惊叹号</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>Markdown Basics <a href="https://help.github.com/articles/markdown-basics" target="_blank" rel="noopener">https://help.github.com/articles/markdown-basics</a></li>
+<li>Mastering Markdown <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener">https://guides.github.com/features/mastering-markdown/</a></li>
+<li>GitHub Flavored Markdown <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank" rel="noopener">https://help.github.com/articles/github-flavored-markdown</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-08-04T05:41:33.027Z" itemprop="dateUpdated">2014-08-04 13:41:33</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/markdown-on-github/" target="_blank" rel="external">http://www.yaosansi.com/post/markdown-on-github/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MarkDown/">MarkDown</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/markdown-on-github/&title=《GitHub上Markdown基本使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/markdown-on-github/&title=《GitHub上Markdown基本使用》 — yaosansi's blog&source=本文最后更新于：2014-08-01 12:44:50原文：http://www.yaosansi.com/post/markdown-on-github..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/markdown-on-github/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《GitHub上Markdown基本使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/markdown-on-github/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/markdown-on-github/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/memcached-on-windows/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Memcached在windows下安装与使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/iis-fails-to-start-after-change-ip/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">更换ip后，IIS无法正常启动</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/markdown-on-github/&title=《GitHub上Markdown基本使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/markdown-on-github/&title=《GitHub上Markdown基本使用》 — yaosansi's blog&source=本文最后更新于：2014-08-01 12:44:50原文：http://www.yaosansi.com/post/markdown-on-github..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/markdown-on-github/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《GitHub上Markdown基本使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/markdown-on-github/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/markdown-on-github/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAwFwNz/0i7QVYE2ziMZB7U0WgWtY2i0YMTP4xGv43tV//LsPT+f/P05eU9zYWBg3JZxnK5nz5xv4hx5BCvfGwYGxj6M8yCbMKqHUg3HL/aMgYGBEQfQ80te9VsYGBgYE0YSiKvpKAYGBsY5o3qZy693vfB9YS6OgYFxQ0a1MfDJzxf2NzAwMG7COIrr6hZmc1cYGBhLM6pF/2pCm4fRPMgWbrgYGBgLMXobmoTX8yA+P1AMDIxVGXlJKymHVVsIvaskBgbGDozrAms1ra0mtB/6fcDAwPhnjPmGrg6vUcDFwMBYjjEKc8E1sfpkfpN92hjAwMBYlDG/qM0Da++6iYGBsQ+jl8omz1+XxEbDFhgYGAsxkiCYbDcPo5M2QKG/gYGBsTSjFzR74XVyNBgYGLsxkn/nQ129iY/8nRgYGLsx8oJ+r1WZBNDqd6NfDAwMjA0Yk2JZzqgmvS96GhgYGEsz8lQzL9m/q7hWuBpiYGAsx5gPSeTlszyIV48SAwNjH0Y+MNEs08fU8rAFBgbG0oxeS7IQCotlu2ogflTPDAMD44aMo7jeGzTzkYsXx4eBgbE0I1+Ta998u0krAgMDY21GNcj2BsLyE+2NZWBgYOzAmAxSTJLh6iWvMGyBgYGxJSNvSeaNzF7L8w88BgYGxrj0dv62fIwMAwNjZ0a1fF9NQcsVvrhHiYGBsQOjmjr2BsgmgXWS9GJgYNyc8QVJ8Y50PWBF0QAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>【转载】如何区分H.264视频流的I frame 和 P frame | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Video">
+    <meta name="description" content="怎么区分H.264视频流的I frame 和 P frame？我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，还有几个概念的关系还没能理解清楚，望达人指点一二： NAL、Slice与frame意思及相互关系NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）">
+<meta name="keywords" content="Video">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】如何区分H.264视频流的I frame 和 P frame">
+<meta property="og:url" content="http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="怎么区分H.264视频流的I frame 和 P frame？我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，还有几个概念的关系还没能理解清楚，望达人指点一二： NAL、Slice与frame意思及相互关系NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-20T08:58:28.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转载】如何区分H.264视频流的I frame 和 P frame">
+<meta name="twitter:description" content="怎么区分H.264视频流的I frame 和 P frame？我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，还有几个概念的关系还没能理解清楚，望达人指点一二： NAL、Slice与frame意思及相互关系NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【转载】如何区分H.264视频流的I frame 和 P frame</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【转载】如何区分H.264视频流的I frame 和 P frame</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2013-03-29T05:43:16.000Z" itemprop="datePublished" class="page-time">
+  2013-03-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么区分H-264视频流的I-frame-和-P-frame？"><span class="post-toc-number">1.</span> <span class="post-toc-text">怎么区分H.264视频流的I frame 和 P frame？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAL、Slice与frame意思及相互关系"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">NAL、Slice与frame意思及相互关系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAL-nal-unit-type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I-slice、P-slice、B-slice-还有frame的3种类型：I-frame、P-frame、-B-frame之间有什么映射关系么？"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I_slice、P_slice、B_slice 还有frame的3种类型：I frame、P frame、 B frame之间有什么映射关系么？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最后，NAL-nal-unit-type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">最后，NAL nal_unit_type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【转载】如何区分H.264视频流的I frame 和 P frame</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2013-03-29 13:43:16" datetime="2013-03-29T05:43:16.000Z"  itemprop="datePublished">2013-03-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="怎么区分H-264视频流的I-frame-和-P-frame？"><a href="#怎么区分H-264视频流的I-frame-和-P-frame？" class="headerlink" title="怎么区分H.264视频流的I frame 和 P frame？"></a>怎么区分H.264视频流的I frame 和 P frame？</h2><p>我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，<br>还有几个概念的关系还没能理解清楚，望达人指点一二：</p>
+<h3 id="NAL、Slice与frame意思及相互关系"><a href="#NAL、Slice与frame意思及相互关系" class="headerlink" title="NAL、Slice与frame意思及相互关系"></a>NAL、Slice与frame意思及相互关系</h3><h3 id="NAL-nal-unit-type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I-slice、P-slice、B-slice-还有frame的3种类型：I-frame、P-frame、-B-frame之间有什么映射关系么？"><a href="#NAL-nal-unit-type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I-slice、P-slice、B-slice-还有frame的3种类型：I-frame、P-frame、-B-frame之间有什么映射关系么？" class="headerlink" title="NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I_slice、P_slice、B_slice 还有frame的3种类型：I frame、P frame、 B frame之间有什么映射关系么？"></a>NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型与Slice种的三种编码模式：I_slice、P_slice、B_slice 还有frame的3种类型：I frame、P frame、 B frame之间有什么映射关系么？</h3><h3 id="最后，NAL-nal-unit-type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？"><a href="#最后，NAL-nal-unit-type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？" class="headerlink" title="最后，NAL nal_unit_type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？"></a>最后，NAL nal_unit_type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？</h3><a id="more"></a>
+<hr>
+<p>1 frame的数据可以分为多个slice.<br>每个slice中的数据，在帧内预测只用到自己slice的数据， 与其他slice 数据没有依赖关系。<br>NAL 是用来将编码的数据进行大包的。 比如，每一个slice 数据可以放在NAL 包中。<br>I frame 是自己独立编码，不依赖于其他frame 数据。<br>P frame 依赖 I frame 数据。<br>B frame 依赖 I frame, P frame 或其他 B frame 数据。</p>
+<hr>
+<p>那NAL nal_unit_type中的哪几种类型是I frame，现在只能确定nal_unit_type==5（IDR图像的编码条带）是I frame</p>
+<p>sps、pps、SEI算不算I frame呢？ 还有 属于编码条带分割的DPA、DPB、DPC呢？<br>能给个从视频流中提取I frame 和P frame的方法么？</p>
+<hr>
+<p> 一个frame是可以分割成多个Slice来编码的，而一个Slice编码之后被打包进一个NAL单元，不过NAL单元除了容纳Slice编码的码流外，还可以容纳其他数据，比如序列参数集SPS</p>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// H.264 NAL type</span></span><br><span class="line"><span class="keyword">enum</span> H264NALTYPE&#123;</span><br><span class="line">H264NT_NAL = <span class="number">0</span>,</span><br><span class="line">H264NT_SLICE,</span><br><span class="line">H264NT_SLICE_DPA,</span><br><span class="line">H264NT_SLICE_DPB,</span><br><span class="line">H264NT_SLICE_DPC,</span><br><span class="line">H264NT_SLICE_IDR,</span><br><span class="line">H264NT_SEI,</span><br><span class="line">H264NT_SPS,</span><br><span class="line">H264NT_PPS,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">H264GetNALType</span><span class="params">(LPVOID pBSBuf, <span class="keyword">const</span> LONG nBSLen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">if</span> ( nBSLen &lt; <span class="number">5</span> ) <span class="comment">// 不完整的NAL单元</span></span><br><span class="line"><span class="keyword">return</span> H264NT_NAL;</span><br><span class="line"></span><br><span class="line">UINT8* pBS = (UINT8 *)pBSBuf;</span><br><span class="line">ULONG nType = pBS[<span class="number">4</span>] &amp; <span class="number">0x1F</span>; <span class="comment">// NAL类型在固定的位置上 :)</span></span><br><span class="line"><span class="keyword">if</span> ( nType &lt;= H264NT_PPS )</span><br><span class="line"><span class="keyword">return</span> nType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 H264NT_SLICE_IDR 是关键帧，H264NT_SLICE 是P帧</p>
+<hr>
+<p>一个frame是可以分割成多个Slice来编码的，而一个Slice编码之后被打包进一个NAL单元，不过NAL单元除了容纳Slice编码的码流外，还可以容纳其他数据，比如序列参数集SPS。</p>
+<hr>
+<ul>
+<li>1、NAL、Slice与frame意思及相互关系  </li>
+</ul>
+<blockquote>
+<p>NAL指网络提取层，里面放一些与网络相关的信息<br>Slice是片的意思，264中把图像分成一帧（frame）或两场（field），而帧又可以分成一个或几个片（Slilce）；片由宏块（MB）组成。宏块是编码处理的基本单元。</p>
+</blockquote>
+<ul>
+<li>2、NAL nal_unit_type中的1（非IDR图像的编码条带）、2（编码条带数据分割块A）、3（编码条带数据分割块B）、4（编码条带数据分割块C）、5（IDR图像的编码条带）种类型<br>与 Slice种的三种编码模式：I_slice、P_slice、B_slice<br>NAL nal_unit_type 里的五种类型</li>
+</ul>
+<blockquote>
+<p>代表接下来数据是表示啥信息的和具体如何分块。<br>I_slice、P_slice、B_slice 表示I类型的片、P类型的片，B类型的片.其中I_slice为帧内预测模式编码；P_slice为单向预测编码或帧内模式；B_slice 中为双向预测或帧内模式。</p>
+</blockquote>
+<ul>
+<li>3、还有frame的3种类型：I frame、P frame、 B frame之间有什么映射关系么？  </li>
+</ul>
+<blockquote>
+<p>I frame、P frame、 B frame关系同 I_slice、P_slice、B_slice，slice和frame区别在问题1中已经讲明白。</p>
+</blockquote>
+<ul>
+<li>4、最后，NAL nal_unit_type中的6（SEI）、7（SPS）、8（PPS）属于什么帧呢？  </li>
+</ul>
+<blockquote>
+<p>NAL nal_unit_type 为序列参数集（SPS）、图像参数集（PPS）、增强信息（SEI）不属于啥帧的概念。表示后面的数据信息为序列参数集（SPS）、图像参数集（PPS）、增强信息（SEI）。</p>
+</blockquote>
+<p>h.264解码中首先过滤码流获得参数集，参数集是H.264标准的一个新概念，是一种通过改进视频码流结构增强错误恢复能力的方法。</p>
+<p>众所周知，一 些关键信息比特的丢失（如序列和图像的头信息）会造成解码的严重负面效应，而H.264把这些关键信息分离出来，凭借参数集的设计，确保在易出错的环境中 能正确地传输。这种码流结构的设计无疑增强了码流传输的错误恢复能力。 </p>
+<p>H.264的参数集又分为序列参数集（Sequence parameter set）和图像参数集（Picture parameter set）。其中，序列参数集包括一个图像序列的所有信息，即两个IDR图像间的所有图像信息。图像参数集包括一个图像的所有分片的所有相关信息，包括图像 类型、序列号等，解码时某些序列号的丢失可用来检验信息包的丢失与否。多个不同的序列和图像参数集存储在解码器中，编码器依据每个编码分片的头部的存储位置来选择适当的参数集，图像参数集本身也包括使用的序列参数集参考信息。  </p>
+<p>参数集具体实现的方法也是多样化的：<br>（1）通过带外传输，这种方式要求参数集通过可靠的协议，在首个片编码到达之前传输到解码器；<br>（2）通过带内传 输，这需要为参数集提供更高级别的保护，例如发送复制包来保证至少有一个到达目标；<br>（3）在编码器和解码器采用硬件处理参数集。 </p>
+<p>序列参数集以及图像参数集要在解码前传输，在解码的过程中被激活。一旦被激活，则上一个序列参数集或者图象参数集就失效了。图象参数集是被使用它的 slice data或者使用它的A分割的Nalu激活的。而序列参数集是被使用它的图象参数集或者包括缓冲期消息的SEI nalu所激活。</p>
+<p>同一个IDR图象的序列参数集有相同的seq_parameter_set_id，直到一个图象的最后一个access unit或者包括缓冲期消息的SEI Nalu，这时需要出现下一个图象的序列参数集。<br>下一个图象的序列参数集被SEI nalu激活。如果序列参数集和图象参数集是通过其他传输管道发送的，则要保证以上的传输顺序。</p>
+<hr>
+<p>H.264视频流是以NAL单元传送的。。。但在一个NAL单元里面，可能既存放I-Slice（P-Slice或B-Slice），同时也可能存放图像的其他信息<br>那么 是不是说 I frame， P frame，B frame是把收到的NAL单元中的VCL的信息先提取出，然后按内容进行I、P、B frame分类？ </p>
+<p>而我们只能通过NAL nal_unit_type来判别NAL单元中数据的类型哈~~~ </p>
+<hr>
+<p>呵呵 不好意思 还没有完全理解~~ </p>
+<hr>
+<p>NAL单元中首先会有一个H.264 NAL type，根据这个可以判断是啥信息。如果是<br>H264NT_SLICE_DPA,H264NT_SLICE_DPB,H264NT_SLICE_DPC, H264NT_SLICE_IDR视频数据相关的，里面还会有Slice head头信息，根据这个头信息，可以判断属于I-Slice（P-Slice或B-Slice），之后对于每个宏块，都会有MB head 信息，根据宏块头信息可以判断块模式。</p>
+<p>H264就是这样以分层的方式组织信息的。不知道你理解没有。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-20T08:58:28.055Z" itemprop="dateUpdated">2015-04-20 16:58:28</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" target="_blank" rel="external">http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Video/">Video</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&title=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&title=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&source=怎么区分H.264视频流的I frame 和 P frame？我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，还有几个概念的关系还没能理解..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/sublime-text-3-license/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">sublime text 3 license(Build 3059 x64)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/h264-video-mp4-to-ts/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">H.264视频文件转换成TS</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&title=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&title=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&source=怎么区分H.264视频流的I frame 和 P frame？我是新手，前些天自己看那H.264规范文档及其他资料寻找答案时，还有几个概念的关系还没能理解..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【转载】如何区分H.264视频流的I frame 和 P frame》 — yaosansi's blog&url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJklEQVR42u3aQXLbQAwEQP3/0/I5ZYsaAFRFBJsnl+Ust1eHCYB9POLn+et59enxCsnPx8/xyic/2NjY2BdhJ6+pbiJZ4fjI8rfnB4eNjY29m51HzjE1T40k6noRGK2JjY2NfWN2D9kLvOpOsLGxsbEnAZZTX62ZkLCxsbGxJ02lXiwlzaN8APAfemnY2NjYX8/Op6Lf//NH5tvY2NjYX8x+Fp9eO74XUflooazAxsbGXsTOA6Davqlurhefk/1jY2Nj72Anm+j9fj7EnSDfrIyNjY29iJ0EzPzSzPGaebAl6+QibGxs7E3s3jnll3KqrfzqMLg5lsbGxsZewU5CJdlKD9wb1iYB9qaAwcbGxl7ETl45ByRFTg9TbS1hY2Nj72NXL9aUZ8hxmZF8DfkOo5tK2NjY2IvY+TBgXhhUC5j5tSFsbGzsu7GTkKiObOeN/slI4I/fYGNjYy9l90qLanhM2vq9IXE0FcHGxsa+OPtz1OOtVwueaof/TYBhY2Njr2Pno4J8lNsLsPyYcurLAMPGxsZewc4b7tWQqx5ctfGUNLb+eAs2Njb2InavZZ80fSYt/iScqmVSVD9hY2NjX5adt9d7oZWXEPPrOL2rQtjY2Nhb2dVIi4aswUH0LgNVyyFsbGzsfexqKz8fFUzWnxxcVMZgY2Njr2BPwPnQd1K0VEcXzV4aNjY29mXZ1SWSOKkOfavtqt4bC00lbGxs7Iuw85dV20bJCHkyPMgbYdjY2Nh3YCfFQ96ar17iqUZm74j/+T02Njb2IvZZzfdeBOaDhMcnHmxsbOzbsAv/xT/p76sh2mxpYWNjY69jzwe6SYsnD7nqdZ/832JjY2PfgZ0PdPPGfbVVVI2o6lFiY2Nj72A/i09ymWY+NqgWM+UvABsbG3sRu9pLn+DPGiHnUXfCsAEbGxv7IuwktCbhMS9OJteJXu4NGxsbex07Lx6qgTdp7veiNPpKsLGxsW/MzptHkx5OtUmUj3uxsbGxsatN/LzAyMEnxBg2Njb2OnZSMFQ/PY6Z3gihWjK9/BQbGxt7ETsvEnqtn4QxLzmqxQk2Njb2CvYPXJabp2z6QGEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

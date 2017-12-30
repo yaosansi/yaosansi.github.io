@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>npm mirror | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Nodejs">
+    <meta name="description" content="本文最后更新于：2014-04-01 13:42:59原文：http://www.yaosansi.com/post/npm-mirror/ ##What is an npm mirror?A mirror is simply a read-only copy of the main npm registry. A mirror lets you install any module that e">
+<meta name="keywords" content="Nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm mirror">
+<meta property="og:url" content="http://www.yaosansi.com/post/npm-mirror/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2014-04-01 13:42:59原文：http://www.yaosansi.com/post/npm-mirror/ ##What is an npm mirror?A mirror is simply a read-only copy of the main npm registry. A mirror lets you install any module that e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-20T08:56:15.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm mirror">
+<meta name="twitter:description" content="本文最后更新于：2014-04-01 13:42:59原文：http://www.yaosansi.com/post/npm-mirror/ ##What is an npm mirror?A mirror is simply a read-only copy of the main npm registry. A mirror lets you install any module that e">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">npm mirror</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">npm mirror</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-04-01T05:42:59.000Z" itemprop="datePublished" class="page-time">
+  2014-04-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nodejs/">Nodejs</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Update-the-registry-permanently-in-the-config"><span class="post-toc-number">1.</span> <span class="post-toc-text">Update the registry permanently in the config:</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Main-npm-Registry"><span class="post-toc-number">2.</span> <span class="post-toc-text">Main npm Registry</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#European-npm-Mirror"><span class="post-toc-number">3.</span> <span class="post-toc-text">European npm Mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Australian-npm-Mirror"><span class="post-toc-number">4.</span> <span class="post-toc-text">Australian npm Mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nodejitsu-US-npm-Mirror"><span class="post-toc-number">5.</span> <span class="post-toc-text">Nodejitsu US npm Mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#StrongLoop-US-npm-Mirror"><span class="post-toc-number">6.</span> <span class="post-toc-text">StrongLoop US npm Mirror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#China-npm-mirror"><span class="post-toc-number">7.</span> <span class="post-toc-text">China npm mirror</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-npm-mirror"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">npm mirror</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-04-01 13:42:59" datetime="2014-04-01T05:42:59.000Z"  itemprop="datePublished">2014-04-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nodejs/">Nodejs</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2014-04-01 13:42:59</code><br><code>原文：http://www.yaosansi.com/post/npm-mirror/</code></p>
+<p>##What is an npm mirror?<br>A mirror is simply a read-only copy of the main npm registry. A mirror lets you install any module that exists in npm. The only thing you can’t do is publish updates or new modules.</p>
+<p>##How do I use an npm mirror?<br>The npm command line tool makes it very easy to use a mirror. There are two ways.</p>
+<p>###Specify the registry when installing:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+<h3 id="Update-the-registry-permanently-in-the-config"><a href="#Update-the-registry-permanently-in-the-config" class="headerlink" title="Update the registry permanently in the config:"></a>Update the registry permanently in the config:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config <span class="built_in">set</span> registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<h3 id="Main-npm-Registry"><a href="#Main-npm-Registry" class="headerlink" title="Main npm Registry"></a>Main npm Registry</h3><p>Registry: <a href="http://registry.npmjs.org" target="_blank" rel="noopener">http://registry.npmjs.org</a><br>Website: npmjs.org<br>Region: Global<br>Data Center: Joyent, Fastly<br>Maintainer: npm Inc.<br>Established: 2010</p>
+<hr>
+<h3 id="European-npm-Mirror"><a href="#European-npm-Mirror" class="headerlink" title="European npm Mirror"></a>European npm Mirror</h3><p>Registry: <a href="http://registry.npmjs.eu" target="_blank" rel="noopener">http://registry.npmjs.eu</a><br>Website: npmjs.eu<br>Region: Europe, Germany<br>Data Center: Hetzner<br>Maintainer: Maciej Małecki<br>Established: November, 2013</p>
+<hr>
+<h3 id="Australian-npm-Mirror"><a href="#Australian-npm-Mirror" class="headerlink" title="Australian npm Mirror"></a>Australian npm Mirror</h3><p>Registry: <a href="http://registry.npmjs.org.au" target="_blank" rel="noopener">http://registry.npmjs.org.au</a><br>Website: npm.nodejs.org.au<br>Region: Australia<br>Data Center: AWS<br>Maintainer: Rod Vagg<br>Established: July, 2013</p>
+<hr>
+<h3 id="Nodejitsu-US-npm-Mirror"><a href="#Nodejitsu-US-npm-Mirror" class="headerlink" title="Nodejitsu US npm Mirror"></a>Nodejitsu US npm Mirror</h3><p>Registry: <a href="https://registry.nodejitsu.com" target="_blank" rel="noopener">https://registry.nodejitsu.com</a><br>Website: nodejitsu.com<br>Region: US East<br>Data Center: Joyent<br>Maintainer: Nodejitsu<br>Established: January, 2014</p>
+<hr>
+<h3 id="StrongLoop-US-npm-Mirror"><a href="#StrongLoop-US-npm-Mirror" class="headerlink" title="StrongLoop US npm Mirror"></a>StrongLoop US npm Mirror</h3><p>Registry: <a href="https://npm.strongloop.com" target="_blank" rel="noopener">https://npm.strongloop.com</a><br>Website: strongloop.com<br>Region: US West<br>Data Center: Rackspace<br>Maintainer: StrongLoop<br>Established: February, 2014</p>
+<hr>
+<h3 id="China-npm-mirror"><a href="#China-npm-mirror" class="headerlink" title="China npm mirror"></a>China npm mirror</h3><p>Registry: <a href="http://registry.cnpmjs.org" target="_blank" rel="noopener">http://registry.cnpmjs.org</a><br>Website: <a href="http://www.cnpmjs.org/" target="_blank" rel="noopener">http://www.cnpmjs.org/</a><br>Region: China</p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-20T08:56:15.345Z" itemprop="dateUpdated">2015-04-20 16:56:15</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/npm-mirror/" target="_blank" rel="external">http://www.yaosansi.com/post/npm-mirror/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nodejs/">Nodejs</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/npm-mirror/&title=《npm mirror》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/npm-mirror/&title=《npm mirror》 — yaosansi's blog&source=本文最后更新于：2014-04-01 13:42:59原文：http://www.yaosansi.com/post/npm-mirror/
+##What..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/npm-mirror/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《npm mirror》 — yaosansi's blog&url=http://www.yaosansi.com/post/npm-mirror/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/npm-mirror/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/install-emmet-for-sublime-text-3/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">如何将Emmet安装到到 Sublime text 3？</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/sublime-text-3-license/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">sublime text 3 license(Build 3059 x64)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/npm-mirror/&title=《npm mirror》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/npm-mirror/&title=《npm mirror》 — yaosansi's blog&source=本文最后更新于：2014-04-01 13:42:59原文：http://www.yaosansi.com/post/npm-mirror/
+##What..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/npm-mirror/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《npm mirror》 — yaosansi's blog&url=http://www.yaosansi.com/post/npm-mirror/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/npm-mirror/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB1UlEQVR42u3cQWrEMAwF0Ln/pVMoXQx0kn5ZckjheTWkJfPcxceWRF+veB3f6/rJ9fP3n76v146Fi4vb5h6X6/p3zqD523IDLi7u/dzrSEoCqBpSv98fxSIuLu7DuHmoXW/g7AkuLu5/556xqjcXXFzcJ3OT60q1UpEcmDbe1XBxcRvcasF0x+eN9V1cXNwi9yiuanhNfe/Pm3FxcW/h9i8kebGjGluFExkuLu4oNy+J5mMWeeQtHnFwcXE3c6ciJv9cPTAV6ru4uLhD3M4YVv+Ik7Rmyz1bXFzcUW4eVckhKdlMHnYfqji4uLibuZ14Whu/yBu3i3MiuLi4bW6/bJEfVtaiDRcX935u0gTNSxv94mm5foOLizvKXbuoTBVN8hbvH39pXFzcG7l58bS/vYEgw8XFHeJWv35tUmJsmAMXF/cB3E7xtHq5KsyJ4OLibubmobM2ZpE3TgpDGLi4uJu5R3El5Yx++fX0zbi4uLdwq7GSN0j671yLP1xc3ClutfG51hatbrJ8FsPFxd3AnQ2vTrE1quXg4uI+hlstl3QautHgBS4u7mO4+WaSUCtfnHBxcW/kdi4/eajl5Y+NdzVcXNyZ+0j5H+J3NhAddHBxcXdxvwC1cTPSLQKm1AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

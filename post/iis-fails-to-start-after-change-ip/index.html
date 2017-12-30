@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>更换ip后，IIS无法正常启动 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="IIS">
+    <meta name="description" content="本文最后更新于：2014-07-24 13:44:08原文：http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/ ##概述今天更换IP后出现无法正常访问,经过近1小时的折腾终于解决了,现记录如下: ##系统环境  操作系统: Win2008 网络: 同一网卡绑定两个IP  192.168.0.1  192.168.0.2">
+<meta name="keywords" content="IIS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更换ip后，IIS无法正常启动">
+<meta property="og:url" content="http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2014-07-24 13:44:08原文：http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/ ##概述今天更换IP后出现无法正常访问,经过近1小时的折腾终于解决了,现记录如下: ##系统环境  操作系统: Win2008 网络: 同一网卡绑定两个IP  192.168.0.1  192.168.0.2">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-20T08:55:17.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="更换ip后，IIS无法正常启动">
+<meta name="twitter:description" content="本文最后更新于：2014-07-24 13:44:08原文：http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/ ##概述今天更换IP后出现无法正常访问,经过近1小时的折腾终于解决了,现记录如下: ##系统环境  操作系统: Win2008 网络: 同一网卡绑定两个IP  192.168.0.1  192.168.0.2">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">更换ip后，IIS无法正常启动</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">更换ip后，IIS无法正常启动</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-07-24T05:44:08.000Z" itemprop="datePublished" class="page-time">
+  2014-07-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题一"><span class="post-toc-number">1.</span> <span class="post-toc-text">##问题一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题二"><span class="post-toc-number">2.</span> <span class="post-toc-text">##问题二</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题三"><span class="post-toc-number">3.</span> <span class="post-toc-text">##问题三</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题四"><span class="post-toc-number">4.</span> <span class="post-toc-text">##问题四</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-iis-fails-to-start-after-change-ip"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">更换ip后，IIS无法正常启动</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-07-24 13:44:08" datetime="2014-07-24T05:44:08.000Z"  itemprop="datePublished">2014-07-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2014-07-24 13:44:08</code><br><code>原文：http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/</code></p>
+<p>##概述<br>今天更换IP后出现无法正常访问,经过近1小时的折腾终于解决了,现记录如下:</p>
+<p>##系统环境</p>
+<ul>
+<li><strong>操作系统:</strong> Win2008</li>
+<li><strong>网络:</strong> 同一网卡绑定两个IP  <code>192.168.0.1</code>  <code>192.168.0.2</code></li>
+<li><strong>原WEB服务器:</strong> IIS(<code>192.168.0.1</code>) Tomcat(<code>192.168.0.2</code>)</li>
+<li><strong>更换IP后:</strong> IIS(<code>192.168.1.1</code>) Tomcat(<code>192.168.0.2</code>)</li>
+</ul>
+<blockquote>
+<p>两服务器都使用80端口,使用不同的IP绑定不同的域名  </p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>PS.不要问为什么不用NGINX等做做反向代理</p>
+</blockquote>
+<h2 id="问题一"><a href="#问题一" class="headerlink" title="##问题一"></a>##问题一</h2><p>###现象</p>
+<ul>
+<li>IIS无任何提示,本机无法开启80端口</li>
+</ul>
+<p>###解决方法<br>怀疑是两个WEB Server相互冲突,重启系统</p>
+<h2 id="问题二"><a href="#问题二" class="headerlink" title="##问题二"></a>##问题二</h2><p>###现象</p>
+<ul>
+<li>指定的网络名格式无效</li>
+<li>万维网发布服务(WWW 服务)没有为站点 2 注册 URL 前缀 <a href="http://www.yaoasnsi.com:80:192.168.1.1/" target="_blank" rel="noopener">http://www.yaoasnsi.com:80:192.168.1.1/</a>  。 该站点已被禁用。数据字段包含错误号。<blockquote>
+<p>其中192.168.1.1为我们更换后的要绑定的IP</p>
+</blockquote>
+</li>
+</ul>
+<p>###解决方法<br>GOOGLE发现此文件 指定的<a href="http://www.cnblogs.com/hsapphire/archive/2010/03/26/1696681.html" target="_blank" rel="noopener">网络名格式无效</a> ,按此操作后,重启服务器</p>
+<blockquote>
+<p>WIN2003， 换了个IP以后， IIS 里面的站点就无法启动了， 一启动就出现 “指定的网络名格式无效”， 怎么解决？？</p>
+<p>这与以前系统绑定ＩＰ有关.只要把以前的ＩＩＳ配置文件中与绑定有关的数据修改回来就可以用了 </p>
+<ul>
+<li>绑定到某IP： httpcfg set iplisten -i 192.168.1.1 </li>
+<li>即命令使用IIS的只监听指定的IP及端口 </li>
+<li>查看绑定： httpcfg query iplisten </li>
+<li>删除绑定： httpcfg delete iplisten -i 192.168.1.1 </li>
+</ul>
+</blockquote>
+<p>为解决这上面的问题，只要你把以前的绑定的ＩＰ删除，然后，再绑定0.0.0.0以后.重启服务器.在ＩＩＳ中选全部未分配ＩＰ就可以使用了. </p>
+<ul>
+<li>查看绑定：       httpcfg query iplisten </li>
+</ul>
+<blockquote>
+<p>显示 192.168.0.1 </p>
+</blockquote>
+<ul>
+<li>删除绑定：       httpcfg delete iplisten -i 192.168.0.1 </li>
+<li>绑定0.0.0.0：    httpcfg set iplisten -i 0.0.0.0</li>
+<li>重启IIS：        IISReset</li>
+</ul>
+<p>httpcfg  在windows 2003光盘上有.<a href="http://support.microsoft.com/kb/813368/" target="_blank" rel="noopener">http://support.microsoft.com/kb/813368/</a> </p>
+<h2 id="问题三"><a href="#问题三" class="headerlink" title="##问题三"></a>##问题三</h2><p>###现象</p>
+<ul>
+<li>返回404 http not found</li>
+</ul>
+<blockquote>
+<p>按问题二解决以后,发现IIS可以正常访问,但Tomcat不能访问了.</p>
+</blockquote>
+<p>###解决方法<br>按问题二解决方法,将最后一步的 绑定<code>0.0.0.0</code>  改成 绑定<code>192.168.1.1</code>  ,重启服务器.</p>
+<h2 id="问题四"><a href="#问题四" class="headerlink" title="##问题四"></a>##问题四</h2><p>###现象</p>
+<ul>
+<li>另一个程序正在使用此文件，进程无法访问</li>
+</ul>
+<p>###解决方法<br>此问题因其它程序占用80端口导致IIS无法使用,确定无其它程序占用后怀疑是两个WEB Server相互冲突,重启系统即正常了.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-20T08:55:17.601Z" itemprop="dateUpdated">2015-04-20 16:55:17</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/iis-fails-to-start-after-change-ip/" target="_blank" rel="external">http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IIS/">IIS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&title=《更换ip后，IIS无法正常启动》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&title=《更换ip后，IIS无法正常启动》 — yaosansi's blog&source=本文最后更新于：2014-07-24 13:44:08原文：http://www.yaosansi.com/post/iis-fails-to-start..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《更换ip后，IIS无法正常启动》 — yaosansi's blog&url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/markdown-on-github/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">GitHub上Markdown基本使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/install-emmet-for-sublime-text-3/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何将Emmet安装到到 Sublime text 3？</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&title=《更换ip后，IIS无法正常启动》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&title=《更换ip后，IIS无法正常启动》 — yaosansi's blog&source=本文最后更新于：2014-07-24 13:44:08原文：http://www.yaosansi.com/post/iis-fails-to-start..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《更换ip后，IIS无法正常启动》 — yaosansi's blog&url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/iis-fails-to-start-after-change-ip/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACyUlEQVR42u3cUW4iMRAEUO5/6ewBskOquu2ISG++EBDGz0i2qW7l9Yqvr4fr+6ubv03e+bpx4eHh4R0a+mwQyV2+P//+ne148PDw8H6H9zSg5HHyzKlX8zHj4eHhfQ4v31SSpTzfJPDw8PD+Lm92LH5/1M5jCzw8PLzP4e0j1Pao/X7pn00EHh4e3u/w8irS5zy+Ut/Dw8PDW1fVk+CgXY6Tpb8tvD2OFg8PD+8Crz0uJ81V98pawwYFPDw8vAu8PCxIYtxTsFlTQhTm4uHh4Z1cgYutIsFshj7LGepkBQ8PD2/Eawv2bbF/U9zKN566voeHh4e35iUDSt7ZDmtfuysO0Hh4eHiHeG2pKV+g84AjiTba++Lh4eHd4OWhQJ1njBq2Tt2lzjzw8PDwRry24NQerGcbSd6k9dgTgYeHh3eU1xaT2lh2EzrMIuBVrQwPDw9vFOPmDQFtkJoXydoo+YcIAw8PD+8oLy9f5c9sjtqzMDeaUTw8PLwLvGQhTqhtY1YSFg+brvDw8PAu8PIP3RT1N41W+aQ8WvDw8PCO8tpC/nD+Fk0G+QQ9hhF4eHh4F3izocxumRzE80P8D6/i4eHhXeC1EUMeH+TTkecGm9gXDw8P7yzvcHvousy23376rxUPDw/vtfz/crOQIgkvZuW05Jlo0vHw8PAO8fLIoP2ln5e+ZpFE/SsBDw8P7ygvWYj3S/mm6PV+CqKmKzw8PLyjvPzGs1aq5NPqglZe5cPDw8M7xPsqr/zo3DYNJEfkPD7+T9MVHh4e3iFeu+DONoa2JSuZ1k2jGB4eHt6et/notvCfxLVt+a2OcfHw8PAO8fJSUxvIbopnm20MDw8P73N4edPVbGN4H1jUGxUeHh7eB/BOHXxn4UI9TXh4eHjXeG1LUxLCJq8mG8/7L+MHJB4eHt4FXvvzvm2rygtp+ZH68IWHh4eXXv8A3Y6mS/xWDHYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

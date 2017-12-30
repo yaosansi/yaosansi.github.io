@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Redis在windows下安装与使用 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="本文最后更新于：2015-04-19 14:00:00原文：http://www.yaosansi.com/post/redis-on-windows Redis简介Redis是一个开源的高级key-value（键-值）缓存与存储，以高性能著称。它也常被称为数据结构服务器，因为其中的键可以存各种数据结构包括字符串、散列、列表、集合、有序集合、位图和hyperloglog。Redis的出现，很大程度">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis在windows下安装与使用">
+<meta property="og:url" content="http://www.yaosansi.com/post/redis-on-windows/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2015-04-19 14:00:00原文：http://www.yaosansi.com/post/redis-on-windows Redis简介Redis是一个开源的高级key-value（键-值）缓存与存储，以高性能著称。它也常被称为数据结构服务器，因为其中的键可以存各种数据结构包括字符串、散列、列表、集合、有序集合、位图和hyperloglog。Redis的出现，很大程度">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-20T09:24:04.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis在windows下安装与使用">
+<meta name="twitter:description" content="本文最后更新于：2015-04-19 14:00:00原文：http://www.yaosansi.com/post/redis-on-windows Redis简介Redis是一个开源的高级key-value（键-值）缓存与存储，以高性能著称。它也常被称为数据结构服务器，因为其中的键可以存各种数据结构包括字符串、散列、列表、集合、有序集合、位图和hyperloglog。Redis的出现，很大程度">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Redis在windows下安装与使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Redis在windows下安装与使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-04-19T06:00:00.000Z" itemprop="datePublished" class="page-time">
+  2015-04-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Cache/">Cache</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis-windows-2-6-版本高并发时出的BUG"><span class="post-toc-number">2.</span> <span class="post-toc-text">redis windows 2.6 版本高并发时出的BUG</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题原因"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">问题原因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决办法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">解决办法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis-windows-2-8-版本配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">redis windows 2.8 版本配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#port"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">port</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#requirepass"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">requirepass</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#maxheap-amp-heapdir"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">maxheap &amp; heapdir</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#maxheap"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">maxheap</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#heapdir"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">heapdir</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">服务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装服务"><span class="post-toc-number">3.4.1.</span> <span class="post-toc-text">安装服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#卸载服务"><span class="post-toc-number">3.4.2.</span> <span class="post-toc-text">卸载服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动服务"><span class="post-toc-number">3.4.3.</span> <span class="post-toc-text">启动服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#停止服务"><span class="post-toc-number">3.4.4.</span> <span class="post-toc-text">停止服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命名服务"><span class="post-toc-number">3.4.5.</span> <span class="post-toc-text">命名服务</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户端工具"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">客户端工具</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-redis-on-windows"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Redis在windows下安装与使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-04-19 14:00:00" datetime="2015-04-19T06:00:00.000Z"  itemprop="datePublished">2015-04-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Cache/">Cache</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2015-04-19 14:00:00</code><br><code>原文：http://www.yaosansi.com/post/redis-on-windows</code></p>
+<h1 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h1><p>Redis是一个开源的高级key-value（键-值）缓存与存储，以高性能著称。它也常被称为数据结构服务器，因为其中的键可以存各种数据结构包括字符串、散列、列表、集合、有序集合、位图和hyperloglog。Redis的出现，很大程度补偿了memcached这类KV数据库的不足。不仅可以用于缓存，也可以用于一些场景的存储，在很多情况下是关系数据库很好的补充。它提供了Python，Ruby，Erlang，PHP客户端，使用非常方便。</p>
+<p>Redis最近出了3.0版本，最重要的新特性是集群（Redis Cluster），提供Redis功能子集（比如不支持多数据库）的分布式、容错的实现（最多支持1000结点）。</p>
+<p>本想折腾一下，不过由于官方并不支持windows，目前（2015.4.10） <a href="https://github.com/MSOpenTech/redis" target="_blank" rel="noopener">https://github.com/MSOpenTech/redis</a> 的最新版本仍是 Redis 2.8。</p>
+<a id="more"></a>
+<h1 id="redis-windows-2-6-版本高并发时出的BUG"><a href="#redis-windows-2-6-版本高并发时出的BUG" class="headerlink" title="redis windows 2.6 版本高并发时出的BUG"></a>redis windows 2.6 版本高并发时出的BUG</h1><p>redis windows 2.6版的时候在高并发下的BUG</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lt too large (fd=11112)</span><br><span class="line">[3512] 12 Apr 11:25:53.063 # Error registering fd event for the new client: Resu</span><br><span class="line">lt too large (fd=11144)</span><br><span class="line">[3512] 12 Apr 11:25:53.095 # Error registering fd event for the new client: Resu</span><br></pre></td></tr></table></figure>
+<p>博客园的triStoneL给出了问题的原因和相应的解决办法</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Windows版本的redis和原版的redis的实现是一样的,</span><br><span class="line">重要的是accept的返回值和aeWinAccept所返回的socket句柄逻辑不一样</span><br><span class="line">导致windows版本的redis出现了bug.在Linux中,accept的返回是递增的,</span><br><span class="line">因此linux版本的redis是可以处理eventLoop-&gt;setsize个连接的,而在windows上socket返回的句柄会以大概12的步进增长,</span><br><span class="line">所以windows版本的redis就只能处理约eventLoop-&gt;setsize/12个连接了.</span><br><span class="line"></span><br><span class="line">http://www.cnblogs.com/triStoneL/archive/2013/08/23/3277709.html</span><br></pre></td></tr></table></figure>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">解决方法比较hack,我在aeEventLoop中添加一个fd_map的数组,</span><br><span class="line">用于把fd映射到0到eventLoop-&gt;setsize的值,</span><br><span class="line">这样每次从events中存取数据就通过查询fd_map来获取index,</span><br><span class="line">从而达到让redis能处理eventLoop-&gt;setsize个连接的效果.</span><br></pre></td></tr></table></figure>
+<h1 id="redis-windows-2-8-版本配置"><a href="#redis-windows-2-8-版本配置" class="headerlink" title="redis windows 2.8 版本配置"></a>redis windows 2.8 版本配置</h1><h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># port 6379</span><br></pre></td></tr></table></figure>
+<p><code>port 1345</code></p>
+<h2 id="requirepass"><a href="#requirepass" class="headerlink" title="requirepass"></a>requirepass</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass foobared</span><br></pre></td></tr></table></figure>
+<p>注意：由于redis的快速响应，即使设置密码的情况下，仍不建议在对外公开使用，因为暴力破解密码的的可能性将会更大，建议在生产环境使用内部IP和网络访问。</p>
+<p><code>requirepass oaSsihr^VGRAnZMa5=W.UH#bWuue[sHs%tC(d@=lwF5lWJF!6^gT]Yi%@D</code></p>
+<h2 id="maxheap-amp-heapdir"><a href="#maxheap-amp-heapdir" class="headerlink" title="maxheap &amp; heapdir"></a>maxheap &amp; heapdir</h2><p>默认的2.8版本直接运行，由于硬盘空间的原因在大部分的电脑的都会出错。</p>
+<p><code>redis-server.exe redis.windows.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis-2.8.19&gt;redis-server.exe</span><br><span class="line">[16752] 19 Apr 15:41:03.974 #</span><br><span class="line">The Windows version of Redis allocates a large memory mapped file for sharing</span><br><span class="line">the heap with the forked process used in persistence operations. This file</span><br><span class="line">will be created in the current working directory or the directory specified by</span><br><span class="line">the &apos;heapdir&apos; directive in the .conf file. Windows is reporting that there is</span><br><span class="line">insufficient disk space available for this file (Windows error 0x70).</span><br><span class="line"></span><br><span class="line">You may fix this problem by either reducing the size of the Redis heap with</span><br><span class="line">the --maxheap flag, or by moving the heap file to a local drive with sufficient</span><br><span class="line">space.</span><br><span class="line">Please see the documentation included with the binary distributions for more</span><br><span class="line">details on the --maxheap and --heapdir flags.</span><br><span class="line"></span><br><span class="line">Redis can not continue. Exiting.</span><br></pre></td></tr></table></figure>
+<p>参照提示，是参数maxheap和heapdir有问题。<br>打开默认的配置文件：redis.windows.conf</p>
+<h3 id="maxheap"><a href="#maxheap" class="headerlink" title="maxheap"></a>maxheap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># The Linux version of Redis relies on the system call fork() to perform</span><br><span class="line"># point-in-time snapshots of the heap. In addition to the AOF and RDB backup</span><br><span class="line"># mechanism, the master-slave synchronization and clustering features are </span><br><span class="line"># dependent on this behavior of fork(). In order for the Windows version to </span><br><span class="line"># perform like the Linux version we had to simulate this aspect of fork().</span><br><span class="line"># Doing so meant moving the Redis heap into a memory mapped file that can</span><br><span class="line"># be shared with a child process. </span><br><span class="line">#</span><br><span class="line"># *** There must be disk space available for this file in order for Redis </span><br><span class="line"># to launch. *** The default configuration places this file in the local </span><br><span class="line"># appdata directory. If you wish to move this file to another local disk,</span><br><span class="line"># use the heapdir flag as described below.</span><br><span class="line">#</span><br><span class="line"># The maxheap flag controls the maximum size of this memory mapped file,</span><br><span class="line"># as well as the total usable space for the Redis heap. Running Redis</span><br><span class="line"># without either maxheap or maxmemory will result in a memory mapped file </span><br><span class="line"># being created that is equal to the size of physical memory. During </span><br><span class="line"># fork() operations the total page file commit will max out at around:</span><br><span class="line">#</span><br><span class="line">#    (size of physical memory) + (2 * size of maxheap)</span><br><span class="line">#</span><br><span class="line"># For instance, on a machine with 8GB of physical RAM, the max page file </span><br><span class="line"># commit with the default maxheap size will be (8)+(2*8) GB , or 24GB. The</span><br><span class="line"># default page file sizing of Windows will allow for this without having </span><br><span class="line"># to reconfigure the system. Larger heap sizes are possible, but the maximum</span><br><span class="line"># page file size will have to be increased accordingly.</span><br><span class="line"># </span><br><span class="line"># The Redis heap must be larger than the value specified by the maxmemory </span><br><span class="line"># flag, as the heap allocator has its own memory requirements and </span><br><span class="line"># fragmentation of the heap is inevitable. If only the maxmemory flag is </span><br><span class="line"># specified, maxheap will be set at 1.5*maxmemory. If the maxheap flag is </span><br><span class="line"># specified along with maxmemory, the maxheap flag will be automatically </span><br><span class="line"># increased if it is smaller than 1.5*maxmemory. </span><br><span class="line">#  </span><br><span class="line"># maxheap &lt;bytes&gt;</span><br></pre></td></tr></table></figure>
+<p>我们看到，Linux版本的redis依赖于系统调用fork()来执行堆的时间快照，windows版本模拟了fork方法。maxheap标志来控制此内存映射文件的最大大小，redis在未设置 maxheap 或 maxmemory时，内存映射文件的大小等于物理内存的大小，fork()操作的总页面文件最大将是（物理内存大小）+（2<em>maxheap）<br>我们看到如果设置了maxmemory，那么maxheap=1.5</em>maxmemory，如果maxheap设置的小于1.5*maxmemory，那么maxheap的值将会自动增加。</p>
+<p>根据以上原因，我们不难分析出，当redis所用使用的硬盘空间不足时，便会引发上面的错误。</p>
+<p>我们设置maxheap参数为4个G，即占用硬盘空间4G.再次运行，发现一切正常。</p>
+<p><code>maxheap 4024000000</code></p>
+<h3 id="heapdir"><a href="#heapdir" class="headerlink" title="heapdir"></a>heapdir</h3><p>那么heapdir是做什么用的呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># The heap memory mapped file must reside on a local path for heap sharing </span><br><span class="line"># between processes to work. A UNC path will not suffice here. For maximum </span><br><span class="line"># performance this should be located on the fastest local drive available.</span><br><span class="line"># This value defaults to the local application data folder(e.g.,</span><br><span class="line"># &quot;%USERPROFILE%\AppData\Local&quot;). Since this file can be very large, you</span><br><span class="line"># may wish to place this on a drive other than the one the operating system  </span><br><span class="line"># is installed on.</span><br><span class="line">#</span><br><span class="line"># Note that you must specify a directory here, not a file name.</span><br><span class="line"># heapdir &lt;directory path(absolute or relative)&gt;</span><br></pre></td></tr></table></figure>
+<p>heapdir实际指定了内存映射文件的目录，默认在<code>%USERPROFILE%\AppData\Local</code>,大部分windows都安装在ｃ盘，而ｃ盘空间有限，结合这两个参数，我们才发现最上面的默认错误原来是我们系统硬盘可用空间不足导致的。</p>
+<p>注意：heapdir不支持网络路径，只支持本机路径，但支持相对路径和绝对路径。</p>
+<p>这里我们把heapdir指定在redis默认路径指定在根目录下:<code>redis_heapdir</code></p>
+<p><code>heapdir redis_heapdir/</code></p>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><h3 id="安装服务"><a href="#安装服务" class="headerlink" title="安装服务"></a>安装服务</h3><p><code>--service-install</code></p>
+<p>安装服务的参数必须为redis-server的第一个参数，默认服务会使用帐户<code>NT AUTHORITY\NetworkService</code>，默认不会启动服务。</p>
+<p>实例</p>
+<p><code>redis-server --service-install redis.windows.conf --loglevel verbose</code></p>
+<h3 id="卸载服务"><a href="#卸载服务" class="headerlink" title="卸载服务"></a>卸载服务</h3><p><code>--service-uninstall</code></p>
+<p>实例</p>
+<p><code>redis-server --service-uninstall</code></p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p><code>redis-server --service-start</code></p>
+<h3 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h3><p><code>redis-server --service-stop</code></p>
+<h3 id="命名服务"><a href="#命名服务" class="headerlink" title="命名服务"></a>命名服务</h3><p><code>--service-name name</code></p>
+<p>用来使用多实例redis服务。<br>此参数要放在service-install, service-start, service-stop or service-uninstall的后面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis-server --service-install –service-name redisService1 –port 10001</span><br><span class="line">redis-server --service-start –service-name redisService1</span><br><span class="line">redis-server --service-install –service-name redisService2 –port 10002</span><br><span class="line">redis-server --service-start –service-name redisService2</span><br><span class="line">redis-server --service-install –service-name redisService3 –port 10003</span><br><span class="line">redis-server --service-start –service-name redisService3</span><br></pre></td></tr></table></figure>
+<h2 id="客户端工具"><a href="#客户端工具" class="headerlink" title="客户端工具"></a>客户端工具</h2><ul>
+<li>RedisStudio: <a href="https://github.com/cinience/RedisStudio" target="_blank" rel="noopener">https://github.com/cinience/RedisStudio</a></li>
+</ul>
+<p>##参考</p>
+<ul>
+<li><a href="http://redis.io" target="_blank" rel="noopener">http://redis.io</a></li>
+<li><a href="https://github.com/MSOpenTech/redis" target="_blank" rel="noopener">https://github.com/MSOpenTech/redis</a></li>
+<li><a href="https://github.com/ServiceStack/redis-windows" target="_blank" rel="noopener">https://github.com/ServiceStack/redis-windows</a></li>
+<li><a href="http://stackoverflow.com/questions/28114405/how-do-i-install-a-redis-server-on-the-d-drive" target="_blank" rel="noopener">http://stackoverflow.com/questions/28114405/how-do-i-install-a-redis-server-on-the-d-drive</a></li>
+<li><a href="http://stackoverflow.com/questions/20554362/configuring-redis-on-windows" target="_blank" rel="noopener">http://stackoverflow.com/questions/20554362/configuring-redis-on-windows</a></li>
+<li><a href="http://blog.csdn.net/lijiecong/article/details/37754599" target="_blank" rel="noopener">http://blog.csdn.net/lijiecong/article/details/37754599</a></li>
+<li><a href="http://blog.csdn.net/renfufei/article/details/38474435" target="_blank" rel="noopener">http://blog.csdn.net/renfufei/article/details/38474435</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-20T09:24:04.208Z" itemprop="dateUpdated">2015-04-20 17:24:04</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/redis-on-windows/" target="_blank" rel="external">http://www.yaosansi.com/post/redis-on-windows/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/redis-on-windows/&title=《Redis在windows下安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/redis-on-windows/&title=《Redis在windows下安装与使用》 — yaosansi's blog&source=本文最后更新于：2015-04-19 14:00:00原文：http://www.yaosansi.com/post/redis-on-windows
+R..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/redis-on-windows/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis在windows下安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/redis-on-windows/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/redis-on-windows/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/mono4.0.1-jexus5.6-on-centos7/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Mono4.0.1与Jexus5.6在CentOS7上安装与使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/memcached-on-windows/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Memcached在windows下安装与使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/redis-on-windows/&title=《Redis在windows下安装与使用》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/redis-on-windows/&title=《Redis在windows下安装与使用》 — yaosansi's blog&source=本文最后更新于：2015-04-19 14:00:00原文：http://www.yaosansi.com/post/redis-on-windows
+R..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/redis-on-windows/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis在windows下安装与使用》 — yaosansi's blog&url=http://www.yaosansi.com/post/redis-on-windows/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/redis-on-windows/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3awVJDIQwF0P7/Tz+3dbR4E56daTisOlWBwyKGhMcjHtfTeP7m5+dX36xnfrXKzQMDA+NjGddyrH9n/yB66/6yOgYGxgGMJBTmf7VGrmdbr/vyewwMDIzi1OugWQ24GBgYGDsBt7qJPBHEwMDAuGtD0QJxwe5Nd3EMDIwPZPTK9+/5/C/9DQwMjI9iXMWxLqjth8urNTAwMGYz8gC307bMr69b+8HAwBjK6D2t6IXLaiOzcHwYGBgHMKpPInqpYX5weZPgW8DFwMAYyqimcTutguqR9WIpBgbGPEY1FVtvvVqYSz5HO8TAwBjN6F1B81CbLN9LJZvtTAwMjA9n5NfUndZjNfVsthAwMDAGMXYaA3kxLg+X1SQSAwPjBEavHJZccZPZ8k1HaSIGBsZQRjWl2+o8xKG5/CwDAwNjNKP3kKJXss9v1fnN+4//HhgYGCMYeWDtpY/V48ivvtFdHAMDYxDj3ocUvWdhvYdiGBgYJzB22pbV8lmeIFYPFAMD4xxGvvxOAS6/+pZbnhgYGAcwdl6WJQG0V6orHBkGBsZhjOo1Mi/GVZuXhcswBgbGUMZVHHnxq1nib4V7DAyM2Yxqmf6uYlleJSu/GcHAwBjKSILsvc3OfAYMDAyM3rOGJJlbb6X3aCPKczEwMDDin1bTynzOwmMLDAyM4xnV4FvoVPRaERgYGAcw8pQu2dx+OC63MzEwMEYzdq6OeUjdevIVz4mBgTGO8QW9KtsZfkCfGAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

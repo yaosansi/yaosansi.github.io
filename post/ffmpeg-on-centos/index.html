@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>在CentOS上编译安装FFmpeg | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="FFmpeg,CentOS">
+    <meta name="description" content="本文最后更新于：2015-05-25 13:12:00原文：http://www.yaosansi.com/post/ffmpeg-on-centos 在CentOS编译安装ffmpeg比较麻烦，以前也搞过多次，由于博客调整，特重新记录一下，以备不时之需。">
+<meta name="keywords" content="FFmpeg,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在CentOS上编译安装FFmpeg">
+<meta property="og:url" content="http://www.yaosansi.com/post/ffmpeg-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2015-05-25 13:12:00原文：http://www.yaosansi.com/post/ffmpeg-on-centos 在CentOS编译安装ffmpeg比较麻烦，以前也搞过多次，由于博客调整，特重新记录一下，以备不时之需。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-05-25T05:55:13.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在CentOS上编译安装FFmpeg">
+<meta name="twitter:description" content="本文最后更新于：2015-05-25 13:12:00原文：http://www.yaosansi.com/post/ffmpeg-on-centos 在CentOS编译安装ffmpeg比较麻烦，以前也搞过多次，由于博客调整，特重新记录一下，以备不时之需。">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">在CentOS上编译安装FFmpeg</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">在CentOS上编译安装FFmpeg</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-22T07:22:00.000Z" itemprop="datePublished" class="page-time">
+  2015-05-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用yum安装ffmpeg和相关软件"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用yum安装ffmpeg和相关软件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#快速安装-ffmpeg"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">快速安装 ffmpeg</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-ffmpeg-php-扩展"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">安装 ffmpeg-php 扩展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改-php-ini-文件"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">修改 php.ini 文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#php-使用方法"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">php 使用方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Mplayer-和-Mencoder"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">安装 Mplayer 和 Mencoder</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见问题"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">常见问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自行编译安装-ffmpeg"><span class="post-toc-number">2.</span> <span class="post-toc-text">自行编译安装 ffmpeg</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装依赖项"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装依赖项</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装相应软件包"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">安装相应软件包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-yasm"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">安装 yasm</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-x264"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">安装 x264</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-x265"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">安装 x265</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libfdk-aac"><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">安装 libfdk_aac</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libmp3lame"><span class="post-toc-number">2.2.5.</span> <span class="post-toc-text">安装 libmp3lame</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libopus"><span class="post-toc-number">2.2.6.</span> <span class="post-toc-text">安装 libopus</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libogg库"><span class="post-toc-number">2.2.7.</span> <span class="post-toc-text">安装 libogg库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libvorbis库"><span class="post-toc-number">2.2.8.</span> <span class="post-toc-text">安装 libvorbis库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libvpx"><span class="post-toc-number">2.2.9.</span> <span class="post-toc-text">安装 libvpx</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译安装-ffmpeg"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">编译安装 ffmpeg</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-OpenCORE-AMR"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">安装 OpenCORE AMR</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-VisualOn-AAC"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">安装 VisualOn AAC</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-VisualOn-AMR-WB"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">安装 VisualOn AMR-WB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-frei0r"><span class="post-toc-number">2.3.4.</span> <span class="post-toc-text">安装 frei0r</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-gnutls"><span class="post-toc-number">2.3.5.</span> <span class="post-toc-text">安装 gnutls</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-rtmpdump"><span class="post-toc-number">2.3.6.</span> <span class="post-toc-text">安装 rtmpdump</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-schroedinger"><span class="post-toc-number">2.3.7.</span> <span class="post-toc-text">安装 schroedinger</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-soxr"><span class="post-toc-number">2.3.8.</span> <span class="post-toc-text">安装 soxr</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-speex"><span class="post-toc-number">2.3.9.</span> <span class="post-toc-text">安装 speex</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libfreetype"><span class="post-toc-number">2.3.10.</span> <span class="post-toc-text">安装 libfreetype</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-libsdl库"><span class="post-toc-number">2.3.11.</span> <span class="post-toc-text">安装 libsdl库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-theora"><span class="post-toc-number">2.3.12.</span> <span class="post-toc-text">安装 theora</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-twolame"><span class="post-toc-number">2.3.13.</span> <span class="post-toc-text">安装 twolame</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-xvid"><span class="post-toc-number">2.3.14.</span> <span class="post-toc-text">安装 xvid</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新FFmpeg及相关组件"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">更新FFmpeg及相关组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新依赖项"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">更新依赖项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新-x264"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">更新 x264</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新-x265"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">更新 x265</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新-libfdk-aac"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">更新 libfdk_aac</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新-libvpx"><span class="post-toc-number">2.4.5.</span> <span class="post-toc-text">更新 libvpx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更新FFmpeg"><span class="post-toc-number">2.4.6.</span> <span class="post-toc-text">更新FFmpeg</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#还原所有本文安装内容"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">还原所有本文安装内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自动安装shell"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">自动安装shell</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-ffmpeg-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在CentOS上编译安装FFmpeg</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-05-22 15:22:00" datetime="2015-05-22T07:22:00.000Z"  itemprop="datePublished">2015-05-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2015-05-25 13:12:00</code><br><code>原文：http://www.yaosansi.com/post/ffmpeg-on-centos</code></p>
+<p>在CentOS编译安装ffmpeg比较麻烦，以前也搞过多次，由于博客调整，特重新记录一下，以备不时之需。</p>
+<a id="more"></a>
+<h1 id="使用yum安装ffmpeg和相关软件"><a href="#使用yum安装ffmpeg和相关软件" class="headerlink" title="使用yum安装ffmpeg和相关软件"></a>使用yum安装ffmpeg和相关软件</h1><h2 id="快速安装-ffmpeg"><a href="#快速安装-ffmpeg" class="headerlink" title="快速安装 ffmpeg"></a>快速安装 ffmpeg</h2><p>直接安装： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ffmpeg ffmpeg-devel</span><br></pre></td></tr></table></figure>
+<p>若没有找到相应包，需要先加入要应的包。</p>
+<p>将下列代码命名为 <code>dag.repo</code> 放在 <code>/etc/yum.repos.d</code> 目录 下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[dag]</span><br><span class="line">name=Dag RPM Repository for Red Hat Enterprise Linux</span><br><span class="line">baseurl=http://apt.sw.be/redhat/el$releasever/en/$basearch/dag</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+<p>然后再执行上方的安装命令。</p>
+<h2 id="安装-ffmpeg-php-扩展"><a href="#安装-ffmpeg-php-扩展" class="headerlink" title="安装 ffmpeg-php 扩展"></a>安装 ffmpeg-php 扩展</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget /path/to/this/file/ffmpeg-php-0.5.2.1.tbz2</span><br><span class="line">tar -xjf ffmpeg-0.5.2.1.tbz2</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="修改-php-ini-文件"><a href="#修改-php-ini-文件" class="headerlink" title="修改 php.ini 文件"></a>修改 php.ini 文件</h3><p>安装完成后，将会在<code>/usr/local/lib/php/extensions/no-debug-non-zts-20060613/ffmpeg.so</code> 看到php扩展文件。</p>
+<p>打开<code>php.ini</code>文件,加入下面两行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ffmpeg]</span><br><span class="line">extension=ffmpeg.so</span><br></pre></td></tr></table></figure>
+<p>重启WEB服务器。使用phpinfo即可看到ffmpeg相关信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// #test.php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">phpinfo()</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="php-使用方法"><a href="#php-使用方法" class="headerlink" title="php 使用方法"></a>php 使用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$extension = &quot;ffmpeg&quot;;</span><br><span class="line">$extension_soname = $extension . &quot;.&quot; . PHP_SHLIB_SUFFIX;</span><br><span class="line">$extension_fullname = PHP_EXTENSION_DIR . &quot;/&quot; . $extension_soname;</span><br><span class="line"></span><br><span class="line">// load extension</span><br><span class="line">if(!extension_loaded($extension)) &#123;</span><br><span class="line">    dl($extension_soname) or die(&quot;Can&apos;t load extension $extension_fullname\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Mplayer-和-Mencoder"><a href="#安装-Mplayer-和-Mencoder" class="headerlink" title="安装 Mplayer 和 Mencoder"></a>安装 Mplayer 和 Mencoder</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mplayer mencoder</span><br></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>常见问题及解决方案请参考这里：<a href="http://www.mysql-apache-php.com/ffmpeg-install.htm" target="_blank" rel="noopener">http://www.mysql-apache-php.com/ffmpeg-install.htm</a></p>
+<h1 id="自行编译安装-ffmpeg"><a href="#自行编译安装-ffmpeg" class="headerlink" title="自行编译安装 ffmpeg"></a>自行编译安装 ffmpeg</h1><h2 id="安装依赖项"><a href="#安装依赖项" class="headerlink" title="安装依赖项"></a>安装依赖项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install autoconf automake gcc gcc-c++ git libtool make nasm pkgconfig zlib-devel</span><br></pre></td></tr></table></figure>
+<h2 id="安装相应软件包"><a href="#安装相应软件包" class="headerlink" title="安装相应软件包"></a>安装相应软件包</h2><p>可以建立目录存放软件包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/ffmpeg_sources</span><br></pre></td></tr></table></figure>
+<p>注意：以下软件包请有选择的安装，如果不需要请在<code>./configure</code>时移除或关闭相关选项</p>
+<h3 id="安装-yasm"><a href="#安装-yasm" class="headerlink" title="安装 yasm"></a>安装 yasm</h3><p>Yasm是一个完全重写的NASM汇编。目前，它支持x86和AMD64指令集。 x264 和 FFmpeg都使用Yasm.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone --depth 1 git://github.com/yasm/yasm.git</span><br><span class="line">cd yasm</span><br><span class="line">autoreconf -fiv</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz</span><br><span class="line">tar zxf yasm-1.3.0.tar.gz</span><br><span class="line">cd yasm-1.3.0</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br><span class="line">. ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装-x264"><a href="#安装-x264" class="headerlink" title="安装 x264"></a>安装 x264</h3><p>H.264 编码器。<a href="http://trac.ffmpeg.org/wiki/Encode/H.264" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/Encode/H.264</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone --depth 1 git://git.videolan.org/x264</span><br><span class="line">cd x264</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2</span><br><span class="line">tar jxf last_x264.tar.bz2</span><br><span class="line">cd x264-snapshot-20130311-2245/</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>./configure --enable-gpl --enable-libx264</code></p>
+<p>注：由于libx264的code有GPL信息，所以，支持libx264时，需要–enable-gpl，ffmpeg在license方面还是比我们国内的人更重视</p>
+<h3 id="安装-x265"><a href="#安装-x265" class="headerlink" title="安装 x265"></a>安装 x265</h3><p>H.265/HEVC编码器.<a href="http://trac.ffmpeg.org/wiki/Encode/H.265" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/Encode/H.265</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">hg clone https://bitbucket.org/multicoreware/x265</span><br><span class="line">cd ~/ffmpeg_sources/x265/build/linux</span><br><span class="line">cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX=&quot;$HOME/ffmpeg_build&quot; -DENABLE_SHARED:bool=off ../../source</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>./configure --enable-gpl --enable-libx265</code></p>
+<h3 id="安装-libfdk-aac"><a href="#安装-libfdk-aac" class="headerlink" title="安装 libfdk_aac"></a>安装 libfdk_aac</h3><p>AAC音频编码器，Fraunhofer AAC library<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac</span><br><span class="line">cd fdk-aac</span><br><span class="line">autoreconf -fiv</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libfdk_aac</code> ，如果指定了<code>--enable-gpl</code>还要配置<code>--enable-nonfree</code></p>
+<h3 id="安装-libmp3lame"><a href="#安装-libmp3lame" class="headerlink" title="安装 libmp3lame"></a>安装 libmp3lame</h3><p>Mp3音频编码器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://iweb.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz</span><br><span class="line">tar zxf lame-3.99.5.tar.gz</span><br><span class="line">cd lame-3.99.5</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-shared --enable-nasm</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libmp3lame</code> </p>
+<h3 id="安装-libopus"><a href="#安装-libopus" class="headerlink" title="安装 libopus"></a>安装 libopus</h3><p>Opus 音频编解码器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone git://git.opus-codec.org/opus.git</span><br><span class="line">cd opus</span><br><span class="line">autoreconf -fiv</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.xiph.org/releases/opus/opus-1.0.3.tar.gz</span><br><span class="line">tar zxf opus-1.0.3.tar.gz</span><br><span class="line">cd opus-1.0.3</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libopus</code> </p>
+<h3 id="安装-libogg库"><a href="#安装-libogg库" class="headerlink" title="安装 libogg库"></a>安装 libogg库</h3><p>libogg是Ogg流库，libtheora、libvorbis需要libogg库，speex需要它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz</span><br><span class="line">tar xzvf libogg-1.3.2.tar.gz</span><br><span class="line">cd libogg-1.3.2</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装-libvorbis库"><a href="#安装-libvorbis库" class="headerlink" title="安装 libvorbis库"></a>安装 libvorbis库</h3><p>Vorbis音频编码器，需要libogg库。<a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Centos#libogg" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CompilationGuide/Centos#libogg</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz</span><br><span class="line">tar xzvf libvorbis-1.3.4.tar.gz</span><br><span class="line">cd libvorbis-1.3.4</span><br><span class="line">LDFLAGS=&quot;-L$HOME/ffmeg_build/lib&quot; CPPFLAGS=&quot;-I$HOME/ffmpeg_build/include&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --with-ogg=&quot;$HOME/ffmpeg_build&quot; --disable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libvorbis</code> </p>
+<h3 id="安装-libvpx"><a href="#安装-libvpx" class="headerlink" title="安装 libvpx"></a>安装 libvpx</h3><p>VP8/VP9视频编码器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone --depth 1 http://git.chromium.org/webm/libvpx.git</span><br><span class="line">cd libvpx</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --enable-examples</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make clean</span><br></pre></td></tr></table></figure>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libvpx</code> </p>
+<h2 id="编译安装-ffmpeg"><a href="#编译安装-ffmpeg" class="headerlink" title="编译安装 ffmpeg"></a>编译安装 ffmpeg</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources</span><br><span class="line">git clone --depth 1 git://source.ffmpeg.org/ffmpeg</span><br><span class="line">cd ffmpeg</span><br><span class="line">PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; --bindir=&quot;$HOME/bin&quot; --pkg-config-flags=&quot;--static&quot; --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br><span class="line">hash -r</span><br></pre></td></tr></table></figure>
+<p><strong>注：</strong></p>
+<ul>
+<li>编译完成后<code>ffmpeg</code>,<code>ffprobe</code>,<code>ffserver</code>,<code>lame</code>,<code>x264</code>都可以使用。</li>
+<li>编译安装时可以参考Windows Build：<a href="http://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">http://ffmpeg.zeranoe.com/builds/</a></li>
+<li>如果还需要持续更新请保留<code>ffmpeg_sources</code>目录。</li>
+</ul>
+<p>##其它可选软件包</p>
+<h3 id="安装-OpenCORE-AMR"><a href="#安装-OpenCORE-AMR" class="headerlink" title="安装 OpenCORE AMR"></a>安装 OpenCORE AMR</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://iweb.dl.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.3.tar.gz</span><br><span class="line">tar zxf opencore-amr-0.1.3.tar.gz</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot;  –enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libopencore-amrnb</code> 和/或 <code>--enable-libopencore-amrwb</code></p>
+<h3 id="安装-VisualOn-AAC"><a href="#安装-VisualOn-AAC" class="headerlink" title="安装 VisualOn AAC"></a>安装 VisualOn AAC</h3><p>注：github的tag和master版均无法autoconf，用zeranoe版代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget wget http://ffmpeg.zeranoe.com/builds/source/external_libraries/vo-aacenc-0.1.3.tar.xz</span><br><span class="line">xz -d vo-aacenc-0.1.3.tar.xz</span><br><span class="line">tar xf vo-aacenc-0.1.3.tar</span><br><span class="line">cd vo-aacenc-0.1.3</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>也可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://iweb.dl.sourceforge.net/project/opencore-amr/vo-aacenc/vo-aacenc-0.1.3.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libvo-aacenc</code> </p>
+<h3 id="安装-VisualOn-AMR-WB"><a href="#安装-VisualOn-AMR-WB" class="headerlink" title="安装 VisualOn AMR-WB"></a>安装 VisualOn AMR-WB</h3><p>注：github的tag和master版均无法autoconf，用zeranoe版代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://ffmpeg.zeranoe.com/builds/source/external_libraries/vo-amrwbenc-0.1.2.tar.xz</span><br><span class="line">xz -d vo-amrwbenc-0.1.2.tar.xz</span><br><span class="line">tar xf vo-amrwbenc-0.1.2.tar</span><br><span class="line">cd vo-amrwbenc-0.1.2</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot;</span><br></pre></td></tr></table></figure>
+<p>需要<code>ffmpeg</code>配置<code>--enable-libvo-amrwbenc</code> </p>
+<h3 id="安装-frei0r"><a href="#安装-frei0r" class="headerlink" title="安装 frei0r"></a>安装 frei0r</h3><p>先安装新版autoconf，这会覆盖掉系统中的旧版本哦<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz</span><br><span class="line">tar zxf autoconf-2.69.tar.gz</span><br><span class="line">cd autoconf-2.69</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://files.dyne.org/frei0r/releases/frei0r-plugins-1.4.tar.gz</span><br><span class="line">tar zxf frei0r-plugins-1.4.tar.gz</span><br><span class="line">cd frei0r-plugins-1.4</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="安装-gnutls"><a href="#安装-gnutls" class="headerlink" title="安装 gnutls"></a>安装 gnutls</h3><blockquote>
+<p>注意：/etc/ld.so.conf要加上lib64。并且不要使用yum remove gnutls gnutls-devel</p>
+</blockquote>
+<p>首先安装nettle：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.lysator.liu.se/~nisse/archive/nettle-2.5.tar.gz</span><br><span class="line">tar zxf nettle-2.5.tar.gz</span><br><span class="line">cd nettle-2.5</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot;  –enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>然后安装gnutls新版：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1/gnutls-3.1.9.1.tar.xz</span><br><span class="line">xz -d gnutls-3.1.9.1.tar.xz</span><br><span class="line">tar xf gnutls-3.1.9.1.tar</span><br><span class="line">cd gnutls-3.1.9.1</span><br><span class="line">PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig ./configure –enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="安装-rtmpdump"><a href="#安装-rtmpdump" class="headerlink" title="安装 rtmpdump"></a>安装 rtmpdump</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz</span><br><span class="line">tar zxf rtmpdump-2.3.tgz</span><br><span class="line">cd rtmpdump-2.3</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="安装-schroedinger"><a href="#安装-schroedinger" class="headerlink" title="安装 schroedinger"></a>安装 schroedinger</h3><p>注：先安装好orc库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://code.entropywave.com/download/orc/orc-0.4.17.tar.gz</span><br><span class="line">tar zxf orc-0.4.17.tar.gz</span><br><span class="line">cd orc-0.4.17</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">/sbin/ldconfig</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://diracvideo.org/download/schroedinger/schroedinger-1.0.11.tar.gz</span><br><span class="line">tar zxf schroedinger-1.0.11.tar.gz</span><br><span class="line">cd schroedinger-1.0.11</span><br><span class="line">PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig ./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="安装-soxr"><a href="#安装-soxr" class="headerlink" title="安装 soxr"></a>安装 soxr</h3><p>注：新版libsoxr貌似与当前ffmpeg不兼容，用旧版<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum install -y xz</span><br><span class="line">wget http://hivelocity.dl.sourceforge.net/project/soxr/soxr-0.1.0-Source.tar.xz</span><br><span class="line">xz -d soxr-0.1.0-Source.tar.xz</span><br><span class="line">tar xf soxr-0.1.0-Source.tar</span><br><span class="line">cd soxr-0.1.0-Source</span><br><span class="line">./go</span><br><span class="line">cd Release/</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">/sbin/ldconfig</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装-speex"><a href="#安装-speex" class="headerlink" title="安装 speex"></a>安装 speex</h3><p>音频编码解码器。需要安装libogg库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install speex-devel</span><br></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.xiph.org/releases/speex/speex-1.2rc1.tar.gz</span><br><span class="line">tar zxf speex-1.2rc1.tar.gz</span><br><span class="line">cd speex-1.2rc1</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>ffmpeg <code>./configure</code> 添加 <code>--enable-libspeex</code></p>
+<h3 id="安装-libfreetype"><a href="#安装-libfreetype" class="headerlink" title="安装 libfreetype"></a>安装 libfreetype</h3><p>字体呈现库，使用<code>drawtext</code> <a href="http://ffmpeg.org/ffmpeg-filters.html#drawtext-1" target="_blank" rel="noopener">http://ffmpeg.org/ffmpeg-filters.html#drawtext-1</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install freetype-devel</span><br></pre></td></tr></table></figure></p>
+<p>ffmpeg <code>./configure</code> 添加 <code>--enable-libfreetype</code></p>
+<h3 id="安装-libsdl库"><a href="#安装-libsdl库" class="headerlink" title="安装 libsdl库"></a>安装 libsdl库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.libsdl.org/release/SDL-1.2.15.tar.gz</span><br><span class="line">tar zxf SDL-1.2.15.tar.gz</span><br><span class="line">cd SDL-1.2.15</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">/sbin/ldconfig</span><br></pre></td></tr></table></figure>
+<h3 id="安装-theora"><a href="#安装-theora" class="headerlink" title="安装 theora"></a>安装 theora</h3><p>Theora视频编码器，需要需要libogg，libvorbis和libsdl库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2</span><br><span class="line">tar zjf libtheora-1.1.1.tar.bz2</span><br><span class="line">./configure  --prefix=&quot;$HOME/ffmpeg_build&quot; --with-ogg=&quot;$HOME/ffmpeg_build&quot; --disable-examples --enable-shared --disable-sdltest --disable-vorbistest</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<p>ffmpeg <code>./configure</code> 添加 <code>--enable-libtheora</code></p>
+<h3 id="安装-twolame"><a href="#安装-twolame" class="headerlink" title="安装 twolame"></a>安装 twolame</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.sourceforge.net/twolame/twolame-0.3.13.tar.gz</span><br><span class="line">tar zxf twolame-0.3.13</span><br><span class="line">.tar.gz</span><br><span class="line">cd twolame-0.3.13</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">/sbin/ldconfig</span><br></pre></td></tr></table></figure>
+<h3 id="安装-xvid"><a href="#安装-xvid" class="headerlink" title="安装 xvid"></a>安装 xvid</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz</span><br><span class="line">tar zxf xvidcore-1.3.2.tar.gz</span><br><span class="line">cd xvidcore</span><br><span class="line">cd build/generic</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; </span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h2 id="更新FFmpeg及相关组件"><a href="#更新FFmpeg及相关组件" class="headerlink" title="更新FFmpeg及相关组件"></a>更新FFmpeg及相关组件</h2><h3 id="更新依赖项"><a href="#更新依赖项" class="headerlink" title="更新依赖项"></a>更新依赖项</h3><p>删除旧文件，更新依赖项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/ffmpeg_build ~/bin/&#123;ffmpeg,ffprobe,ffserver,lame,vsyasm,x264,yasm,ytasm&#125;</span><br><span class="line"># yum install autoconf automake cmake gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新-x264"><a href="#更新-x264" class="headerlink" title="更新 x264"></a>更新 x264</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources/x264</span><br><span class="line">make distclean</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>然后运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新-x265"><a href="#更新-x265" class="headerlink" title="更新 x265"></a>更新 x265</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources/x265</span><br><span class="line">rm -rf ~/ffmpeg_sources/x265/build/linux/*</span><br><span class="line">hg update</span><br><span class="line">cd ~/ffmpeg_sources/x265/build/linux</span><br></pre></td></tr></table></figure>
+<p>然后运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX=&quot;$HOME/ffmpeg_build&quot; -DENABLE_SHARED:bool=off ../../source</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新-libfdk-aac"><a href="#更新-libfdk-aac" class="headerlink" title="更新 libfdk_aac"></a>更新 libfdk_aac</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources/libfdk_aac</span><br><span class="line">make distclean</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>然后运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd fdk-aac</span><br><span class="line">autoreconf -fiv</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新-libvpx"><a href="#更新-libvpx" class="headerlink" title="更新 libvpx"></a>更新 libvpx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources/libvpx</span><br><span class="line">make clean</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>然后运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd libvpx</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-examples</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make clean</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新FFmpeg"><a href="#更新FFmpeg" class="headerlink" title="更新FFmpeg"></a>更新FFmpeg</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_sources/ffmpeg</span><br><span class="line">make distclean</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>然后运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ffmpeg</span><br><span class="line">PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; --bindir=&quot;$HOME/bin&quot; --pkg-config-flags=&quot;--static&quot; --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">make distclean</span><br><span class="line">hash -r</span><br></pre></td></tr></table></figure></p>
+<h2 id="还原所有本文安装内容"><a href="#还原所有本文安装内容" class="headerlink" title="还原所有本文安装内容"></a>还原所有本文安装内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/ffmpeg_build ~/ffmpeg_sources ~/bin/&#123;ffmpeg,ffprobe,ffserver,lame,vsyasm,x264,yasm,ytasm&#125;</span><br><span class="line"># yum erase autoconf automake cmake gcc gcc-c++ git libtool mercurial nasm pkgconfig zlib-devel</span><br><span class="line">hash -r</span><br></pre></td></tr></table></figure>
+<p>注：如安装其它软件包需要自行删除</p>
+<h2 id="自动安装shell"><a href="#自动安装shell" class="headerlink" title="自动安装shell"></a>自动安装shell</h2><p><a href="https://gist.github.com/gboudreau/f24aed76b4cc91bfb2c1" target="_blank" rel="noopener">https://gist.github.com/gboudreau/f24aed76b4cc91bfb2c1</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"> </span><br><span class="line"># Based on instructions found here: http://wiki.razuna.com/display/ecp/FFMpeg+Installation+on+CentOS+and+RedHat#FFMpegInstallationonCentOSandRedHat-InstallX264</span><br><span class="line"> </span><br><span class="line">if [ &quot;`/usr/bin/whoami`&quot; != &quot;root&quot; ]; then</span><br><span class="line">    echo &quot;You need to execute this script as root.&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"> </span><br><span class="line">cat &gt; /etc/yum.repos.d/centos.repo&lt;&lt;EOF</span><br><span class="line">[centos]</span><br><span class="line">name=CentOS-6 – Base</span><br><span class="line">baseurl=http://mirror.centos.org/centos/6/os/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line">enabled=1</span><br><span class="line">priority=1</span><br><span class="line">protect=1</span><br><span class="line">includepkgs=SDL SDL-devel gsm gsm-devel libtheora theora-tools libdc1394 libdc1394-devel libraw1394-devel</span><br><span class="line">EOF</span><br><span class="line">rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line"> </span><br><span class="line">rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm</span><br><span class="line">yum -y update</span><br><span class="line"> </span><br><span class="line">yum -y install glibc gcc gcc-c++ autoconf automake libtool git make nasm pkgconfig</span><br><span class="line">yum -y install SDL-devel a52dec a52dec-devel alsa-lib-devel faac faac-devel faad2 faad2-devel</span><br><span class="line">yum -y install freetype-devel giflib gsm gsm-devel imlib2 imlib2-devel lame lame-devel libICE-devel libSM-devel libX11-devel</span><br><span class="line">yum -y install libXau-devel libXdmcp-devel libXext-devel libXrandr-devel libXrender-devel libXt-devel</span><br><span class="line">yum -y install libogg libvorbis vorbis-tools mesa-libGL-devel mesa-libGLU-devel xorg-x11-proto-devel zlib-devel</span><br><span class="line">yum -y install libtheora theora-tools</span><br><span class="line">yum -y install ncurses-devel</span><br><span class="line">yum -y install libdc1394 libdc1394-devel</span><br><span class="line">yum -y install amrnb-devel amrwb-devel opencore-amr-devel</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">wget http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz</span><br><span class="line">tar xzvf xvidcore-1.3.2.tar.gz &amp;&amp; rm -f xvidcore-1.3.2.tar.gz</span><br><span class="line">cd xvidcore/build/generic</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; &amp;&amp; make &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">wget http://downloads.xiph.org/releases/ogg/libogg-1.3.1.tar.gz</span><br><span class="line">tar xzvf libogg-1.3.1.tar.gz &amp;&amp; rm -f libogg-1.3.1.tar.gz</span><br><span class="line">cd libogg-1.3.1</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared &amp;&amp; make &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz</span><br><span class="line">tar xzvf libvorbis-1.3.4.tar.gz &amp;&amp; rm -f libvorbis-1.3.4.tar.gz</span><br><span class="line">cd libvorbis-1.3.4</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --with-ogg=&quot;$HOME/ffmpeg_build&quot; --disable-shared &amp;&amp; make &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz</span><br><span class="line">tar xzvf libtheora-1.1.1.tar.gz &amp;&amp; rm -f libtheora-1.1.1.tar.gz</span><br><span class="line">cd libtheora-1.1.1</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --with-ogg=&quot;$HOME/ffmpeg_build&quot; --disable-examples --disable-shared --disable-sdltest --disable-vorbistest &amp;&amp; make &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">wget http://downloads.sourceforge.net/opencore-amr/vo-aacenc-0.1.2.tar.gz</span><br><span class="line">tar xzvf vo-aacenc-0.1.2.tar.gz &amp;&amp; rm -f vo-aacenc-0.1.2.tar.gz</span><br><span class="line">cd vo-aacenc-0.1.2</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">yum -y remove yasm</span><br><span class="line">cd /opt</span><br><span class="line">wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz</span><br><span class="line">tar xzfv yasm-1.2.0.tar.gz &amp;&amp; rm -f yasm-1.2.0.tar.gz</span><br><span class="line">cd yasm-1.2.0</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; &amp;&amp; make install</span><br><span class="line">export &quot;PATH=$PATH:$HOME/bin&quot; </span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">git clone http://git.chromium.org/webm/libvpx.git</span><br><span class="line">cd libvpx</span><br><span class="line">git checkout tags/v1.3.0</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-examples &amp;&amp; make &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">git clone git://git.videolan.org/x264.git</span><br><span class="line">cd x264</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/lib/:$HOME/ffmpeg_build/lib/</span><br><span class="line">echo /usr/local/lib &gt;&gt; /etc/ld.so.conf.d/custom-libs.conf</span><br><span class="line">echo $HOME/ffmpeg_build/lib/ &gt;&gt; /etc/ld.so.conf.d/custom-libs.conf</span><br><span class="line">ldconfig</span><br><span class="line"> </span><br><span class="line">cd /opt</span><br><span class="line">git clone git://source.ffmpeg.org/ffmpeg.git</span><br><span class="line">cd ffmpeg</span><br><span class="line">git checkout release/2.2</span><br><span class="line">PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot;</span><br><span class="line">export PKG_CONFIG_PATH</span><br><span class="line">./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; --bindir=&quot;$HOME/bin&quot; \</span><br><span class="line">--extra-libs=-ldl --enable-version3 --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvpx --enable-libfaac \</span><br><span class="line">--enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libvo-aacenc --enable-libxvid --disable-ffplay \</span><br><span class="line">--enable-gpl --enable-postproc --enable-nonfree --enable-avfilter --enable-pthreads --arch=x86_64 &amp;&amp; make install</span><br><span class="line"> </span><br><span class="line"># Test the resulting ffmpeg binary</span><br><span class="line">cp $HOME/bin/ffmpeg /usr/bin/</span><br><span class="line">ffmpeg -v</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://ju.outofmemory.cn/entry/25624" target="_blank" rel="noopener">http://ju.outofmemory.cn/entry/25624</a></li>
+<li><a href="http://ju.outofmemory.cn/entry/25625" target="_blank" rel="noopener">http://ju.outofmemory.cn/entry/25625</a></li>
+<li><a href="http://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">http://ffmpeg.zeranoe.com/builds/</a></li>
+<li><a href="http://blog.csdn.net/yasi_xi/article/details/18810707" target="_blank" rel="noopener">http://blog.csdn.net/yasi_xi/article/details/18810707</a></li>
+<li><a href="http://www.mysql-apache-php.com/ffmpeg-install.htm" target="_blank" rel="noopener">http://www.mysql-apache-php.com/ffmpeg-install.htm</a></li>
+<li><a href="http://ffmpeg-php.sourceforge.net/" target="_blank" rel="noopener">http://ffmpeg-php.sourceforge.net/</a></li>
+<li><a href="http://inlet-media.de/flvtool2" target="_blank" rel="noopener">http://inlet-media.de/flvtool2</a></li>
+<li><a href="http://lame.sourceforge.net/" target="_blank" rel="noopener">http://lame.sourceforge.net/</a></li>
+<li><a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></li>
+<li><a href="http://flowplayer.org/" target="_blank" rel="noopener">http://flowplayer.org/</a></li>
+<li><a href="http://www.mplayerhq.hu/DOCS/HTML/en/audio-codecs.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/DOCS/HTML/en/audio-codecs.html</a></li>
+<li><a href="http://www.webmasterpals.com/forumdisplay.php?f=6" target="_blank" rel="noopener">http://www.webmasterpals.com/forumdisplay.php?f=6</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/CentosCompilationGuide#x264" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CentosCompilationGuide#x264</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/CentosCompilationGuide#libfdk_aac" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CentosCompilationGuide#libfdk_aac</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/CentosCompilationGuide#libvpx" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CentosCompilationGuide#libvpx</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/CentosCompilationGuide#FFmpeg" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CentosCompilationGuide#FFmpeg</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/x264EncodingGuide" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/x264EncodingGuide</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/AACEncodingGuide" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/AACEncodingGuide</a></li>
+<li><a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Centos" target="_blank" rel="noopener">http://trac.ffmpeg.org/wiki/CompilationGuide/Centos</a></li>
+<li><a href="https://gist.github.com/gboudreau/f24aed76b4cc91bfb2c1" target="_blank" rel="noopener">https://gist.github.com/gboudreau/f24aed76b4cc91bfb2c1</a></li>
+<li><a href="http://www.videolan.org/developers/x264.html" target="_blank" rel="noopener">http://www.videolan.org/developers/x264.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-25T05:55:13.722Z" itemprop="dateUpdated">2015-05-25 13:55:13</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/ffmpeg-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/ffmpeg-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFmpeg/">FFmpeg</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/ffmpeg-on-centos/&title=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/ffmpeg-on-centos/&title=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&source=本文最后更新于：2015-05-25 13:12:00原文：http://www.yaosansi.com/post/ffmpeg-on-centos
+在..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/ffmpeg-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&url=http://www.yaosansi.com/post/ffmpeg-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/ffmpeg-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/ffmpeg-burn-subtitles-into-video/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用FFmpeg将字幕文件集成到视频文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/mono4.0.1-jexus5.6-on-centos7/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Mono4.0.1与Jexus5.6在CentOS7上安装与使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/ffmpeg-on-centos/&title=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/ffmpeg-on-centos/&title=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&source=本文最后更新于：2015-05-25 13:12:00原文：http://www.yaosansi.com/post/ffmpeg-on-centos
+在..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/ffmpeg-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在CentOS上编译安装FFmpeg》 — yaosansi's blog&url=http://www.yaosansi.com/post/ffmpeg-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/ffmpeg-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aQW7DMAxEUd//0i7QVYHWyh/SDWLqaxU0qaLnxYQSdRx4nN/j6i/nj0Hm+T3SeYpDhgwZj2Wcy0E+s/7fK3YKW88vQ4aMHRjrkF1HYfrFhMTXJkOGDBmd1zx2O5+RIUOGDP76qtzk2+OPCFwZMmR8MIMXc+uvrEXtW/fiMmTIeCAjbQy88/U/9jdkyJDxEMa9B/0kCknbMl6VDBkyRjNIWZYuJZ2tc6fi4NWlDBkyHsvoXKHog0mNhw7dZMiQsRmDbGLvWmKnlJQhQ8Y+jFojk7cVay3MtN6TIUPGPoz0mlenJbl+KGTmo/9sZMiQ8ShGK9qWM6SNhPTqRvHQTYYMGSMY/BCtdmEijVq0QhkyZAxl8FAj76YxnYKDOyMyZMgYxOAHbfdGbSfEX/xuyJAhYxyj1pjk7LR5wIP7j98NGTJkjGbwr+9sPvm7a8aLTawMGTLGMTrlGm80povjLQcZMmTsw+AbURJ8tRhNH9DlT4UMGTKGMviC+le++KLjbbMMGTKGMtKJyHY3DdC0oJQhQ4aM9LoDqjrDxkP8eRkyZIxm8E1suu1cH8DVBolgGTJkzGOc4QhO73Bk8/hGpaEMGTLGMdKwSz+ZloA8+mXIkLEbox+CvJRMy9BgZhkyZGzA6Fyt4IdrteJShgwZMjjjrlBO2wBBaShDhgwZ7YKPP5S4vyFDhowNGP3rFLWQ5cd2MmTI2JlRawxwfK3l2ZlBhgwZgxhf6NwzCNylQSEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

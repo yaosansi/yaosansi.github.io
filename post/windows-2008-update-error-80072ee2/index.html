@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>windows 2008 update 更新时出现 80072EE2 错误 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Windows">
+    <meta name="description" content="本文最后更新于：2008-07-24 13:44:08原文：http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/ 今天在使用windows 2008 update 更新时出现错误80072EE2,此系统是我在4月份做的GHOST备份，今天还原了一下，更新了一些软件,结果出现不能升级的问题。 解决方案一: Windows U">
+<meta name="keywords" content="Windows">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows 2008 update 更新时出现 80072EE2 错误">
+<meta property="og:url" content="http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2008-07-24 13:44:08原文：http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/ 今天在使用windows 2008 update 更新时出现错误80072EE2,此系统是我在4月份做的GHOST备份，今天还原了一下，更新了一些软件,结果出现不能升级的问题。 解决方案一: Windows U">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2014-08-04T05:41:33.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows 2008 update 更新时出现 80072EE2 错误">
+<meta name="twitter:description" content="本文最后更新于：2008-07-24 13:44:08原文：http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/ 今天在使用windows 2008 update 更新时出现错误80072EE2,此系统是我在4月份做的GHOST备份，今天还原了一下，更新了一些软件,结果出现不能升级的问题。 解决方案一: Windows U">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">windows 2008 update 更新时出现 80072EE2 错误</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">windows 2008 update 更新时出现 80072EE2 错误</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2008-07-24T05:44:08.000Z" itemprop="datePublished" class="page-time">
+  2008-07-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Windows/">Windows</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案一"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决方案一:</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#将-Windows-Update-网站添加到防火墙例外列表"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">将 Windows Update 网站添加到防火墙例外列表</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案二"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决方案二:</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原因分析："><span class="post-toc-number">2.1.</span> <span class="post-toc-text">原因分析：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案三"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决方案三:</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-windows-2008-update-error-80072ee2"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">windows 2008 update 更新时出现 80072EE2 错误</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2008-07-24 13:44:08" datetime="2008-07-24T05:44:08.000Z"  itemprop="datePublished">2008-07-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Windows/">Windows</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2008-07-24 13:44:08</code><br><code>原文：http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/</code></p>
+<p>今天在使用windows 2008 update 更新时出现错误80072EE2,此系统是我在4月份做的GHOST备份，今天还原了一下，更新了一些软件,结果出现不能升级的问题。</p>
+<h2 id="解决方案一"><a href="#解决方案一" class="headerlink" title="解决方案一:"></a>解决方案一:</h2><ul>
+<li>Windows Update 错误 80072ee2</li>
+</ul>
+<blockquote>
+<p>如果在检查更新时收到 Windows Update 错误 80072ee2，可能需要将 Windows Update 下载更新的网站地址添加到防火墙例外或“允许”列表中。</p>
+</blockquote>
+<h3 id="将-Windows-Update-网站添加到防火墙例外列表"><a href="#将-Windows-Update-网站添加到防火墙例外列表" class="headerlink" title="将 Windows Update 网站添加到防火墙例外列表"></a>将 Windows Update 网站添加到防火墙例外列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Windows 防火墙是该版本 Windows 附带的防火墙，其例外列表中应当已包括这些站点。</span><br><span class="line">如果使用其他防火墙，请参阅软件发行者的帮助，查看如何将这些网站添加到防火墙例外列表中：</span><br><span class="line">http://*.update.microsoft.com  </span><br><span class="line">https://*.update.microsoft.com  </span><br><span class="line">http://download.windowsupdate.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个是常见问题,假如这个不能解决,很可能在于你的第三方杀毒软件,或者第三方防火墙把它禁止了,请在里面允许这个地址</p>
+</blockquote>
+<p>由于使用系统防火墙，没有安装其它防火墙，杀毒软件（NOD32）也用了几年了，从没发现问题。以上解决方案被排除。</p>
+<p>因为使用2008将近一年了，从来没有遇到过此情况，况且是正版的系统。GOOGLE了一下,得出</p>
+<h2 id="解决方案二"><a href="#解决方案二" class="headerlink" title="解决方案二:"></a>解决方案二:</h2><p>找到C:\Windows\SoftwareDistribution文件夹下，补丁下载目录Download文件夹及临时安装文件目录DataStore，把这两个文件夹里的东西全部清空（注意要到安全模式才行呀；或者禁用 Windows Update服务，重启后删除，删除文件后再打开Windows Update服务。切忌，两种发放删除文件后，都必须重新启动），然后让更新重0开始，哈哈，结果搜索到补丁，下载补丁，安装成功。</p>
+<h3 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.补丁下载时出错，可能是下载补丁时突然网络中断导致下载的文件损坏，而从新搜索到补丁时，不能继传，也就不能继续下载，所以补丁会一直停留在21%不动！</span><br><span class="line"></span><br><span class="line">2.根据我更新的补丁失败及创建时间，在C:\Windows\SoftwareDistribution\Download文件夹里找到的补丁号不是KB9155971，而是另外一个补丁，那这也就是说，补丁下载出错，下载的补丁不是我需要的补丁，所有在更新补丁时，大部分时间是出错，偶尔提示不需要此更新！</span><br><span class="line"></span><br><span class="line">综上所述，如果大家遇到补丁下载到一定进度而又不能继续下载或者补丁更新时一直出错，不妨试一下以上的方法，但是要注意一点，可能C:\Windows\SoftwareDistribution\Download文件夹里又安装补丁前创造的还原点，如果你很在意这个，请先备份后在删除！</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案三"><a href="#解决方案三" class="headerlink" title="解决方案三:"></a>解决方案三:</h2><p>由于我使用的是英文操作系统，在网上无意搜索时发现有人提出<strong>IE的语言顺序会导致Windows Update 错误</strong>，于是打开IE，找到languages选项，果然只有Chinese一种语言，增加English语言，并将其置顶，再次尝试Windows Update 成功。</p>
+<p>现在还不得而知是安装什么软件改变了IE默认的语言，按我的经验判断，很有可能是灵格词霸2.5.0 。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-08-04T05:41:33.032Z" itemprop="dateUpdated">2014-08-04 13:41:33</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/windows-2008-update-error-80072ee2/" target="_blank" rel="external">http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&title=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&title=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/sqlserver-2008-install-error-when-change-install-path/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SQL Server 2008 修改安装路径后安装出错的解决方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/windows-2008-remote-desktop-configuration-of-multiple-user-login-methods/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Windows 2008远程桌面多用户登陆的配置方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&title=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&title=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《windows 2008 update 更新时出现 80072EE2 错误》 — yaosansi's blog&url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/windows-2008-update-error-80072ee2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3a0W7CMAwFUP7/p9nrpqn02o4Hmk6fECslJ5OScO3HI76e367f71/d+f2v+fvJpw5feHh4eIOhJ1+TD3c+Qfm3X04BHh4e3hrvakV9/fr1/fnEVacmGQMeHh7eJ/OqQ8w3CTw8PLz/ysszgd520tuc8PDw8LZ5vUcnm0Qv3p0c2fHw8PC2edVl/RNer9T38PDw8MZV9V4TQFLcyhsUnoMLDw8Pb4OXL7hJ/Dppq6oe1gvNYXh4eHhHeb1B50fbCSZ/wuU9eHh4eMu8pJj0ukUgf9rks4VtAw8PD2+Blyefk6V/Utyqlr5ukHh4eHgLvEldqVrK+qPaHR4eHt5yW8CpMCL5VH74TraQcgEMDw8Pb8w7fDCNWwHyrSI/lI9+JeDh4eHFOWev8N/D5LFCHv7e/GPw8PDwjvKSQlR1KT+1zeTH95sqHx4eHt4h3rzUlBf1qxtPvlVcvsbDw8Nb4CUDqga1OT5vtMqD5mhvwcPDwxvweox8guZxRt6CcFP6wsPDwzvKqzZC9YbYCymqk/vjTjw8PLwFXq/AXy2b9VoNesFxIczFw8PDa/FyRl4eS46/k5av/FiPh4eHt8GrhqTV5b4aEFfDCDw8PLx38Tai2KRhK2+r6pXH8PDw8PZ4vci12hRVXdarx/SoDIaHh4e3xstj2fydahxcbcYa9ZTh4eHhHeUlX5wv3OXC/yBExsPDw9vm9Y7CeURbGNC4+QAPDw9vj/csXr3BJQt6L/64QeLh4eEt8KoL7uvj76T0lYe2k7IZHh4e3iletZRVLVblG8Mk2riJcfHw8PAWeNXGpmSZTjaPSfxRiCTw8PDw3sqbhwjVWCGZ3EJ9Dw8PD+9NvAl1Ei6UpwkPDw9vjZcXvaoH4vw5+WZQaDXAw8PDW+CVf94Hg5hsNsna/jh74eHh4aW8L5fSxTrAV0IEAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Dev Tools | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="本内容不定期更新 本文最后更新于：2015-04-23 12:44:50原文：http://www.yaosansi.com/dev/ 语言前端编码规范 编码规范(HTML&amp;amp;CSS):http://codeguide.bootcss.com  编码规范(HTML&amp;amp;CSS):http://zoomzhao.github.io/code-guide/  GitHub CSS style">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dev Tools">
+<meta property="og:url" content="http://www.yaosansi.com/dev/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本内容不定期更新 本文最后更新于：2015-04-23 12:44:50原文：http://www.yaosansi.com/dev/ 语言前端编码规范 编码规范(HTML&amp;amp;CSS):http://codeguide.bootcss.com  编码规范(HTML&amp;amp;CSS):http://zoomzhao.github.io/code-guide/  GitHub CSS style">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-04-27T05:39:01.965Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dev Tools">
+<meta name="twitter:description" content="本内容不定期更新 本文最后更新于：2015-04-23 12:44:50原文：http://www.yaosansi.com/dev/ 语言前端编码规范 编码规范(HTML&amp;amp;CSS):http://codeguide.bootcss.com  编码规范(HTML&amp;amp;CSS):http://zoomzhao.github.io/code-guide/  GitHub CSS style">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Dev Tools</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Dev Tools</h1>
+        <h5 class="subtitle">
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#语言"><span class="post-toc-number">1.</span> <span class="post-toc-text">语言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前端"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前端</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编码规范"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">编码规范</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS预处理器"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">CSS预处理器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JavaScript加载器"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">JavaScript加载器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JavaScript框架"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">JavaScript框架</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS框架"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">CSS框架</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nodejs"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">Nodejs</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自动化构建"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">自动化构建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作流"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">工作流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码整理"><span class="post-toc-number">1.1.10.</span> <span class="post-toc-text">代码整理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编辑器"><span class="post-toc-number">1.1.11.</span> <span class="post-toc-text">编辑器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其它"><span class="post-toc-number">1.1.12.</span> <span class="post-toc-text">其它</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Python"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Python</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Go</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Net"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">.Net</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性能测试"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">性能测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后台任务"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">后台任务</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发辅助工具"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">开发辅助工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调试"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">调试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Markdown"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">Markdown</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#教程-文档"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">教程/文档</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#环境工具"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">环境工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#教程文档"><span class="post-toc-number">1.7.3.</span> <span class="post-toc-text">教程文档</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工具"><span class="post-toc-number">1.7.4.</span> <span class="post-toc-text">工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在线工具"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">在线工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#网络"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试-1"><span class="post-toc-number">1.9.1.</span> <span class="post-toc-text">测试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#压力测试"><span class="post-toc-number">1.10.1.</span> <span class="post-toc-text">压力测试</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#业界"><span class="post-toc-number">2.</span> <span class="post-toc-text">业界</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#社区"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">社区</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资讯-amp-综合"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">资讯&amp;综合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IT教育-amp-学习"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">IT教育&amp;学习</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Dev Tools</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-07-25 10:00:00" datetime="2014-07-25T02:00:00.000Z"  itemprop="datePublished">2014-07-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>本内容不定期更新</strong></p>
+<p><code>本文最后更新于：2015-04-23 12:44:50</code><br><code>原文：http://www.yaosansi.com/dev/</code></p>
+<h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><h3 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h3><ul>
+<li>编码规范(HTML&amp;CSS):<a href="http://codeguide.bootcss.com" target="_blank" rel="noopener">http://codeguide.bootcss.com</a> </li>
+<li>编码规范(HTML&amp;CSS):<a href="http://zoomzhao.github.io/code-guide/" target="_blank" rel="noopener">http://zoomzhao.github.io/code-guide/</a> </li>
+<li>GitHub CSS styleguide:<a href="https://github.com/styleguide/css" target="_blank" rel="noopener">https://github.com/styleguide/css</a></li>
+</ul>
+<h3 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h3><ul>
+<li>SASS <a href="http://sass-lang.com/" target="_blank" rel="noopener">http://sass-lang.com/</a></li>
+<li>LESS <a href="http://lesscss.org/" target="_blank" rel="noopener">http://lesscss.org/</a></li>
+<li>Stylus <a href="http://www.stylus.com/" target="_blank" rel="noopener">http://www.stylus.com/</a></li>
+</ul>
+<h3 id="JavaScript加载器"><a href="#JavaScript加载器" class="headerlink" title="JavaScript加载器"></a>JavaScript加载器</h3><ul>
+<li>LABjs  <a href="http://labjs.com/" target="_blank" rel="noopener">http://labjs.com/</a><br><code>JavaScript文件加载器</code></li>
+<li>SeaJS  <a href="http://seajs.org/" target="_blank" rel="noopener">http://seajs.org/</a><br><code>专注于Web 浏览器端的模块加载器,遵循的是 CMD （通用模块定义）规范</code></li>
+<li>RequireJS <a href="http://www.requirejs.org/" target="_blank" rel="noopener">http://www.requirejs.org/</a><br><code>遵循的是 AMD（异步模块定义）规范</code></li>
+</ul>
+<h3 id="JavaScript框架"><a href="#JavaScript框架" class="headerlink" title="JavaScript框架"></a>JavaScript框架</h3><ul>
+<li><p>jQuery <a href="http://jquery.com/" target="_blank" rel="noopener">http://jquery.com/</a></p>
+</li>
+<li><p>AngularJS <a href="https://angularjs.org/" target="_blank" rel="noopener">https://angularjs.org/</a> </p>
+<blockquote>
+<p>Google创建的一种框架，目标是为了简化单一页面应用（SPA）的创建，<br>是增强基于Web应用，并带有MVC功能，使得开发和测试变得更加容易。</p>
+</blockquote>
+</li>
+<li><p>Ember.js <a href="http://emberjs.com/" target="_blank" rel="noopener">http://emberjs.com/</a></p>
+<blockquote>
+<p>Ember.js是一个用于创建web应用的JavaScript MVC 框架，其采用基于字符串的Handlebars模板，支持双向绑定、观察者模式、计算属性（依赖其他属性动态变化）、自动更新模板、路由控制、状态机等。</p>
+</blockquote>
+</li>
+<li><p>ReactJS <a href="http://facebook.github.io/react" target="_blank" rel="noopener">http://facebook.github.io/react</a><br><code>由Facebook创建,一个更高效、具有更高性能、速度更快的类库</code></p>
+</li>
+<li><p>knockoutjs <a href="http://knockoutjs.com/" target="_blank" rel="noopener">http://knockoutjs.com/</a> >> <a href="http://www.cnblogs.com/TomXu/archive/2011/11/21/2257154.html" target="_blank" rel="noopener">Knockout应用开发指南（完整版）</a> <a href="http://v.youku.com/v_show/id_XNDY3NTcwNzQ0.html" target="_blank" rel="noopener">Knockout.js官方实战教程100</a></p>
+<blockquote>
+<p>Knockoutjs是一个JavaScript实现的MVVM框架.主要有如下几个功能</p>
+<ol>
+<li>Declarative bindings</li>
+<li>Observables and dependency tracking</li>
+<li>Templating</li>
+</ol>
+</blockquote>
+</li>
+<li><p>AvalonJS <a href="http://avalonjs.github.io/" target="_blank" rel="noopener">http://avalonjs.github.io/</a> >> <a href="http://v.qq.com/search.html?pagetype=3&amp;stj2=search.smartbox&amp;stag=txt.historyword&amp;ms_key=Avalon%E6%8E%A2%E7%B4%A2%E4%B9%8B%E6%97%85" target="_blank" rel="noopener">视频讲座</a></p>
+<blockquote>
+<p>avalon是由博客园的司徒正美创建的，是一个简单易用迷你的MVVM框架，它最早发布于2012.09.15，为解决同一业务逻辑存在各种视图呈现而开发出来的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="CSS框架"><a href="#CSS框架" class="headerlink" title="CSS框架"></a>CSS框架</h3><ul>
+<li>Bootstrap  <a href="http://v3.bootcss.com/" target="_blank" rel="noopener">http://v3.bootcss.com/</a><blockquote>
+<p>Bootstrap 由Twitter推出的一个用于前端开发的开源工具包,是最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局、移动设备优先的 WEB 项目。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Nodejs"><a href="#Nodejs" class="headerlink" title="Nodejs"></a>Nodejs</h3><ul>
+<li>node.js:<a href="http://nodejs.org/" target="_blank" rel="noopener">http://nodejs.org/</a></li>
+<li>npm:<a href="https://www.npmjs.org/" target="_blank" rel="noopener">https://www.npmjs.org/</a><br><code>nodejs的包依赖管理</code></li>
+<li>bower:<a href="http://bower.io/" target="_blank" rel="noopener">http://bower.io/</a><br><code>javascript的包依赖管理,自动安装依赖组件,组件依赖检测,版本兼容性检测</code></li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li>Jasmine:<a href="http://jasmine.github.io/" target="_blank" rel="noopener">http://jasmine.github.io/</a><br><code>单元测试工具</code></li>
+<li>Karma:<a href="http://karma-runner.github.io/" target="_blank" rel="noopener">http://karma-runner.github.io/</a> </li>
+</ul>
+<h3 id="自动化构建"><a href="#自动化构建" class="headerlink" title="自动化构建"></a>自动化构建</h3><p><code>自动化完成单元测试</code></p>
+<ul>
+<li>Gulp:<a href="http://gulpjs.com/" target="_blank" rel="noopener">http://gulpjs.com/</a><br><code>构建,预览,测试项目</code></li>
+<li>Grunt:<a href="http://gruntjs.com/" target="_blank" rel="noopener">http://gruntjs.com/</a><br><code>统一项目管理-代码合并,压缩和混淆工具</code></li>
+</ul>
+<h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><ul>
+<li>Yeoman:(<a href="http://yeoman.io/" target="_blank" rel="noopener">http://yeoman.io/</a><br><code>提供一系列健壮的工具、程序库和工作流,快速创建,自动编译,自动检测,内置HTTP服务器,图像优化等</code></li>
+</ul>
+<h3 id="代码整理"><a href="#代码整理" class="headerlink" title="代码整理"></a>代码整理</h3><ul>
+<li>JSHint <a href="http://jshint.com/" target="_blank" rel="noopener">http://jshint.com/</a></li>
+<li>jslint:<a href="http://www.jslint.com/" target="_blank" rel="noopener">http://www.jslint.com/</a></li>
+<li>UglifyJS2:<a href="http://lisperator.net/uglifyjs/" target="_blank" rel="noopener">http://lisperator.net/uglifyjs/</a><br><code>合并压缩混淆JS代码</code></li>
+</ul>
+<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul>
+<li>Sublime Text <a href="http://www.sublimetext.com/" target="_blank" rel="noopener">http://www.sublimetext.com/</a><br><code>轻量级的、速度飞快的用于编程的文本编辑器</code></li>
+<li>WebStorm <a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="noopener">https://www.jetbrains.com/webstorm/</a><br><code>专注于HTML、CSS和JavaScript开发</code></li>
+<li>Atom <a href="https://atom.io/" target="_blank" rel="noopener">https://atom.io/</a><br><code>GitHub推出的一款开源的免费富文本编辑器</code></li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li>impress.js:<a href="https://github.com/bartaz/impress.js/" target="_blank" rel="noopener">https://github.com/bartaz/impress.js/</a><br><code>impress.js 不仅仅是PPT</code></li>
+<li>im_demo:<a href="http://bartaz.github.com/impress.js" target="_blank" rel="noopener">http://bartaz.github.com/impress.js</a><br><code>impress.js示例</code></li>
+<li>typescript <a href="http://www.typescriptlang.org/" target="_blank" rel="noopener">http://www.typescriptlang.org/</a><blockquote>
+<p>TypeScript是一种由微软开发的自由和开源的编程语言。它是JavaScript的一个超集，而且本质上向这个语言添加了可选的静态类型和基于类的面向对象编程。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><ul>
+<li>Python教程(廖雪峰):<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="noopener">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000</a></li>
+</ul>
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><ul>
+<li>Go 编程基础:<a href="https://github.com/Unknwon/go-fundamental-programming" target="_blank" rel="noopener">https://github.com/Unknwon/go-fundamental-programming</a></li>
+<li>Go Web编程:<a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/preface.md" target="_blank" rel="noopener">https://github.com/astaxie/build-web-application-with-golang/blob/master/ebook/preface.md</a></li>
+<li>Go Web编程_EN:<a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/en/eBook/preface.md" target="_blank" rel="noopener">https://github.com/astaxie/build-web-application-with-golang/blob/master/en/eBook/preface.md</a></li>
+</ul>
+<h2 id="Net"><a href="#Net" class="headerlink" title=".Net"></a>.Net</h2><h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><ul>
+<li>dotTrace <a href="https://www.jetbrains.com/profiler/" target="_blank" rel="noopener">https://www.jetbrains.com/profiler/</a><br><code>帮你理解SQL查询如何影响应用性能</code></li>
+<li>glimpse <a href="http://getglimpse.com/" target="_blank" rel="noopener">http://getglimpse.com/</a><blockquote>
+<p>一款.NET下的性能测试工具，支持asp.net 、asp.net mvc, EF等等，优势在于，不需要修改原项目任何代码，且能输出代码执行各个环节的执行时间 ，安装方式非常简单，通过nuget直接安装即可。</p>
+</blockquote>
+</li>
+<li>MvcMiniProfiler <a href="http://miniprofiler.com/" target="_blank" rel="noopener">http://miniprofiler.com/</a><blockquote>
+<p>一款由stackoverflow.com团队开发，专门针对ASP.NET MVC站点进行性能调试的工具，同时，其中的MvcMiniprofiler.EntityFramework组件，能直接输出当前页面执行了哪些SQL语句。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="后台任务"><a href="#后台任务" class="headerlink" title="后台任务"></a>后台任务</h3><ul>
+<li>Hangfire <a href="http://docs.hangfire.io/en/latest/" target="_blank" rel="noopener">http://docs.hangfire.io/en/latest/</a><blockquote>
+<p>Hangfire是一个开源且商业免费使用的工具函数库。可以让你非常容易地在ASP.NET应用（也可以不在ASP.NET应用）中执行多种类型的后台任务，而无需自行定制开发和管理基于Windows Service后台任务执行器。且任务信息可以被持久保存。内置提供集成化的控制台。<br>通过Nuget就可以在你的应用程序中安装Hangfire：Install-Package Hangfire。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="开发辅助工具"><a href="#开发辅助工具" class="headerlink" title="开发辅助工具"></a>开发辅助工具</h2><h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><ul>
+<li>Fiddler <a href="http://www.telerik.com/fiddler" target="_blank" rel="noopener">http://www.telerik.com/fiddler</a></li>
+<li>Rosin <a href="http://alloyteam.github.io/Rosin/" target="_blank" rel="noopener">http://alloyteam.github.io/Rosin/</a><br><code>Rosin是一个Fiddler插件，协助开发者进行移动端页面开发调试，是移动端web开发、调试利器。</code></li>
+<li>#工具</li>
+</ul>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><h3 id="教程-文档"><a href="#教程-文档" class="headerlink" title="教程/文档"></a>教程/文档</h3><ul>
+<li>Markdown语法:<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener">http://daringfireball.net/projects/markdown/syntax</a> </li>
+<li>Markdown—入门指南:<a href="http://jianshu.io/p/1e402922ee32" target="_blank" rel="noopener">http://jianshu.io/p/1e402922ee32</a> </li>
+<li>Markdown 语法说明（简体中文版）:<a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">http://wowubuntu.com/markdown/</a> </li>
+<li>Markdown快速入门:<a href="http://wowubuntu.com/markdown/basic.html" target="_blank" rel="noopener">http://wowubuntu.com/markdown/basic.html</a> </li>
+<li>Markdown基础:<a href="http://www.yaosansi.com/post/markdown-on-github">http://www.yaosansi.com/post/markdown-on-github</a><br><code>GitHub上Markdown基本使用</code></li>
+<li>MD格式转换:<a href="https://github.com/limingth/share/blob/master/markdown-demo/demo.md" target="_blank" rel="noopener">https://github.com/limingth/share/blob/master/markdown-demo/demo.md</a><br>`转换Markdown到html/doc/pdf/ppt格式``</li>
+</ul>
+<h3 id="环境工具"><a href="#环境工具" class="headerlink" title="环境工具"></a>环境工具</h3><ul>
+<li>Markdown在线编辑器:<a href="http://mahua.jser.me/" target="_blank" rel="noopener">http://mahua.jser.me/</a><br><code>在线Markdown编辑器支持Vim模式</code></li>
+<li>Cmd <a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor</a><br><code>在线 Markdown 编辑阅读器</code></li>
+<li>MarkdownPad2:<a href="http://www.markdownpad.com/" target="_blank" rel="noopener">http://www.markdownpad.com/</a> ·Windows最好用的所见即所得MarkDown编辑器·</li>
+<li>ReText:<a href="http://sourceforge.net/p/retext/home/ReText/" target="_blank" rel="noopener">http://sourceforge.net/p/retext/home/ReText/</a><br><code>Linux下的MarkDown编辑器</code></li>
+<li>Mou:<a href="http://mouapp.com/" target="_blank" rel="noopener">http://mouapp.com/</a><br><code>Mac下的MarkDown编辑器</code></li>
+</ul>
+<p>##Git</p>
+<h3 id="教程文档"><a href="#教程文档" class="headerlink" title="教程文档"></a>教程文档</h3><ul>
+<li>Git教程(廖雪峰):<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a><br><code>最易懂的GIT教程</code></li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li>SourceTree <a href="http://www.sourcetreeapp.com/" target="_blank" rel="noopener">http://www.sourcetreeapp.com/</a></li>
+</ul>
+<h2 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h2><ul>
+<li>ProcessOn :<a href="http://www.processon.com/" target="_blank" rel="noopener">http://www.processon.com/</a><br><code>ProcessOn是一个在线协作绘图平台,为用户提供最强大、易用的作图工具!</code></li>
+</ul>
+<p><code>支持在线创作流程图、BPMN、UML图、UI界面原型设计、iOS界面原型设计等</code></p>
+<ul>
+<li><p>百度脑图:<a href="http://naotu.baidu.com/" target="_blank" rel="noopener">http://naotu.baidu.com/</a><br><code>便捷的脑图编辑工具,支持思维导图，组织架构图等</code></p>
+</li>
+<li><p>Convertico <a href="http://www.convertico.com/" target="_blank" rel="noopener">http://www.convertico.com/</a></p>
+</li>
+</ul>
+<p>#网络与服务器</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><ul>
+<li>奇云测 <a href="http://ce.cloud.360.cn/" target="_blank" rel="noopener">http://ce.cloud.360.cn/</a></li>
+<li>多地PING <a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a></li>
+</ul>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><h3 id="压力测试"><a href="#压力测试" class="headerlink" title="压力测试"></a>压力测试</h3><ul>
+<li><p>ab <a href="http://httpd.apache.org/docs/current/programs/ab.html" target="_blank" rel="noopener">http://httpd.apache.org/docs/current/programs/ab.html</a><br><code>Apache HTTP server benchmarking tool</code></p>
+</li>
+<li><p>Apache JMete <a href="http://jmeter.apache.org/" target="_blank" rel="noopener">http://jmeter.apache.org/</a></p>
+</li>
+</ul>
+<blockquote>
+<p>Apache JMeter是一个专门为运行和服务器装载测试而设计的、100％的纯Java桌面运行程序。原先它是为Web/HTTP测试而设计的，但是它已经扩展以 支持各种各样的测试模块。它和用于HTTP和SQL数据库（使用JDBC）的模块一起运送。它可以用来测试静止资料库或者活动资料库中的服务器的运行情 况，可以用来模拟对服务器或者网络系统加以重负荷以测试它的抵抗力，或者用来分析不同负荷类型下的所有运行情况。它也提供了一个可替换的界面用来定制数据 显示，测试同步及测试的创建和执行。 </p>
+</blockquote>
+<h1 id="业界"><a href="#业界" class="headerlink" title="业界"></a>业界</h1><h2 id="社区"><a href="#社区" class="headerlink" title="社区"></a>社区</h2><ul>
+<li>博客园 <a href="http://www.cnblogs.com/" target="_blank" rel="noopener">http://www.cnblogs.com/</a></li>
+<li>stackoverflow <a href="http://stackoverflow.com/" target="_blank" rel="noopener">http://stackoverflow.com/</a></li>
+<li>segmentfault <a href="http://segmentfault.com/" target="_blank" rel="noopener">http://segmentfault.com/</a></li>
+<li>码农圈 <a href="https://coderq.com/" target="_blank" rel="noopener">https://coderq.com/</a></li>
+<li>前端乱炖 <a href="http://www.html-js.com/" target="_blank" rel="noopener">http://www.html-js.com/</a></li>
+</ul>
+<h2 id="资讯-amp-综合"><a href="#资讯-amp-综合" class="headerlink" title="资讯&amp;综合"></a>资讯&amp;综合</h2><ul>
+<li>中文业界资讯 <a href="http://www.cnbeta.com/" target="_blank" rel="noopener">http://www.cnbeta.com/</a></li>
+<li>InfoQ <a href="http://www.infoq.com/cn" target="_blank" rel="noopener">http://www.infoq.com/cn</a><br><code>促进软件开发领域知识与创新的传播</code></li>
+<li>互联网的一些事 <a href="http://www.yixieshi.com/" target="_blank" rel="noopener">http://www.yixieshi.com/</a></li>
+<li>Startup News <a href="http://news.dbanotes.net/" target="_blank" rel="noopener">http://news.dbanotes.net/</a></li>
+<li>极客公园 <a href="http://www.geekpark.net/" target="_blank" rel="noopener">http://www.geekpark.net/</a><br><code>发现产品的价值</code></li>
+</ul>
+<h2 id="IT教育-amp-学习"><a href="#IT教育-amp-学习" class="headerlink" title="IT教育&amp;学习"></a>IT教育&amp;学习</h2><ul>
+<li>看雪学院 <a href="http://www.pediy.com/" target="_blank" rel="noopener">http://www.pediy.com/</a><br><code>关注安全技术领域</code></li>
+<li>慕课网 <a href="http://www.imooc.com/course/list" target="_blank" rel="noopener">http://www.imooc.com/course/list</a></li>
+<li>网易公开课 <a href="http://open.163.com/" target="_blank" rel="noopener">http://open.163.com/</a></li>
+<li>网易云课堂 <a href="http://study.163.com/curricula/cs.htm" target="_blank" rel="noopener">http://study.163.com/curricula/cs.htm</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-27T05:39:01.965Z" itemprop="dateUpdated">2015-04-27 13:39:01</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/dev/" target="_blank" rel="external">http://www.yaosansi.com/dev/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/dev/&title=《Dev Tools》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/dev/&title=《Dev Tools》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/dev/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dev Tools》 — yaosansi's blog&url=http://www.yaosansi.com/dev/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/dev/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/dev/&title=《Dev Tools》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/dev/&title=《Dev Tools》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/dev/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dev Tools》 — yaosansi's blog&url=http://www.yaosansi.com/dev/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/dev/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aSW7EMAwEwPn/p50HDCw3qSUeoHQKMl5KPjREUZ9PPK6v8f3r3V3jZ352DFxc3GnuNRzf19z9pzrVu6eNPw0uLu5J7jhoxtfkiN7zcXFx389Ngmlmkri4uL/LHU8jr2JwcXHfzE2Kn+oeRVI+bazVcHFxJ7gzobPq7y37u7i4uC3uVRzjCeRLn6s1cHFxz3DzQOm1Q5IUyt+Li4t7hptHTO8IRa+AeYgwXFzczdxeY2P+9UkDpvyNcXFxF3Grt+XhlUyvutmKi4t7kpu8oLfcWXWAAxcX9yQ3CaC8dZpsrfaisJCXuLi409xkCVItUcoLlyDabnMXFxd3A3c+tnoLmrzd8hBnuLi4G7irgqw3meoHwsXFPcOdCZ2kmOkF38OTcXFxj3OrhzLzhmsP/RBkuLi4m7l5lPSWMnljplCr4eLi/hN31SImaaJE1+Di4m7m9logVfSyu3BxcY9w89FDJ4VNHpS4uLgnuTNHJapN1gXbqbi4uAe5eZN1/gBWNUCbrRRcXNyD3Lx0qW6nRoc5cHFxX8ktHJUobpVG9+Li4h7klo9OFmOrujmyoFbDxcWd4DaLkGAayeTzTVhcXNwj3D92RFLB5ZpVrwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

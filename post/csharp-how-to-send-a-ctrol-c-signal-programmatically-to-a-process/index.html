@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>C#中向process发送ctrl-c事件[控制台程序] | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSharp,Console">
+    <meta name="description" content="Win32应用程序主要有两种类型:控制台应用程序(Console)和窗体程序(Winform)，他们使用不同的方式处理应用程序退出。 要强制窗体程序(Winform)退出，你需要发送WM_CLOSE消息到主窗口句柄。.NET中可以使用Application.ApplicationExit或Form.Close。 在控制台应用程序，这点有所不同。控制台应用程序有点模仿DOS控制台应用程序，通常是在应">
+<meta name="keywords" content="CSharp,Console">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#中向process发送ctrl-c事件[控制台程序]">
+<meta property="og:url" content="http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="Win32应用程序主要有两种类型:控制台应用程序(Console)和窗体程序(Winform)，他们使用不同的方式处理应用程序退出。 要强制窗体程序(Winform)退出，你需要发送WM_CLOSE消息到主窗口句柄。.NET中可以使用Application.ApplicationExit或Form.Close。 在控制台应用程序，这点有所不同。控制台应用程序有点模仿DOS控制台应用程序，通常是在应">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2014-07-28T03:14:14.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#中向process发送ctrl-c事件[控制台程序]">
+<meta name="twitter:description" content="Win32应用程序主要有两种类型:控制台应用程序(Console)和窗体程序(Winform)，他们使用不同的方式处理应用程序退出。 要强制窗体程序(Winform)退出，你需要发送WM_CLOSE消息到主窗口句柄。.NET中可以使用Application.ApplicationExit或Form.Close。 在控制台应用程序，这点有所不同。控制台应用程序有点模仿DOS控制台应用程序，通常是在应">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">C#中向process发送ctrl-c事件[控制台程序]</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">C#中向process发送ctrl-c事件[控制台程序]</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2010-05-25T09:49:08.000Z" itemprop="datePublished" class="page-time">
+  2010-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CSharp/">CSharp</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">C#中向process发送ctrl-c事件[控制台程序]</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2010-05-25 17:49:08" datetime="2010-05-25T09:49:08.000Z"  itemprop="datePublished">2010-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CSharp/">CSharp</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Win32应用程序主要有两种类型:控制台应用程序(Console)和窗体程序(Winform)，他们使用不同的方式处理应用程序退出。</p>
+<p>要强制窗体程序(Winform)退出，你需要发送WM_CLOSE消息到主窗口句柄。.NET中可以使用Application.ApplicationExit或Form.Close。</p>
+<p>在控制台应用程序，这点有所不同。控制台应用程序有点模仿DOS控制台应用程序，通常是在应用程序退出时，进程（命令）执行结束或Ctrl - C被按下。</p>
+<p>在C＃中，可以使用代理（委托）SetConsoleCtrlHandler 来实现。 </p>
+<p>代码如下：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A simple class that exposes two static Win32 functions.</span></span><br><span class="line"><span class="comment">// One is a delegate type and the other is an enumerated type.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyWin32</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Declare the SetConsoleCtrlHandler function</span></span><br><span class="line">    <span class="comment">// as external and receiving a delegate.   </span></span><br><span class="line">    [<span class="meta">DllImport(<span class="meta-string">"Kernel32"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> Boolean <span class="title">SetConsoleCtrlHandler</span>(<span class="params">HandlerRoutine Handler,</span></span></span><br><span class="line"><span class="function"><span class="params">        Boolean Add</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// A delegate type to be used as the handler routine</span></span><br><span class="line">    <span class="comment">// for SetConsoleCtrlHandler.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> Boolean <span class="title">HandlerRoutine</span>(<span class="params">CtrlTypes CtrlType</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// An enumerated type for the control messages</span></span><br><span class="line">    <span class="comment">// sent to the handler routine.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> CtrlTypes</span><br><span class="line">    &#123;</span><br><span class="line">        CTRL_C_EVENT = <span class="number">0</span>,</span><br><span class="line">        CTRL_BREAK_EVENT,</span><br><span class="line">        CTRL_CLOSE_EVENT,</span><br><span class="line">        CTRL_LOGOFF_EVENT = <span class="number">5</span>,</span><br><span class="line">        CTRL_SHUTDOWN_EVENT</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyApp</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// A private static handler function in the MyApp class.</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Boolean <span class="title">Handler</span>(<span class="params">MyWin32.CtrlTypes CtrlType</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String message = <span class="string">"This message should never be seen!"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// A switch to handle the event type.</span></span><br><span class="line">        <span class="keyword">switch</span> (CtrlType)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> MyWin32.CtrlTypes.CTRL_C_EVENT:</span><br><span class="line">                message = <span class="string">"A CTRL_C_EVENT was raised by the user."</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MyWin32.CtrlTypes.CTRL_BREAK_EVENT:</span><br><span class="line">                message = <span class="string">"A CTRL_BREAK_EVENT was raised by the user."</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MyWin32.CtrlTypes.CTRL_CLOSE_EVENT:</span><br><span class="line">                message = <span class="string">"A CTRL_CLOSE_EVENT was raised by the user."</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MyWin32.CtrlTypes.CTRL_LOGOFF_EVENT:</span><br><span class="line">                message = <span class="string">"A CTRL_LOGOFF_EVENT was raised by the user."</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MyWin32.CtrlTypes.CTRL_SHUTDOWN_EVENT:</span><br><span class="line">                message = <span class="string">"A CTRL_SHUTDOWN_EVENT was raised by the user."</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Use interop to display a message for the type of event.</span></span><br><span class="line">        Console.WriteLine(message);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Use interop to set a console control handler.</span></span><br><span class="line">        MyWin32.HandlerRoutine hr = <span class="keyword">new</span> MyWin32.HandlerRoutine(Handler);</span><br><span class="line">        MyWin32.SetConsoleCtrlHandler(hr, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Give the user some time to raise a few events.</span></span><br><span class="line">        Console.WriteLine(<span class="string">"Waiting 30 seconds for console ctrl events..."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The object hr is not referred to again.</span></span><br><span class="line">        <span class="comment">// The garbage collector can detect that the object has no</span></span><br><span class="line">        <span class="comment">// more managed references and might clean it up here while</span></span><br><span class="line">        <span class="comment">// the unmanaged SetConsoleCtrlHandler method is still using it.      </span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Force a garbage collection to demonstrate how the hr</span></span><br><span class="line">        <span class="comment">// object will be handled.</span></span><br><span class="line">        GC.Collect();</span><br><span class="line">        GC.WaitForPendingFinalizers();</span><br><span class="line">        GC.Collect();</span><br><span class="line"></span><br><span class="line">        Thread.Sleep(<span class="number">30000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Display a message to the console when the unmanaged method</span></span><br><span class="line">        <span class="comment">// has finished its work.</span></span><br><span class="line">        Console.WriteLine(<span class="string">"Finished!"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Call GC.KeepAlive(hr) at this point to maintain a reference to hr.</span></span><br><span class="line">        <span class="comment">// This will prevent the garbage collector from collecting the</span></span><br><span class="line">        <span class="comment">// object during the execution of the SetConsoleCtrlHandler method.</span></span><br><span class="line">        GC.KeepAlive(hr);</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://msdn.microsoft.com/en-us/library/s50zac30(vs.71).aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/s50zac30(vs.71).aspx</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-07-28T03:14:14.009Z" itemprop="dateUpdated">2014-07-28 11:14:14</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/" target="_blank" rel="external">http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSharp/">CSharp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Console/">Console</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&title=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&title=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/how-to-sign-exe-using-signtool-on-the-command/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用signtool与Verisign SPC和PVK在命令行下对EXE等文件进行数字签名</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/how-to-use-mstsclib/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">how to use mstsclib</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&title=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&title=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C#中向process发送ctrl-c事件[控制台程序]》 — yaosansi's blog&url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/csharp-how-to-send-a-ctrol-c-signal-programmatically-to-a-process/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADL0lEQVR42u3awY7iMBAEUP7/p7PXldhAVTusiHk5oQHFec6hprv9eMTX8XS9/vvf3yZ3Prvb87ev73DxhY2NjX0T9vHyev5Nslhyh2RDz9bKX8PZutjY2Nj7sZNoSUhvFltm5M/5xoiNjY39w+wE0EZjXmDMYhUbGxsbO4+ctquzQsLGxsbGnsXMDNw2ldqu/gd7adjY2Nhfz27D5ps/f2S+jY2Njf3F7KO8koIhD5s2xo6LLmxsbOyd2HkAzI7gtGOD2bqz58fGxsbej50vvMLL/56MEGajYmxsbOxd2ckDtfHTNqdm5UobftjY2Ng7sdvhawJe+X1SfrQHd9700rCxsbE3YidRtBJsyQbNjv7UgYqNjY29ETtvG13V0G/HybOtiVpL2NjY2FuwX0dRcouVwFsBrBzuwcbGxt6PnTeGkg1qg2o9/NrpLTY2Nvbe7JWHWx8ttE2l5BlOJ9vY2NjYm7LzZlNetKxv33rnDBsbG3tXdv113F2ffc43sf3lm03ExsbG3oLdjgry2JiNeJPyo21IDd8hNjY29hez8zKjPViTMFYGEvkI4R+rYGNjY2/Erhvr8dGcdlQwG+vOSilsbGzsndiz4zhtGTNrKuXlTR292NjY2BuxkwDIG+6z5v6sHGpH0fWgFxsbG/u27FmczMqP2fh2NtDFxsbG3pXdNuJnjaTXOz1bvQ1gbGxs7F3Z6yOBpHGTH7hpV2wjrXjn2NjY2Ddh5wHTtn7yEMqbRO3A4PTZsLGxsTdl57DZMDU/spNv9+xpsbGxsXdiJ6HVHsFpBwDJIOHxfy5sbGzs27JnBx8/t1mzl3HxbAQbGxv7huzZIHalGZQXEu2TREUINjY29nbs/AjjSoSsjJZntUbRUcPGxsa+Ifsor/wf/WuPTubxGR0JwsbGxt6Ivd5Lb4uNqzaoHfEOV8HGxsa+CbsNrfbwzSxI8hZVXj7VTSVsbGzsW7Hbdnx7HDMJsFnZMxw5YGNjY2N/oLRIRhSXtZywsbGxf549G+LOQm4lwLCxsbF/hz0rGFYiJx8eJA2pvEDCxsbG3o89G6a2EbLeGGoP61xQIGFjY2N/O/sPdM81AJDuSI0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

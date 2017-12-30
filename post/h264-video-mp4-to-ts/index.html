@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>H.264视频文件转换成TS | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="FFmpeg">
+    <meta name="description" content="本文最后更新于：2012-09-04 23:38:51原文：http://www.yaosansi.com/post/h264-video-mp4-to-ts Mp4 To TS 使用ffmpeg   1ffmpeg -i &amp;quot;test.mp4&amp;quot; -i &amp;quot;test.aac&amp;quot; -f mpegts  -vcodec copy -acodec copy -vbsf">
+<meta name="keywords" content="FFmpeg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H.264视频文件转换成TS">
+<meta property="og:url" content="http://www.yaosansi.com/post/h264-video-mp4-to-ts/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="本文最后更新于：2012-09-04 23:38:51原文：http://www.yaosansi.com/post/h264-video-mp4-to-ts Mp4 To TS 使用ffmpeg   1ffmpeg -i &amp;quot;test.mp4&amp;quot; -i &amp;quot;test.aac&amp;quot; -f mpegts  -vcodec copy -acodec copy -vbsf">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-06-04T08:27:46.677Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="H.264视频文件转换成TS">
+<meta name="twitter:description" content="本文最后更新于：2012-09-04 23:38:51原文：http://www.yaosansi.com/post/h264-video-mp4-to-ts Mp4 To TS 使用ffmpeg   1ffmpeg -i &amp;quot;test.mp4&amp;quot; -i &amp;quot;test.aac&amp;quot; -f mpegts  -vcodec copy -acodec copy -vbsf">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">H.264视频文件转换成TS</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">H.264视频文件转换成TS</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2012-09-04T15:38:51.000Z" itemprop="datePublished" class="page-time">
+  2012-09-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mp4-To-TS"><span class="post-toc-number">1.</span> <span class="post-toc-text">Mp4 To TS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#合并MP4"><span class="post-toc-number">2.</span> <span class="post-toc-text">合并MP4</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TS-To-Mp4"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">TS To  Mp4</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-h264-video-mp4-to-ts"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">H.264视频文件转换成TS</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2012-09-04 23:38:51" datetime="2012-09-04T15:38:51.000Z"  itemprop="datePublished">2012-09-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Video/">Video</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>本文最后更新于：2012-09-04 23:38:51</code><br><code>原文：http://www.yaosansi.com/post/h264-video-mp4-to-ts</code></p>
+<h2 id="Mp4-To-TS"><a href="#Mp4-To-TS" class="headerlink" title="Mp4 To TS"></a>Mp4 To TS</h2><ul>
+<li>使用ffmpeg </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i &quot;test.mp4&quot; -i &quot;test.aac&quot; -f mpegts  -vcodec copy -acodec copy -vbsf h264_mp4toannexb -y test.ts</span><br></pre></td></tr></table></figure>
+<p>如果不使用-vbsf h264_mp4toannexb ，将出现如下提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[mpegts @ 0x61c040] h264 bitstream malformated, no startcode found, use -vbsf h264_mp4toannexb av_interleaved_write_frame(): Operation not permitted</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用vlc</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vlc  -vvv --extraintf=logger  test.mp4 :sout=#std&#123;access=file,mux=ts,dst=test.ts&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="合并MP4"><a href="#合并MP4" class="headerlink" title="合并MP4"></a>合并MP4</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 1.mp4 -sameq 1.mpg ffmpeg -i 2.mp4 -sameq 2.mpg cat 1.mpg 2.mpg | ffmpeg -f mpeg -i - -sameq -vcodec mpeg4 output.mp4</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i concat:&quot;video1.mp4|video2.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>###当然也可以使用 mp4box 分割或合并MP4</p>
+<ul>
+<li>分割：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MP4Box -split time_sec foo.mp4 #按照时长切割MP4文件</span><br><span class="line">MP4Box -split-size size foo.mp4 #按照文件大小切割MP4文件，单位是KB</span><br><span class="line">MP4Box -split-chunk S:E foo.mp4 #切出视频中指定时间的一段</span><br></pre></td></tr></table></figure>
+<ul>
+<li>合并：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#这样就合并了，要求编码参数一致</span><br><span class="line">MP4Box -cat foo1.mp4 -cat foo2.mp4 -new foo.mp4 </span><br><span class="line">MP4Box -force-cat foo1.mp4 -force-cat foo2.mp4 -new foo.mp4 #强制合并，有可能合出来看不了</span><br><span class="line">MP4Box -add video1.264 -cat video2.264 -cat video3.264 -add audio1.aac -cat audio2.aac -cat audio3.aac -new muxed.mp4 -fps 24</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加版权信息：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MP4Box -cprt sinav foo.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="TS-To-Mp4"><a href="#TS-To-Mp4" class="headerlink" title="TS To  Mp4"></a>TS To  Mp4</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.ts -c:v copy -c:a libfaac out.mp4</span><br><span class="line">ffmpeg -i input.ts -c:v libx264 -crf 24 -c:a libfaac out.mp4</span><br><span class="line">Set CRF to anything between 19 and 25, or even more. The more, the worse the quality, but the smaller the file size.</span><br></pre></td></tr></table></figure>
+<p>部分引用：<a href="http://blog.yikuyiku.com/?p=1854" target="_blank" rel="noopener">http://blog.yikuyiku.com/?p=1854</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-06-04T08:27:46.677Z" itemprop="dateUpdated">2015-06-04 16:27:46</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/h264-video-mp4-to-ts/" target="_blank" rel="external">http://www.yaosansi.com/post/h264-video-mp4-to-ts/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFmpeg/">FFmpeg</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&title=《H.264视频文件转换成TS》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&title=《H.264视频文件转换成TS》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/h264-video-mp4-to-ts/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《H.264视频文件转换成TS》 — yaosansi's blog&url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/post/how-to-distinguish-between-I-frame-and-P-frame-H264-video-streams/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">【转载】如何区分H.264视频流的I frame 和 P frame</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/how-to-combine-files-on-windows-and-linux/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Windows&amp;Linux文件合并</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&title=《H.264视频文件转换成TS》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&title=《H.264视频文件转换成TS》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/h264-video-mp4-to-ts/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《H.264视频文件转换成TS》 — yaosansi's blog&url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/h264-video-mp4-to-ts/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aS46DMBAFwNz/0swBRpD32sxImPIqSgi4WLT6488nXsevlVyZ33n233phYGA8lnFcrrMHzLZ7dn3y3C+vEgMD4wWMJBRek3Jee7frO2BgYGDMbn0dNGfXYGBgYKxsKwfPElAMDAyMvIi9q0xtA+7NtTgGBsYDGbP2/f98/pP5BgYGxqMYR7lmaWISLo+FhYGBsTdjlvblhWsOTorqL2koBgbGpow28K0Un8l2r/dzeiUGBsbWjKRkTb5pG/3Jle2BDwwMjF0Zw2Fh8Jh8YDB7OgYGxnsYSVhsx5N5GE1+LV4cBgbG1ozZ1tvRY16OJi+0aCdiYGBsxJglhe1IMh8S3DVCwMDA2InRtvXbNtnKfYr0EQMDYztGm67l1HbTeQoYNdowMDA2YiShtt16G17XhxMYGBh7M5JDYG3YnQ0y2zHAaWqIgYGxNeOuEeOwhi5L3yLDxcDAeDhjFjTbUWJ7CGMWgjEwMN7GuOvow0qwbhuCGBgYb2bc1WibDSmL9hwGBsYLGHmPPfk8GxXMDnNgYGC8h7FeZK4kfElJ/KXYxsDA2JRxlKs9tJG3+OtEMD9sgYGB8XBGvlaOcM0C68qrwcDA2I/RFq55yE5ewSzgFoctMDAwNmKsH61oSetHN04HAxgYGK9ntNnlve28LxU5BgYGxmhsWaR38YDztoCLgYHxKEab0q1s9y4YBgbGexgrIS8vMtvCNQmyGBgYL2D8AKpCk2HAVLthAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
