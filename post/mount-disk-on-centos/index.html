@@ -32,18 +32,18 @@
     
     
     <meta name="keywords" content="centos,mount,disk">
-    <meta name="description" content="挂载硬盘查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99G   18G   77G  19% /devtmpfs        3.9G     0  3.9G   0% /devtmpfs           3.">
+    <meta name="description" content="挂载硬盘 本文仅适用于使用 fdisk 命令对一个不大于 2 TB 的数据盘执行分区操作。如果需要分区的数据盘大于 2 TB，请参考 阿里云-32TB 块存储分区。  查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99">
 <meta name="keywords" content="centos,mount,disk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS7挂载硬盘">
 <meta property="og:url" content="http://www.yaosansi.com/post/mount-disk-on-centos/index.html">
 <meta property="og:site_name" content="yaosansi&#39;s blog">
-<meta property="og:description" content="挂载硬盘查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99G   18G   77G  19% /devtmpfs        3.9G     0  3.9G   0% /devtmpfs           3.">
+<meta property="og:description" content="挂载硬盘 本文仅适用于使用 fdisk 命令对一个不大于 2 TB 的数据盘执行分区操作。如果需要分区的数据盘大于 2 TB，请参考 阿里云-32TB 块存储分区。  查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-30T16:19:43.755Z">
+<meta property="og:updated_time" content="2018-01-02T04:10:47.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7挂载硬盘">
-<meta name="twitter:description" content="挂载硬盘查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99G   18G   77G  19% /devtmpfs        3.9G     0  3.9G   0% /devtmpfs           3.">
+<meta name="twitter:description" content="挂载硬盘 本文仅适用于使用 fdisk 命令对一个不大于 2 TB 的数据盘执行分区操作。如果需要分区的数据盘大于 2 TB，请参考 阿里云-32TB 块存储分区。  查看新磁盘查看硬盘  df -h  12345678[root@sfdsfsdf ]# df -hFilesystem      Size  Used Avail Use% Mounted on/dev/vda1        99">
     
         <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
     
@@ -185,7 +185,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#挂载硬盘"><span class="post-toc-number">1.</span> <span class="post-toc-text">挂载硬盘</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看新磁盘"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">查看新磁盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-查找未挂载的硬盘"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">1. 查找未挂载的硬盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-创建硬盘分区"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">2. 创建硬盘分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-格式化分区"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">3. 格式化分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-建立挂载目录"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">4. 建立挂载目录</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-挂载分区"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">5. 挂载分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-设置开机自动挂载"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">6. 设置开机自动挂载</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-确认是否挂载成功"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">7. 确认是否挂载成功</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#挂载硬盘"><span class="post-toc-number">1.</span> <span class="post-toc-text">挂载硬盘</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看新磁盘"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">查看新磁盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-查找未挂载的硬盘"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">1. 查找未挂载的硬盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-创建硬盘分区"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">2. 创建硬盘分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-格式化分区"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">3. 格式化分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-建立挂载目录"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">4. 建立挂载目录</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-挂载分区"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">5. 挂载分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-设置开机自动挂载"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">6. 设置开机自动挂载</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-确认是否挂载成功"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">7. 确认是否挂载成功</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考</span></a></li></ol>
         </nav>
     </aside>
     
@@ -210,7 +210,10 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h3 id="挂载硬盘"><a href="#挂载硬盘" class="headerlink" title="挂载硬盘"></a>挂载硬盘</h3><h4 id="查看新磁盘"><a href="#查看新磁盘" class="headerlink" title="查看新磁盘"></a>查看新磁盘</h4><p>查看硬盘</p>
+            <h3 id="挂载硬盘"><a href="#挂载硬盘" class="headerlink" title="挂载硬盘"></a>挂载硬盘</h3><blockquote>
+<p>本文仅适用于使用 <code>fdisk</code> 命令对一个不大于 <code>2 TB</code> 的数据盘执行分区操作。如果需要分区的数据盘大于 <code>2 TB</code>，请参考 <a href="https://help.aliyun.com/document_detail/34377.html?spm=5176.doc25426.2.4.yV1HGb" target="_blank" rel="noopener">阿里云-32TB 块存储分区</a>。</p>
+</blockquote>
+<h4 id="查看新磁盘"><a href="#查看新磁盘" class="headerlink" title="查看新磁盘"></a>查看新磁盘</h4><p>查看硬盘</p>
 <blockquote>
 <p>df -h</p>
 </blockquote>
@@ -218,12 +221,19 @@
 <h4 id="1-查找未挂载的硬盘"><a href="#1-查找未挂载的硬盘" class="headerlink" title="1. 查找未挂载的硬盘"></a>1. 查找未挂载的硬盘</h4><blockquote>
 <p>[root@cgsl ]# fdisk –l</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label type: dos</span><br><span class="line">Disk identifier: 0x0008d73a</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/vda1   *        2048    83884031    41940992   83  Linux</span><br><span class="line"></span><br><span class="line">Disk /dev/xvdb1: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"># 注意看这里：这个就是新的硬盘</span><br><span class="line"># 记下/dev/xvdb1 这个名称</span><br><span class="line"># 注意阿里云不同的硬盘可能名称不同，如,高效盘:vdb开头 SSD:xvdb</span><br></pre></td></tr></table></figure>
-<p>找到新添加的磁盘的编号为/dev/xvdb1</p>
-<h4 id="2-创建硬盘分区"><a href="#2-创建硬盘分区" class="headerlink" title="2. 创建硬盘分区"></a>2. 创建硬盘分区</h4><blockquote>
-<p>使用 fdisk /dev/xvdb1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label type: dos</span><br><span class="line">Disk identifier: 0x0008d73a</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/vda1   *        2048    83884031    41940992   83  Linux</span><br><span class="line"></span><br><span class="line">Disk /dev/vdb: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"># 注意看这里：这个就是新的硬盘</span><br><span class="line"># 记下/dev/vdb 这个名称</span><br><span class="line"># 注意阿里云不同的硬盘可能名称不同，如,高效盘:vdb开头 SSD:xvdb</span><br></pre></td></tr></table></figure>
+<p>找到新添加的磁盘的编号为/dev/vdb</p>
+<blockquote>
+<p>注：</p>
+<ul>
+<li>如果您的数据盘显示的是 dev/xvd?，表示您使用的是非 I/O 优化实例。</li>
+<li>其中 ? 是 a−z 的任一个字母。</li>
+</ul>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/xvdb1</span><br><span class="line"></span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line"></span><br><span class="line">Changes will remain in memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write command.</span><br><span class="line"></span><br><span class="line">Device does not contain a recognized partition table</span><br><span class="line">Building a new DOS disklabel with disk identifier 0x774b38c4.</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建硬盘分区"><a href="#2-创建硬盘分区" class="headerlink" title="2. 创建硬盘分区"></a>2. 创建硬盘分区</h4><blockquote>
+<p>使用 fdisk /dev/vdb</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/vdb</span><br><span class="line"></span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line"></span><br><span class="line">Changes will remain in memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write command.</span><br><span class="line"></span><br><span class="line">Device does not contain a recognized partition table</span><br><span class="line">Building a new DOS disklabel with disk identifier 0x774b38c4.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>输入n<br>Command (m for help):n</p>
 </blockquote>
@@ -249,28 +259,36 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The partition table has been altered!</span><br><span class="line"></span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Syncing disks.</span><br></pre></td></tr></table></figure>
 <h4 id="3-格式化分区"><a href="#3-格式化分区" class="headerlink" title="3. 格式化分区"></a>3. 格式化分区</h4><blockquote>
-<p><code># mkfs.ext4 /dev/xvdb1</code> </p>
+<p><code># mkfs.ext4 /dev/vdb</code> </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mke2fs 1.42.9 (28-Dec-2013)</span><br><span class="line">Filesystem label=</span><br><span class="line">OS type: Linux</span><br><span class="line">Block size=4096 (log=2)</span><br><span class="line">Fragment size=4096 (log=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">6553600 inodes, 26214400 blocks</span><br><span class="line">1310720 blocks (5.00%) reserved for the super user</span><br><span class="line">First data block=0</span><br><span class="line">Maximum filesystem blocks=2174746624</span><br><span class="line">800 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8192 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">	4096000, 7962624, 11239424, 20480000, 23887872</span><br><span class="line"></span><br><span class="line">Allocating group tables: done                            </span><br><span class="line">Writing inode tables: done                            </span><br><span class="line">Creating journal (32768 blocks): done</span><br><span class="line">Writing superblocks and filesystem accounting information: done</span><br></pre></td></tr></table></figure>
 <h4 id="4-建立挂载目录"><a href="#4-建立挂载目录" class="headerlink" title="4. 建立挂载目录"></a>4. 建立挂载目录</h4><blockquote>
 <p><code># mkdir /data</code></p>
 </blockquote>
 <h4 id="5-挂载分区"><a href="#5-挂载分区" class="headerlink" title="5. 挂载分区"></a>5. 挂载分区</h4><blockquote>
-<p><code># mount /dev/xvdb1 /data</code></p>
+<p><code># mount /dev/vdb /data</code></p>
 </blockquote>
-<h4 id="6-设置开机自动挂载"><a href="#6-设置开机自动挂载" class="headerlink" title="6. 设置开机自动挂载"></a>6. 设置开机自动挂载</h4><blockquote>
+<h4 id="6-设置开机自动挂载"><a href="#6-设置开机自动挂载" class="headerlink" title="6. 设置开机自动挂载"></a>6. 设置开机自动挂载</h4><p>运行命令</p>
+<blockquote>
+<p> echo /dev/vdb1 /data ext4 defaults 0 0 &gt;&gt; /etc/fstab</p>
+</blockquote>
+<p>或手动编辑 <code>fstab</code>:</p>
+<blockquote>
 <p><code>vi /etc/fstab</code></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># </span><br><span class="line"># /etc/fstab </span><br><span class="line"># Created by anaconda on Tue May  3 13:48:10 2016 </span><br><span class="line"># </span><br><span class="line"># Accessible filesystems, by reference, are maintained under &apos;/dev/disk&apos; </span><br><span class="line"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info </span><br><span class="line"># </span><br><span class="line">UUID=80b9b662-0a1d-4e84-b07b-c1bf19e72d97 /                       ext4    defaults        1 1 </span><br><span class="line">/dev/vdb1  /data        ext4    defaults        0 0</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><code>/dev/xvdb1     /data    ext4    defaults     0 0</code></p>
+<p><code>/dev/vdb     /data    ext4    defaults     0 0</code></p>
 </blockquote>
 <h4 id="7-确认是否挂载成功"><a href="#7-确认是否挂载成功" class="headerlink" title="7. 确认是否挂载成功"></a>7. 确认是否挂载成功</h4><p>重启服务器</p>
 <blockquote>
 <p><code># reboot</code></p>
 </blockquote>
 <p>查看硬盘分区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># df</span><br><span class="line">/dev/xvdb1            20635700    176196  19411268   1% /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># df</span><br><span class="line">/dev/vdb            20635700    176196  19411268   1% /data</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://help.aliyun.com/document_detail/25426.html?spm=5176.7738005.2.3.pMMKgY" target="_blank" rel="noopener">阿里云-Linux 格式化和挂载数据盘</a></li>
+</ul>
 
         </div>
 
@@ -278,7 +296,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-30T16:19:43.755Z" itemprop="dateUpdated">2017-12-31 00:19:43</time>
+    最后更新时间：<time datetime="2018-01-02T04:10:47.025Z" itemprop="dateUpdated">2018-01-02 12:10:47</time>
 </span><br>
 
 
@@ -457,7 +475,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>yaosansi &copy; 2005 - 2017</span>
+        <p><span>yaosansi &copy; 2005 - 2018</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
