@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=12414206"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?8301c321580a01c02e02df1f0a11387e"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试 | yaosansi&#39;s blog | 技术改变世界，产品改变生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="php,chrome,selenium,facebook,chromedriver,webdriver">
+    <meta name="description" content="在无界面的CentOS7上安装Selenium+Chrome，并使用facebook的php-webdriver测试 系统环境CentOS Linux 7 (Core)123Operating System: CentOS Linux 7 (Core)Kernel: Linux 3.10.0-693.17.1.el7.x86_64Architecture: x86-64 安装 chrome使用下面">
+<meta name="keywords" content="php,chrome,selenium,facebook,chromedriver,webdriver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试">
+<meta property="og:url" content="http://www.yaosansi.com/post/install-selenium-chrome-on-centos/index.html">
+<meta property="og:site_name" content="yaosansi&#39;s blog">
+<meta property="og:description" content="在无界面的CentOS7上安装Selenium+Chrome，并使用facebook的php-webdriver测试 系统环境CentOS Linux 7 (Core)123Operating System: CentOS Linux 7 (Core)Kernel: Linux 3.10.0-693.17.1.el7.x86_64Architecture: x86-64 安装 chrome使用下面">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-23T10:47:07.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试">
+<meta name="twitter:description" content="在无界面的CentOS7上安装Selenium+Chrome，并使用facebook的php-webdriver测试 系统环境CentOS Linux 7 (Core)123Operating System: CentOS Linux 7 (Core)Kernel: Linux 3.10.0-693.17.1.el7.x86_64Architecture: x86-64 安装 chrome使用下面">
+    
+        <link rel="alternate" type="application/atom+xml" title="yaosansi&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yaosansi</h5>
+          <a href="mailto:yaosansi@outlook.com" title="yaosansi@outlook.com" class="mail">yaosansi@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/yaosansi" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=ot0ajg9w&utm_source=ot0ajg9w" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                免费领阿里云幸运券
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-03-21T00:00:10.000Z" itemprop="datePublished" class="page-time">
+  2018-03-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#系统环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">系统环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-chrome"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装 chrome</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-selenium"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装 selenium</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#selenium服务初始化"><span class="post-toc-number">4.</span> <span class="post-toc-text">selenium服务初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-chromerriver"><span class="post-toc-number">5.</span> <span class="post-toc-text">安装 chromerriver</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-XVFB"><span class="post-toc-number">6.</span> <span class="post-toc-text">安装 XVFB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用facebook的php-webdriver测试"><span class="post-toc-number">7.</span> <span class="post-toc-text">使用facebook的php-webdriver测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引用"><span class="post-toc-number">8.</span> <span class="post-toc-text">引用</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-install-selenium-chrome-on-centos"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-21 08:00:10" datetime="2018-03-21T00:00:10.000Z"  itemprop="datePublished">2018-03-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/centos/">centos</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在无界面的CentOS7上安装Selenium+Chrome，并使用facebook的php-webdriver测试</p>
+<h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><p>CentOS Linux 7 (Core)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Operating System: CentOS Linux 7 (Core)</span><br><span class="line">Kernel: Linux 3.10.0-693.17.1.el7.x86_64</span><br><span class="line">Architecture: x86-64</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装-chrome"><a href="#安装-chrome" class="headerlink" title="安装 chrome"></a>安装 chrome</h3><p>使用下面的命令，在root用户下就可以安装最新的 Google Chrome:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure>
+<h3 id="安装-selenium"><a href="#安装-selenium" class="headerlink" title="安装 selenium"></a>安装 selenium</h3><p>在 <a href="http://selenium-release.storage.googleapis.com/index.html" target="_blank" rel="noopener">seleniump官网</a> 找到最新的版本，下载<code>selenium-server-standalone-X.XX.X.jar</code>文件</p>
+<p>注意：最新的版本3.11，不是3.9（2018年3月）</p>
+<blockquote>
+<p>selenium-server-standalone-3.11.0.jar</p>
+</blockquote>
+<h3 id="selenium服务初始化"><a href="#selenium服务初始化" class="headerlink" title="selenium服务初始化"></a>selenium服务初始化</h3><p>将上述selenium放入一个文件夹中，输入如下命令初始化</p>
+<blockquote>
+<p>java -jar selenium-server-standalone-3.11.0.jar</p>
+</blockquote>
+<p>注意，需要 java8 环境，可以参考 <a href="/post/install-java-jdk-on-centos">CentOS7安装java运行环境jdk</a> </p>
+<h3 id="安装-chromerriver"><a href="#安装-chromerriver" class="headerlink" title="安装 chromerriver"></a>安装 chromerriver</h3><p>在 <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">chromerriver官网</a>下载最新的ChromeDriver压缩包，解压得到chromedriver.exe文件</p>
+<blockquote>
+<p>chromedriver_linux64.zip 2018-03-20 15:22:39</p>
+</blockquote>
+<p>将下载的文件解压，放在如下位置</p>
+<blockquote>
+<p>/usr/bin/chromedriver</p>
+</blockquote>
+<p>给予执行权限</p>
+<blockquote>
+<p>chmod +x /usr/bin/chromedriver</p>
+</blockquote>
+<h3 id="安装-XVFB"><a href="#安装-XVFB" class="headerlink" title="安装 XVFB"></a>安装 XVFB</h3><p>输入如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum install Xvfb -y  </span><br><span class="line"># yum install xorg-x11-fonts* -y</span><br></pre></td></tr></table></figure></p>
+<p>新建在/usr/bin/ 一个名叫 xvfb-chrom 的文件写入以下内容： </p>
+<blockquote>
+<p>vi /usr/bin/xvfb-chrome</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash  </span><br><span class="line">  </span><br><span class="line">_kill_procs() &#123;  </span><br><span class="line">  kill -TERM $chrome  </span><br><span class="line">  wait $chrome  </span><br><span class="line">  kill -TERM $xvfb  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"># Setup a trap to catch SIGTERM and relay it to child processes  </span><br><span class="line">trap _kill_procs SIGTERM  </span><br><span class="line">  </span><br><span class="line">XVFB_WHD=$&#123;XVFB_WHD:-1280x720x16&#125;  </span><br><span class="line">  </span><br><span class="line"># Start Xvfb  </span><br><span class="line">Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &amp;  </span><br><span class="line">xvfb=$!  </span><br><span class="line">  </span><br><span class="line">export DISPLAY=:99  </span><br><span class="line">  </span><br><span class="line">chrome --no-sandbox --disable-gpu$@ &amp;  </span><br><span class="line">chrome=$!  </span><br><span class="line">  </span><br><span class="line">wait $chrome  </span><br><span class="line">wait $xvfb</span><br></pre></td></tr></table></figure>
+<p>添加执行权限</p>
+<blockquote>
+<p>chmod +x /usr/bin/xvfb-chrome</p>
+</blockquote>
+<p>查看当前映射关系</p>
+<blockquote>
+<p>ll /usr/bin/ | grep chrom  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x   1 root root   7874704 Mar 20 14:55 chromedriver</span><br><span class="line">lrwxrwxrwx   1 root root        31 Mar 20 00:24 google-chrome -&gt; /etc/alternatives/google-chrome</span><br><span class="line">lrwxrwxrwx   1 root root        32 Mar 20 14:30 google-chrome-stable -&gt; /opt/google/chrome/google-chrome</span><br></pre></td></tr></table></figure>
+<p>更改Chrome启动的软连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s /etc/alternatives/google-chrome /usr/bin/chrome  </span><br><span class="line">rm -rf /usr/bin/google-chrome </span><br><span class="line">ln -s /usr/bin/xvfb-chrome /usr/bin/google-chrome</span><br></pre></td></tr></table></figure></p>
+<p>查看修改后的映射关系</p>
+<blockquote>
+<p>ll /usr/bin/ | grep chrom  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x   1 root root   7874704 Mar 20 14:55 chromedriver</span><br><span class="line">lrwxrwxrwx   1 root root        31 Mar 20 00:24 chrome -&gt; /etc/alternatives/google-chrome</span><br><span class="line">lrwxrwxrwx   1 root root        22 Mar 20 00:11 google-chrome -&gt; /usr/bin/xvfb-chromium</span><br><span class="line">lrwxrwxrwx   1 root root        32 Mar 20 14:30 google-chrome-stable -&gt; /opt/google/chrome/google-chrome</span><br><span class="line">-rwxr-xr-x   1 root root       432 Mar 20 00:09 xvfb-chrome</span><br></pre></td></tr></table></figure>
+<h3 id="使用facebook的php-webdriver测试"><a href="#使用facebook的php-webdriver测试" class="headerlink" title="使用facebook的php-webdriver测试"></a>使用facebook的php-webdriver测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// An example of using php-webdriver.</span><br><span class="line">// Do not forget to run composer install before and also have Selenium server started and listening on port 4444.</span><br><span class="line">namespace Facebook\WebDriver;</span><br><span class="line">use Facebook\WebDriver\Remote\DesiredCapabilities;</span><br><span class="line">use Facebook\WebDriver\Remote\RemoteWebDriver;</span><br><span class="line">require_once(&apos;vendor/autoload.php&apos;);</span><br><span class="line">// start Chrome with 5 second timeout</span><br><span class="line">$host = &apos;http://localhost:4444/wd/hub&apos;; // this is the default</span><br><span class="line">$capabilities = DesiredCapabilities::chrome();</span><br><span class="line">$driver = RemoteWebDriver::create($host, $capabilities, 5000);</span><br><span class="line"></span><br><span class="line">// navigate to &apos;http://www.baidu.com/&apos;</span><br><span class="line">$driver-&gt;get(&apos;https://www.baidu.com/&apos;);</span><br><span class="line"></span><br><span class="line">// wait until the page is loaded</span><br><span class="line">// $driver-&gt;wait()-&gt;until(</span><br><span class="line">//     WebDriverExpectedCondition::titleContains(&apos;百度&apos;)</span><br><span class="line">// );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// print the title of the current page</span><br><span class="line">echo &quot;The title is &apos;&quot; . $driver-&gt;getTitle() . &quot;&apos;\n&quot;;</span><br><span class="line">// print the URI of the current page</span><br><span class="line">echo &quot;The current URI is &apos;&quot; . $driver-&gt;getCurrentURL() . &quot;&apos;\n&quot;;</span><br><span class="line"></span><br><span class="line">// print the pagesource of the current page</span><br><span class="line">$html_selenium = $driver-&gt;getPageSource();</span><br><span class="line">echo $html_selenium;</span><br><span class="line"></span><br><span class="line">// close the browser</span><br><span class="line">$driver-&gt;quit();</span><br></pre></td></tr></table></figure>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><ul>
+<li><a href="https://chrome.richardlloyd.org.uk/" target="_blank" rel="noopener">https://chrome.richardlloyd.org.uk</a></li>
+<li><a href="https://blog.minirplus.com/3829/" target="_blank" rel="noopener">用selenium+php-webdriver实现抓取淘宝页面</a></li>
+<li><a href="https://www.cnblogs.com/zhimaruanjian/p/8032715.html" target="_blank" rel="noopener">小白学爬虫-在无GUI的CentOS上使用Selenium+Chrome</a></li>
+<li><a href="https://github.com/facebook/php-webdriver" target="_blank" rel="noopener">facebook-php-webdriver</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-23T10:47:07.174Z" itemprop="dateUpdated">2018-03-23 18:47:07</time>
+</span><br>
+
+
+        
+        原创文章, 转载请注明出处：<a href="/post/install-selenium-chrome-on-centos/" target="_blank" rel="external">http://www.yaosansi.com/post/install-selenium-chrome-on-centos/</a>
+        
+    </div>
+    <footer>
+        <a href="http://www.yaosansi.com">
+            <img src="/img/avatar.png" alt="yaosansi">
+            yaosansi
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chromedriver/">chromedriver</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/selenium/">selenium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webdriver/">webdriver</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&title=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&title=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/post/install-java-jdk-on-centos/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS7安装java运行环境jdk</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'yaosansi';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>yaosansi &copy; 2005 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&title=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&pic=http://www.yaosansi.com/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&title=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&source=yaosansi's blog | 技术改变世界，产品改变生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS7 安装Selenium+chrome+chromedriver并使用facebook的php-webdriver测试》 — yaosansi's blog&url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/&via=http://www.yaosansi.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yaosansi.com/post/install-selenium-chrome-on-centos/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3aQY7bMAwF0Ln/padAVy1Qq/+LUsaL51XgOLaeAkg0ya+v+Pj+fay//fOa5Pr2zusrRwceHh7e1tCfjvWAkiuTb58A7W//MQV4eHh413jt8r1+WA44u/Hg4eHhvY2XA9oBre+cB+J4eHh4b+PlU9CS9kJqPDw8vJ/lJct6Mtwclgfu7YaEh4eHd5vXFsDe8PlifQ8PDw9vUFXPj/Wi35bTTo0TDw8P7wYvCZcnzVhtA9aNBi88PDy8s7z1y3/++HaT2EtS5M0Hf+17eHh4eEd5+QKdP2yvASufxLz5AA8PD+8Gr36xD5oG2oJW20ZQhOB4eHh4H+HtFcAmZ+Z3eMTj4eHhXeZNQtt2mtoJzbeHx/oeHh4e3iHeqUJU2yLQFuHasR2us+Hh4eENErWTIHhvgjb/Kzw8PLyP8PLiVlGwH4TCkzIbHh4e3j3epAyWn89TwHt3uNJAgIeHh7eVxp0MMS+VTaYs2vfw8PDwLvDaoDkPgjeHNQ7B8fDw8O7x2pamSStAmyzOPxdvDHh4eHhjXruUt+1QSTp4PomPZ/Dw8PAu8+bhbL58T74t0iJ4eHh413h5M1aeVM23k72Ji0aLh4eH9xHeXglqLzieBOLRpODh4eFd4M2bqNpr2j7SSeENDw8P75O8onpWPn4dEO+dj8pveHh4eEd57RJ8lt02VCX/1WNKAg8PD+8yL0/s5iHyetD59pBsb3h4eHg3eN/lkadl22apyXT8J0uNh4eHd5TXLrjtj9s2gryotplxwcPDwzvEyxflPDWQTEGRUJikKvDw8PCu8fLNIA9n8wA9L5jVWxceHh7ey3htoattLMiDdTw8PLx38vYW9Ly4NW9TKCJ3PDw8vDGvLT61rQD5drJXiqv3EDw8PLwBb14A21vQ5+eP4fHw8PBS3i/Zt37jJy0wngAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
